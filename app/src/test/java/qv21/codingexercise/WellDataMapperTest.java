@@ -87,6 +87,4 @@ public class WellDataMapperTest {
         Assert.assertEquals("058E", wellData.getRng());
         Assert.assertEquals("RICHLAND", wellData.getCounty());
     }
-
-
 }
