@@ -1,10 +1,16 @@
 package qv21.codingexercise.mapper;
 
+import com.opencsv.CSVParser;
+
+import java.io.IOException;
+
 import qv21.codingexercise.models.database.WellData;
 
 public class WellDataMapper {
+    private static final int NUMER_OF_EXPECTED_DATA_COLUMNS_PER_ROW = 15;
+
     public WellData mapWellData(final String csvRowContent) {
-        String[] rowValues = splitCsvDataBySeparator(csvRowContent, ",");
+        String[] rowValues = splitCsvDataByCommaSeparator(csvRowContent);
 
         if (rowValues == null) {
             return null;
@@ -55,17 +61,28 @@ public class WellDataMapper {
         }
     }
 
-    private String[] splitCsvDataBySeparator(final String csvRowContent, final String separatorValue) {
-        if (isStringEmpty(csvRowContent) || isStringEmpty(separatorValue)) {
+    private String[] splitCsvDataByCommaSeparator(final String csvRowContent) {
+        if (isStringEmpty(csvRowContent)) {
             return null;
         }
 
-        String[] rowValues = csvRowContent.split(separatorValue);
+        /**
+         *  The CSVParser library is used to best handle the case of items that contain commas within quotes, e.g. "Continental Resources, Inc.".
+         *  This library will make sure to correctly parse the value after Inc. instead of at the od of Resources and avoid having an incorrect
+         *  String array entry generated.
+         */
+        CSVParser csvParser = new CSVParser();
 
-        if (rowValues == null || rowValues.length != 15) {
+        try {
+            String[] rowValues = csvParser.parseLine(csvRowContent);
+
+            if (rowValues == null || rowValues.length != NUMER_OF_EXPECTED_DATA_COLUMNS_PER_ROW) {
+                return null;
+            } else {
+                return rowValues;
+            }
+        } catch (IOException e) {
             return null;
-        } else {
-            return rowValues;
         }
     }
 

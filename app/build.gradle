@@ -98,6 +98,9 @@ dependencies {
     //Apache Commons Library
     implementation 'commons-io:commons-io:2.5'
 
+    //CSV Reader
+    implementation 'com.opencsv:opencsv:4.2'
+
     //Android Based UI Testing Support Libraries
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.2') {
