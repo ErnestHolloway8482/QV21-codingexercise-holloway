@@ -3,15 +3,15 @@ package qv21.codingexercise.models.database;
 import java.util.List;
 
 public class Owner {
-    private String name;
+    private String ownerName;
     private List<Well> wells;
 
-    public String getName() {
-        return name;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setOwnerName(final String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public List<Well> getWells() {
