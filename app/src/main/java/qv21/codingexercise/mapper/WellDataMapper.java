@@ -6,11 +6,19 @@ import qv21.codingexercise.models.database.Well;
 
 public class WellDataMapper {
 
-    public Owner map(final String rowContent){
+    public Owner map(final String csvRowContent) {
         return null;
     }
 
-    public float parseFloat(final String floatValue) {
+    private Well mapWell(final String csvRowContent) {
+        return null;
+    }
+
+    private Tank mapTank(final String csvRowContent) {
+        return null;
+    }
+
+    private float parseFloat(final String floatValue) {
         try {
             return Float.parseFloat(floatValue);
         } catch (NumberFormatException e) {
@@ -18,7 +26,7 @@ public class WellDataMapper {
         }
     }
 
-    public int parseInteger(final String integerValue) {
+    private int parseInteger(final String integerValue) {
         try {
             return Integer.parseInt(integerValue);
         } catch (NumberFormatException e) {
@@ -26,19 +34,11 @@ public class WellDataMapper {
         }
     }
 
-    public double parseDouble(final String doubleValue) {
+    private double parseDouble(final String doubleValue) {
         try {
             return Double.parseDouble(doubleValue);
         } catch (NumberFormatException e) {
             return -1;
         }
-    }
-
-    private Well mapWell(final String rowContent){
-        return null;
-    }
-
-    private Tank mapTank(final String rowContent){
-        return null;
     }
 }

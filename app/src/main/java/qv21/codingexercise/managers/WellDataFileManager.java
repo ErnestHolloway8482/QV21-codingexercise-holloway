@@ -1,27 +1,35 @@
 package qv21.codingexercise.managers;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class WellDataFileManager {
     private static final String CSV_ROW_HEADER = "Owner,API #,Longitude,Latitude,Property #,Lease / Well Name,Tank MID,Tank Name,Tank Nbr,Tank Size,BBLS Per Inch,SEC,TWP,RNG,COUNTY";
 
-    public List<String> getWellData(final String fileNameAndPath) {
+    public List<String> readWellData(final String fileNameAndPath) {
         try {
             List<String> wellData = new ArrayList<>();
+            String csvRowContent;
 
-            Stream<String> stream = Files.lines(Paths.get(fileNameAndPath));
+            File file = new File(fileNameAndPath);
+            FileReader fileReader = new FileReader(file);
 
-            wellData = stream
-                    .filter(readLine -> !readLine.startsWith(CSV_ROW_HEADER))
-                    .collect(Collectors.toList());
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            stream.close();
+            do {
+                csvRowContent = bufferedReader.readLine();
+
+                if (csvRowContent != null && !csvRowContent.contains(CSV_ROW_HEADER)) {
+                    wellData.add(csvRowContent);
+                }
+            } while (csvRowContent != null);
+
+            bufferedReader.close();
+            fileReader.close();
 
             return wellData;
 
