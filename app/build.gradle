@@ -57,6 +57,14 @@ android {
         }
     }
 
+    //This allows test harness data to be copied into the junit test space so the file can be read within the test
+    task copyResDirectoryToClasses(type: Copy) {
+        from "${projectDir}/src/test/resources"
+        into "${buildDir}/intermediates/classes/test/debug/res"
+
+        dependsOn 'assembleDebug'
+    }
+
 
 }
 
@@ -89,6 +97,9 @@ dependencies {
 
     //Apache Commons Library
     implementation 'commons-io:commons-io:2.5'
+
+    //CSV Reader
+    implementation 'com.opencsv:opencsv:4.2'
 
     //Android Based UI Testing Support Libraries
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
