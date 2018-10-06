@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 import io.objectbox.BoxStore;
 import io.objectbox.DebugFlags;
-import qv21.codingexercise.MainActivity;
+import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.models.database.MyObjectBox;
 
 @Singleton

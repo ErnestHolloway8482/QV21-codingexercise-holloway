@@ -5,21 +5,17 @@ import android.databinding.ObservableField;
 import qv21.codingexercise.managers.MemoryCacheManager;
 import qv21.codingexercise.models.database.WellData;
 
-public class WellDataDetailsVM {
+public class WellDataItemVM {
     private final MemoryCacheManager memoryCacheManager;
 
     public ObservableField<WellData> wellData = new ObservableField<>();
 
-    public WellDataDetailsVM(final MemoryCacheManager memoryCacheManager){
+    public WellDataItemVM(final MemoryCacheManager memoryCacheManager){
         this.memoryCacheManager = memoryCacheManager;
     }
 
-    public void navigateToWellDataListScreen(){
-        memoryCacheManager.setSelectedWellDataUuid(null);
-    }
-
-    public void navigateToWellDataEditScreen(){
-
+    public void navigateToWellDataDetailsScreen(){
+        memoryCacheManager.setSelectedWellDataUuid(wellData.get().getUuid());
     }
 
 
