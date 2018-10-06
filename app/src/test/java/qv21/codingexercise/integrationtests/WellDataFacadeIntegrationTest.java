@@ -62,18 +62,64 @@ public class WellDataFacadeIntegrationTest {
 
     @Test
     public void getAllWellDataItems(){
+        LazyList<WellData> wellDataLazyList = getWellDataFromFile();
+
+        Assert.assertNotNull(wellDataLazyList);
+        Assert.assertFalse(wellDataLazyList.isEmpty());
+        Assert.assertEquals(1388, wellDataLazyList.size());
+    }
+
+    @Test
+    public void updateWellDataTest(){
+        LazyList<WellData> wellDataLazyList = getWellDataFromFile();
+
+        WellData originaWellData = wellDataLazyList.get(0);
+        originaWellData.setOwnerName("Owner-A");
+
+        wellDataFacade.updateWellData(originaWellData);
+
+        WellData updatedWellData = wellDataFacade.getWellDataByUuid(originaWellData.getUuid());
+        Assert.assertEquals("Owner-A", updatedWellData.getOwnerName());
+    }
+
+    @Test
+    public void deleteWellDataTest(){
+        LazyList<WellData> wellDataLazyList = getWellDataFromFile();
+
+        WellData originaWellData = wellDataLazyList.get(0);
+        String uuid = originaWellData.getUuid();
+
+        wellDataFacade.deleteWellData(originaWellData);
+
+        WellData foundWellData = wellDataFacade.getWellDataByUuid(uuid);
+        Assert.assertNull(foundWellData);
+    }
+
+    @Test
+    public void getWellDataByUuidTest(){
+        LazyList<WellData> wellDataLazyList = getWellDataFromFile();
+
+        String uuid = wellDataLazyList.get(5).getUuid();
+
+        WellData foundWellData = wellDataFacade.getWellDataByUuid(uuid);
+
+        Assert.assertNotNull(foundWellData);
+        Assert.assertEquals(uuid, foundWellData.getUuid());
+    }
+
+
+
+    private LazyList<WellData> getWellDataFromFile() {
         Assert.assertFalse(wellDataFacade.doesWellDataExist());
 
         String databaseFileNameAndPath = getFullPathNameFromResourcesDirectory("well_data.csv");
         Assert.assertTrue(wellDataFacade.seedWellDataIntoDatabase(databaseFileNameAndPath));
         Assert.assertTrue(wellDataFacade.doesWellDataExist());
 
-        LazyList<WellData> wellDataLazyList = wellDataFacade.getAllWellDataItems();
-
-        Assert.assertNotNull(wellDataLazyList);
-        Assert.assertFalse(wellDataLazyList.isEmpty());
-        Assert.assertEquals(1388, wellDataLazyList.size());
+        return wellDataFacade.getAllWellDataItems();
     }
+
+
 
     private String getFullPathNameFromResourcesDirectory(final String fileNameAndPath) {
         ClassLoader classLoader = getClass().getClassLoader();
