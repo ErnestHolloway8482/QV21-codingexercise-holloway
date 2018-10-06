@@ -26,10 +26,7 @@ public class WellDataDAOImpl implements WellDataDAO {
 
     @Override
     public List<WellData> getAllWellData() {
-        //Return the WellData objects sorted a-z by their wellName
         QueryBuilder<WellData> queryBuilder = wellDataBox.query();
-//        queryBuilder.order(WellData_.wellName);
-
         Query<WellData> query = queryBuilder.build();
 
         return query.findLazy();
