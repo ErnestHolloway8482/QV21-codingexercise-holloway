@@ -2,7 +2,16 @@ package qv21.codingexercise.models.database;
 
 import java.util.UUID;
 
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+import io.objectbox.annotation.Index;
+
+@Entity
 public class WellData {
+    @Id
+    private long id;
+
+    @Index
     //UUID
     private final String uuid;
 
@@ -29,6 +38,14 @@ public class WellData {
 
     public WellData() {
         uuid = UUID.randomUUID().toString();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(final long id) {
+        this.id = id;
     }
 
     public String getUuid() {

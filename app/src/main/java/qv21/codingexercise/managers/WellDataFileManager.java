@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class WellDataFileManager {
     private static final String CSV_ROW_HEADER = "Owner,API #,Longitude,Latitude,Property #,Lease / Well Name,Tank MID,Tank Name,Tank Nbr,Tank Size,BBLS Per Inch,SEC,TWP,RNG,COUNTY";
 

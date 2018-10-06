@@ -1,4 +1,4 @@
-package qv21.codingexercise;
+package qv21.codingexercise.unittests;
 
 import org.junit.Assert;
 import org.junit.Test;
