@@ -7,9 +7,9 @@ import qv21.codingexercise.models.database.WellData;
 public interface WellDataDAO {
     boolean createWell(final WellData wellData);
     List<WellData> getAllWellData();
-    int getNumberOfWellDataItems();
+    long getNumberOfWellDataItems();
     boolean updateWell(final WellData updatedWellData);
-    boolean deleteAllWellData();
-    boolean deleteWellData(final WellData wellData);
+    void deleteAllWellData();
+    void deleteWellData(final WellData wellData);
     WellData getWellDataByUuid(final String uuid);
 }

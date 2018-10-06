@@ -79,6 +79,9 @@ dependencies {
     //Unit Testing Support Libraries
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-core:2.21.0"
+    testImplementation "io.objectbox:objectbox-linux:$objectboxVersion"
+    testImplementation "io.objectbox:objectbox-macos:$objectboxVersion"
+    testImplementation "io.objectbox:objectbox-windows:$objectboxVersion"
 
     //Android Based Unit Testing Support Libraries
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

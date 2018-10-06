@@ -1,0 +1,95 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:1402544485381435585",
+      "lastPropertyId": "17:1856185863331968495",
+      "name": "WellData",
+      "properties": [
+        {
+          "id": "1:8339100723867002634",
+          "name": "id"
+        },
+        {
+          "id": "2:2311791225300957628",
+          "indexId": "1:3543077274904297534",
+          "name": "uuid"
+        },
+        {
+          "id": "3:329850486446184865",
+          "name": "ownerName"
+        },
+        {
+          "id": "4:7450195245296767507",
+          "name": "apiNumber"
+        },
+        {
+          "id": "5:2901218433887762371",
+          "name": "longitude"
+        },
+        {
+          "id": "6:4403071803803758315",
+          "name": "latitude"
+        },
+        {
+          "id": "7:5026171406555222413",
+          "name": "propertyNumber"
+        },
+        {
+          "id": "8:7406513135254082084",
+          "name": "county"
+        },
+        {
+          "id": "9:793318532624238286",
+          "name": "wellName"
+        },
+        {
+          "id": "10:4956915403256257611",
+          "name": "sec"
+        },
+        {
+          "id": "11:3726343779998194311",
+          "name": "twp"
+        },
+        {
+          "id": "12:7222892890719961561",
+          "name": "rng"
+        },
+        {
+          "id": "13:1632140467459585654",
+          "name": "tankName"
+        },
+        {
+          "id": "14:2225043533143464599",
+          "name": "mid"
+        },
+        {
+          "id": "15:8090844648275457825",
+          "name": "tankNumber"
+        },
+        {
+          "id": "16:3874758622924366875",
+          "name": "tankSize"
+        },
+        {
+          "id": "17:1856185863331968495",
+          "name": "bblsPerInch"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:1402544485381435585",
+  "lastIndexId": "1:3543077274904297534",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
