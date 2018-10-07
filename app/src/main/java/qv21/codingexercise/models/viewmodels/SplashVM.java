@@ -55,7 +55,7 @@ public class SplashVM extends ViewModel {
     private void setupNavigationStackForWellDataListScreen() {
         //Guarantees that after we leave the splash screen that the well data list screen is the only screen on the navigation stack.
         WellDataListScreen wellDataListScreen = new WellDataListScreen(MainActivity.getInstance());
-        navigationManager.pop();
+        navigationManager.clearAllViewsFromStack();
         navigationManager.push(wellDataListScreen);
         navigationManager.showScreen();
     }
