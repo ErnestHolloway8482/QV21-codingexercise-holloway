@@ -18,7 +18,7 @@ import qv21.codingexercise.managers.DatabaseManagerImpl;
 import qv21.codingexercise.managers.MemoryCacheManager;
 import qv21.codingexercise.managers.WellDataFileManager;
 import qv21.codingexercise.mapper.WellDataMapper;
-import qv21.codingexercise.models.database.WellData;
+import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 @RunWith(JUnit4.class)
 public class WellDataFacadeIntegrationTest {
@@ -69,7 +69,7 @@ public class WellDataFacadeIntegrationTest {
 
     @Test
     public void getAllWellDataItems() {
-        LazyList<WellData> wellDataLazyList = getWellDataFromFile();
+        LazyList<WellDataDM> wellDataLazyList = getWellDataFromFile();
 
         Assert.assertNotNull(wellDataLazyList);
         Assert.assertFalse(wellDataLazyList.isEmpty());
@@ -78,44 +78,44 @@ public class WellDataFacadeIntegrationTest {
 
     @Test
     public void updateWellDataTest() {
-        LazyList<WellData> wellDataLazyList = getWellDataFromFile();
+        LazyList<WellDataDM> wellDataLazyList = getWellDataFromFile();
 
-        WellData originaWellData = wellDataLazyList.get(0);
+        WellDataDM originaWellData = wellDataLazyList.get(0);
         originaWellData.setOwnerName("Owner-A");
 
         wellDataFacade.updateWellData(originaWellData);
 
-        WellData updatedWellData = wellDataFacade.getWellDataByUuid(originaWellData.getUuid());
+        WellDataDM updatedWellData = wellDataFacade.getWellDataByUuid(originaWellData.getUuid());
         Assert.assertEquals("Owner-A", updatedWellData.getOwnerName());
     }
 
     @Test
     public void deleteWellDataTest() {
-        LazyList<WellData> wellDataLazyList = getWellDataFromFile();
+        LazyList<WellDataDM> wellDataLazyList = getWellDataFromFile();
 
-        WellData originaWellData = wellDataLazyList.get(0);
+        WellDataDM originaWellData = wellDataLazyList.get(0);
         String uuid = originaWellData.getUuid();
 
         wellDataFacade.deleteWellData(originaWellData);
 
-        WellData foundWellData = wellDataFacade.getWellDataByUuid(uuid);
+        WellDataDM foundWellData = wellDataFacade.getWellDataByUuid(uuid);
         Assert.assertNull(foundWellData);
     }
 
     @Test
     public void getWellDataByUuidTest() {
-        LazyList<WellData> wellDataLazyList = getWellDataFromFile();
+        LazyList<WellDataDM> wellDataLazyList = getWellDataFromFile();
 
         String uuid = wellDataLazyList.get(5).getUuid();
 
-        WellData foundWellData = wellDataFacade.getWellDataByUuid(uuid);
+        WellDataDM foundWellData = wellDataFacade.getWellDataByUuid(uuid);
 
         Assert.assertNotNull(foundWellData);
         Assert.assertEquals(uuid, foundWellData.getUuid());
     }
 
 
-    private LazyList<WellData> getWellDataFromFile() {
+    private LazyList<WellDataDM> getWellDataFromFile() {
         Assert.assertFalse(wellDataFacade.doesWellDataExist());
 
         String databaseFileNameAndPath = getFullPathNameFromResourcesDirectory("well_data.csv");

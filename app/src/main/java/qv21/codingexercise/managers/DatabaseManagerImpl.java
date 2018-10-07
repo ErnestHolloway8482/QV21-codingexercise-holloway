@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 import io.objectbox.BoxStore;
 import io.objectbox.DebugFlags;
 import qv21.codingexercise.activities.MainActivity;
-import qv21.codingexercise.models.database.MyObjectBox;
+import qv21.codingexercise.models.databasemodels.MyObjectBox;
 
 @Singleton
 public class DatabaseManagerImpl implements DatabaseManager {

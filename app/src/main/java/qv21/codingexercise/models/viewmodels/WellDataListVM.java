@@ -11,7 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import qv21.codingexercise.facades.WellDataFacade;
-import qv21.codingexercise.models.database.WellData;
+import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.utilities.LoggerUtils;
 
 public class WellDataListVM extends ViewModel {
@@ -37,7 +37,7 @@ public class WellDataListVM extends ViewModel {
                 .subscribe(this::updateRecyclerAdapter, throwable -> LoggerUtils.log(throwable.getMessage()));
     }
 
-    private void updateRecyclerAdapter(final LazyList<WellData> wellDataList) {
+    private void updateRecyclerAdapter(final LazyList<WellDataDM> wellDataList) {
         if (wellDataList == null || wellDataList.isEmpty()) {
             isListEmpty.set(true);
         } else {

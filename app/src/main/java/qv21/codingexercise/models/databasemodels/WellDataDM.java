@@ -1,4 +1,4 @@
-package qv21.codingexercise.models.database;
+package qv21.codingexercise.models.databasemodels;
 
 import java.util.UUID;
 
@@ -7,7 +7,7 @@ import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Index;
 
 @Entity
-public class WellData {
+public class WellDataDM {
     @Id
     private long id;
 
@@ -36,7 +36,7 @@ public class WellData {
     private float tankSize;
     private float bblsPerInch;
 
-    public WellData() {
+    public WellDataDM() {
         uuid = UUID.randomUUID().toString();
     }
 

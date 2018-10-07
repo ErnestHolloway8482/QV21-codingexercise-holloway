@@ -14,7 +14,7 @@ import io.objectbox.query.LazyList;
 import qv21.codingexercise.daos.WellDataDAO;
 import qv21.codingexercise.daos.WellDataDAOImpl;
 import qv21.codingexercise.managers.DatabaseManagerImpl;
-import qv21.codingexercise.models.database.WellData;
+import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 @RunWith(JUnit4.class)
 public class WellDataDAOImplTest {
@@ -35,22 +35,22 @@ public class WellDataDAOImplTest {
 
     @Test
     public void createWellTest() {
-        WellData wellData = new WellData();
+        WellDataDM wellData = new WellDataDM();
 
         Assert.assertTrue(wellDataDAO.createWell(wellData));
     }
 
     @Test
     public void getAllWellDataTest() {
-        List<WellData> wellDataList = generateTestWellData(100);
+        List<WellDataDM> wellDataList = generateTestWellData(100);
 
         for (int i = 0; i < 100; i++) {
-            WellData wellData = wellDataList.get(i);
+            WellDataDM wellData = wellDataList.get(i);
 
             Assert.assertTrue(wellDataDAO.createWell(wellData));
         }
 
-        LazyList<WellData> wellDataLazyList = (LazyList<WellData>) wellDataDAO.getAllWellData();
+        LazyList<WellDataDM> wellDataLazyList = (LazyList<WellDataDM>) wellDataDAO.getAllWellData();
 
         Assert.assertNotNull(wellDataLazyList);
         Assert.assertEquals(100, wellDataLazyList.size());
@@ -62,10 +62,10 @@ public class WellDataDAOImplTest {
 
     @Test
     public void getNumberOfWellDataItems() {
-        List<WellData> wellDataList = generateTestWellData(100);
+        List<WellDataDM> wellDataList = generateTestWellData(100);
 
         for (int i = 0; i < 100; i++) {
-            WellData wellData = wellDataList.get(i);
+            WellDataDM wellData = wellDataList.get(i);
 
             Assert.assertTrue(wellDataDAO.createWell(wellData));
         }
@@ -77,13 +77,13 @@ public class WellDataDAOImplTest {
 
     @Test
     public void updateWellTest() {
-        WellData originalWellData = new WellData();
+        WellDataDM originalWellData = new WellDataDM();
         originalWellData.setOwnerName("Owner-A");
 
         Assert.assertTrue(wellDataDAO.createWell(originalWellData));
         Assert.assertEquals(1, wellDataDAO.getNumberOfWellDataItems());
 
-        WellData foundData = wellDataDAO.getWellDataByUuid(originalWellData.getUuid());
+        WellDataDM foundData = wellDataDAO.getWellDataByUuid(originalWellData.getUuid());
         Assert.assertNotNull(foundData);
         Assert.assertEquals("Owner-A", foundData.getOwnerName());
 
@@ -91,7 +91,7 @@ public class WellDataDAOImplTest {
 
         Assert.assertTrue(wellDataDAO.updateWell(foundData));
 
-        WellData updatedWellData = wellDataDAO.getWellDataByUuid(foundData.getUuid());
+        WellDataDM updatedWellData = wellDataDAO.getWellDataByUuid(foundData.getUuid());
 
         Assert.assertNotNull(updatedWellData);
 
@@ -103,10 +103,10 @@ public class WellDataDAOImplTest {
 
     @Test
     public void deleteAllWellDataTest() {
-        List<WellData> wellDataList = generateTestWellData(100);
+        List<WellDataDM> wellDataList = generateTestWellData(100);
 
         for (int i = 0; i < 100; i++) {
-            WellData wellData = wellDataList.get(i);
+            WellDataDM wellData = wellDataList.get(i);
 
             Assert.assertTrue(wellDataDAO.createWell(wellData));
         }
@@ -121,11 +121,11 @@ public class WellDataDAOImplTest {
 
     @Test
     public void deleteWellDataTest() {
-        List<WellData> wellDataList = generateTestWellData(2);
+        List<WellDataDM> wellDataList = generateTestWellData(2);
         String serachUUID = wellDataList.get(1).getUuid();
 
         for (int i = 0; i < 2; i++) {
-            WellData wellData = wellDataList.get(i);
+            WellDataDM wellData = wellDataList.get(i);
 
             Assert.assertTrue(wellDataDAO.createWell(wellData));
         }
@@ -134,7 +134,7 @@ public class WellDataDAOImplTest {
         wellDataDAO.deleteWellData(wellDataList.get(0));
         Assert.assertEquals(1, wellDataDAO.getNumberOfWellDataItems());
 
-        WellData foundWellData = wellDataDAO.getWellDataByUuid(serachUUID);
+        WellDataDM foundWellData = wellDataDAO.getWellDataByUuid(serachUUID);
 
         Assert.assertNotNull(foundWellData);
         Assert.assertEquals(serachUUID, foundWellData.getUuid());
@@ -142,22 +142,22 @@ public class WellDataDAOImplTest {
 
     @Test
     public void getWellDataByUuidTest() {
-        WellData wellData = new WellData();
+        WellDataDM wellData = new WellDataDM();
 
         Assert.assertTrue(wellDataDAO.createWell(wellData));
 
-        WellData retrievedWellData = wellDataDAO.getWellDataByUuid(wellData.getUuid());
+        WellDataDM retrievedWellData = wellDataDAO.getWellDataByUuid(wellData.getUuid());
 
         Assert.assertNotNull(retrievedWellData);
         Assert.assertEquals(wellData.getUuid(), retrievedWellData.getUuid());
     }
 
 
-    private List<WellData> generateTestWellData(final int numerOfItems) {
-        List<WellData> wellDataList = new ArrayList<>();
+    private List<WellDataDM> generateTestWellData(final int numerOfItems) {
+        List<WellDataDM> wellDataList = new ArrayList<>();
 
         for (int i = 0; i < numerOfItems; i++) {
-            WellData wellData = new WellData();
+            WellDataDM wellData = new WellDataDM();
 
             wellDataList.add(wellData);
         }

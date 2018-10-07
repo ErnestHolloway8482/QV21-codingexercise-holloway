@@ -9,7 +9,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.NavigationManager;
-import qv21.codingexercise.models.database.WellData;
+import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.utilities.LoggerUtils;
 
 public class WellDataEditVM extends ViewModel {
@@ -17,7 +17,7 @@ public class WellDataEditVM extends ViewModel {
     private final WellDataFacade wellDataFacade;
     private Disposable subscriber;
 
-    public ObservableField<WellData> wellData = new ObservableField<>();
+    public ObservableField<WellDataDM> wellData = new ObservableField<>();
 
     public WellDataEditVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
         this.navigationManager = navigationManager;

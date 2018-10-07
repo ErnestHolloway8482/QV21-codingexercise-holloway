@@ -8,7 +8,7 @@ import qv21.codingexercise.managers.DatabaseManager;
 import qv21.codingexercise.managers.MemoryCacheManager;
 import qv21.codingexercise.managers.WellDataFileManager;
 import qv21.codingexercise.mapper.WellDataMapper;
-import qv21.codingexercise.models.database.WellData;
+import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 public class WellDataFacade {
     private final WellDataFileManager wellDataFileManager;
@@ -41,7 +41,7 @@ public class WellDataFacade {
         }
 
         for (String csvRowData : rawWellData) {
-            WellData wellData = wellDataMapper.mapWellData(csvRowData);
+            WellDataDM wellData = wellDataMapper.mapWellData(csvRowData);
 
             if (wellData != null) {
                 wellDataDAO.createWell(wellData);
@@ -51,23 +51,23 @@ public class WellDataFacade {
         return true;
     }
 
-    public LazyList<WellData> getAllWellDataItems() {
-        return (LazyList<WellData>) wellDataDAO.getAllWellData();
+    public LazyList<WellDataDM> getAllWellDataItems() {
+        return (LazyList<WellDataDM>) wellDataDAO.getAllWellData();
     }
 
-    public boolean updateWellData(final WellData wellData) {
+    public boolean updateWellData(final WellDataDM wellData) {
         return wellDataDAO.updateWell(wellData);
     }
 
-    public void deleteWellData(final WellData wellData) {
+    public void deleteWellData(final WellDataDM wellData) {
         wellDataDAO.deleteWellData(wellData);
     }
 
-    public WellData getWellDataByUuid(final String uuid) {
+    public WellDataDM getWellDataByUuid(final String uuid) {
         return wellDataDAO.getWellDataByUuid(uuid);
     }
 
-    public void storeSelectedWellDataUuidToMemoryCache(final WellData wellData) {
+    public void storeSelectedWellDataUuidToMemoryCache(final WellDataDM wellData) {
         memoryCacheManager.setSelectedWellDataUuid(wellData.getUuid());
     }
 
