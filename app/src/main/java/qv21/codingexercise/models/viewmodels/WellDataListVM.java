@@ -1,5 +1,6 @@
 package qv21.codingexercise.models.viewmodels;
 
+import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,7 @@ import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.models.database.WellData;
 import qv21.codingexercise.utilities.LoggerUtils;
 
-public class WellDataListVM {
+public class WellDataListVM extends ViewModel {
     private final WellDataFacade wellDataFacade;
 
     private Disposable subscriber;

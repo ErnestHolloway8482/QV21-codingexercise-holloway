@@ -9,13 +9,13 @@ import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.database.WellData;
 import qv21.codingexercise.views.WellDataDetailsScreen;
 
-public class WellDataItemVM extends ViewModel {
+public class WellDataListItemVM extends ViewModel {
     private final WellDataFacade wellDataFacade;
     private final NavigationManager navigationManager;
 
     public ObservableField<WellData> wellData = new ObservableField<>();
 
-    public WellDataItemVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager){
+    public WellDataListItemVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager){
         this.wellDataFacade = wellDataFacade;
         this.navigationManager = navigationManager;
     }

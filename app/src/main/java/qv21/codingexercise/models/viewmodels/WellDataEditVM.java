@@ -1,5 +1,6 @@
 package qv21.codingexercise.models.viewmodels;
 
+import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 
 import io.reactivex.Single;
@@ -11,7 +12,7 @@ import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.database.WellData;
 import qv21.codingexercise.utilities.LoggerUtils;
 
-public class WellDataEditVM {
+public class WellDataEditVM extends ViewModel {
     private final NavigationManager navigationManager;
     private final WellDataFacade wellDataFacade;
     private Disposable subscriber;
