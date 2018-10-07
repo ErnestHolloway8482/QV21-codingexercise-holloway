@@ -82,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
         return isRunning;
     }
 
+    public void displayProgressDialog(final boolean display, final int stringResourceId){
+        displayProgressDialog(true, getString(stringResourceId));
+    }
+
     public void displayProgressDialog(final boolean display, final String message) {
         if (display) {
             progressBarMessage.setText(message);

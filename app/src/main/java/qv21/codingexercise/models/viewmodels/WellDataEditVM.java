@@ -7,33 +7,33 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import qv21.codingexercise.facades.WellDataFacade;
-import qv21.codingexercise.managers.MemoryCacheManager;
+import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.database.WellData;
 import qv21.codingexercise.utilities.LoggerUtils;
 
 public class WellDataEditVM {
-    private final MemoryCacheManager memoryCacheManager;
+    private final NavigationManager navigationManager;
     private final WellDataFacade wellDataFacade;
-    private Disposable disposable;
+    private Disposable subscriber;
 
     public ObservableField<WellData> wellData = new ObservableField<>();
 
-    public WellDataEditVM(final MemoryCacheManager memoryCacheManager, final WellDataFacade wellDataFacade) {
-        this.memoryCacheManager = memoryCacheManager;
+    public WellDataEditVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
+        this.navigationManager = navigationManager;
         this.wellDataFacade = wellDataFacade;
 
-        getWellDataByUuid(memoryCacheManager.getSelectedWellDataUuid());
+        getWellDataByUuid(wellDataFacade.getSelectedWellDataUuidFromMemoryCache());
     }
 
     public void navigateToWellDataDetailsScreen() {
-
+        navigationManager.pop();
     }
 
     public void deleteWellData() {
         cleanupSubscribers();
 
-        disposable = Single.fromCallable(() -> {
-            memoryCacheManager.setSelectedWellDataUuid(null);
+        subscriber = Single.fromCallable(() -> {
+            wellDataFacade.clearSelectedWellDataUuidFromMemoryCache();
             wellDataFacade.deleteWellData(wellData.get());
             return null;
         })
@@ -46,7 +46,7 @@ public class WellDataEditVM {
     public void updateWellData() {
         cleanupSubscribers();
 
-        disposable = Single.fromCallable(() -> wellDataFacade.updateWellData(wellData.get()))
+        subscriber = Single.fromCallable(() -> wellDataFacade.updateWellData(wellData.get()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(__ -> {
@@ -56,17 +56,17 @@ public class WellDataEditVM {
     private void getWellDataByUuid(final String uuid) {
         cleanupSubscribers();
 
-        disposable = Single.fromCallable(() -> wellDataFacade.getWellDataByUuid(uuid))
+        subscriber = Single.fromCallable(() -> wellDataFacade.getWellDataByUuid(uuid))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(value -> wellData.set(value), throwable -> LoggerUtils.log(throwable.getMessage()));
     }
 
     private void cleanupSubscribers() {
-        if (disposable != null) {
-            if (!disposable.isDisposed()) {
-                disposable.dispose();
-                disposable = null;
+        if (subscriber != null) {
+            if (!subscriber.isDisposed()) {
+                subscriber.dispose();
+                subscriber = null;
             }
         }
     }

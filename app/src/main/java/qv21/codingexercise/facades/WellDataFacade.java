@@ -5,6 +5,7 @@ import java.util.List;
 import io.objectbox.query.LazyList;
 import qv21.codingexercise.daos.WellDataDAO;
 import qv21.codingexercise.managers.DatabaseManager;
+import qv21.codingexercise.managers.MemoryCacheManager;
 import qv21.codingexercise.managers.WellDataFileManager;
 import qv21.codingexercise.mapper.WellDataMapper;
 import qv21.codingexercise.models.database.WellData;
@@ -14,12 +15,18 @@ public class WellDataFacade {
     private final WellDataMapper wellDataMapper;
     private final DatabaseManager databaseManager;
     private final WellDataDAO wellDataDAO;
+    private final MemoryCacheManager memoryCacheManager;
 
-    public WellDataFacade(final WellDataFileManager wellDataFileManager, final WellDataMapper wellDataMapper, final DatabaseManager databaseManager, final WellDataDAO wellDataDAO) {
+    public WellDataFacade(final WellDataFileManager wellDataFileManager,
+                          final WellDataMapper wellDataMapper,
+                          final DatabaseManager databaseManager,
+                          final WellDataDAO wellDataDAO,
+                          final MemoryCacheManager memoryCacheManager) {
         this.wellDataFileManager = wellDataFileManager;
         this.wellDataMapper = wellDataMapper;
         this.databaseManager = databaseManager;
         this.wellDataDAO = wellDataDAO;
+        this.memoryCacheManager = memoryCacheManager;
     }
 
     public boolean doesWellDataExist() {
@@ -44,27 +51,39 @@ public class WellDataFacade {
         return true;
     }
 
-    public LazyList<WellData> getAllWellDataItems(){
+    public LazyList<WellData> getAllWellDataItems() {
         return (LazyList<WellData>) wellDataDAO.getAllWellData();
     }
 
-    public boolean updateWellData(final WellData wellData){
+    public boolean updateWellData(final WellData wellData) {
         return wellDataDAO.updateWell(wellData);
     }
 
-    public void deleteWellData(final WellData wellData){
+    public void deleteWellData(final WellData wellData) {
         wellDataDAO.deleteWellData(wellData);
     }
 
-    public WellData getWellDataByUuid(final String uuid){
+    public WellData getWellDataByUuid(final String uuid) {
         return wellDataDAO.getWellDataByUuid(uuid);
     }
 
-    public void closeDatabase(){
+    public void storeSelectedWellDataUuidToMemoryCache(final WellData wellData) {
+        memoryCacheManager.setSelectedWellDataUuid(wellData.getUuid());
+    }
+
+    public String getSelectedWellDataUuidFromMemoryCache(){
+        return memoryCacheManager.getSelectedWellDataUuid();
+    }
+
+    public void clearSelectedWellDataUuidFromMemoryCache(){
+        memoryCacheManager.setSelectedWellDataUuid(null);
+    }
+
+    public void closeDatabase() {
         databaseManager.closeDataBase();
     }
 
-    public void cleanUpWellData(){
+    public void cleanUpWellData() {
         wellDataDAO.deleteAllWellData();
         databaseManager.closeDataBase();
         databaseManager.deleteDataBase();

@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 
+import com.android.databinding.library.baseAdapters.BR;
+
 import javax.inject.Inject;
 
 import qv21.codingexercise.activities.MainActivity;
@@ -18,7 +20,7 @@ import qv21.codingexercise.activities.MainActivity;
  * @param <VM> is the binding data that the screen will use to display contents and extends {@link ViewModel}
  * @param <DB> is the data binding mechanism provided by the data binding library to link a given data structure to the view. This extends {@link ViewDataBinding}.
  */
-public abstract class ScreenImpl<VM extends ViewModel, DB extends ViewDataBinding> extends RelativeLayout implements Screen {
+public abstract class ScreenImpl<VM extends ViewModel, DB extends ViewDataBinding> extends RelativeLayout implements Screen<VM> {
     @Inject
     protected VM mViewModel;
 
@@ -65,9 +67,10 @@ public abstract class ScreenImpl<VM extends ViewModel, DB extends ViewDataBindin
      *
      * @param model is the ViewModel.
      */
+    @Override
     public void setViewModel(final VM model) {
         mViewModel = model;
-//        mViewDataBinding.setVariable(BR, mViewModel);
+        mViewDataBinding.setVariable(BR.vm, mViewModel);
         mViewDataBinding.executePendingBindings();
     }
 
@@ -82,7 +85,7 @@ public abstract class ScreenImpl<VM extends ViewModel, DB extends ViewDataBindin
     protected void initView(final Context context, final int layoutId) {
         LayoutInflater inflater = MainActivity.getInstance().getLayoutInflater();
         mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId, this, true);
-//        mViewDataBinding.setVariable(BR.vm, mViewModel);
+        mViewDataBinding.setVariable(BR.vm, mViewModel);
         mViewDataBinding.executePendingBindings();
     }
 }

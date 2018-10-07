@@ -15,6 +15,7 @@ import qv21.codingexercise.daos.WellDataDAOImpl;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.DatabaseManager;
 import qv21.codingexercise.managers.DatabaseManagerImpl;
+import qv21.codingexercise.managers.MemoryCacheManager;
 import qv21.codingexercise.managers.WellDataFileManager;
 import qv21.codingexercise.mapper.WellDataMapper;
 import qv21.codingexercise.models.database.WellData;
@@ -26,6 +27,7 @@ public class WellDataFacadeIntegrationTest {
     private DatabaseManager databaseManager;
     private WellDataDAO wellDataDAO;
     private WellDataFacade wellDataFacade;
+    private MemoryCacheManager memoryCacheManager;
 
     @Before
     public void setup() {
@@ -33,8 +35,13 @@ public class WellDataFacadeIntegrationTest {
         wellDataMapper = new WellDataMapper();
         databaseManager = new DatabaseManagerImpl("well_data", true);
         wellDataDAO = new WellDataDAOImpl(databaseManager);
+        memoryCacheManager = new MemoryCacheManager();
 
-        wellDataFacade = new WellDataFacade(wellDataFileManager, wellDataMapper, databaseManager, wellDataDAO);
+        wellDataFacade = new WellDataFacade(wellDataFileManager,
+                wellDataMapper,
+                databaseManager,
+                wellDataDAO,
+                memoryCacheManager);
     }
 
     @After
@@ -61,7 +68,7 @@ public class WellDataFacadeIntegrationTest {
     }
 
     @Test
-    public void getAllWellDataItems(){
+    public void getAllWellDataItems() {
         LazyList<WellData> wellDataLazyList = getWellDataFromFile();
 
         Assert.assertNotNull(wellDataLazyList);
@@ -70,7 +77,7 @@ public class WellDataFacadeIntegrationTest {
     }
 
     @Test
-    public void updateWellDataTest(){
+    public void updateWellDataTest() {
         LazyList<WellData> wellDataLazyList = getWellDataFromFile();
 
         WellData originaWellData = wellDataLazyList.get(0);
@@ -83,7 +90,7 @@ public class WellDataFacadeIntegrationTest {
     }
 
     @Test
-    public void deleteWellDataTest(){
+    public void deleteWellDataTest() {
         LazyList<WellData> wellDataLazyList = getWellDataFromFile();
 
         WellData originaWellData = wellDataLazyList.get(0);
@@ -96,7 +103,7 @@ public class WellDataFacadeIntegrationTest {
     }
 
     @Test
-    public void getWellDataByUuidTest(){
+    public void getWellDataByUuidTest() {
         LazyList<WellData> wellDataLazyList = getWellDataFromFile();
 
         String uuid = wellDataLazyList.get(5).getUuid();
@@ -108,7 +115,6 @@ public class WellDataFacadeIntegrationTest {
     }
 
 
-
     private LazyList<WellData> getWellDataFromFile() {
         Assert.assertFalse(wellDataFacade.doesWellDataExist());
 
@@ -118,7 +124,6 @@ public class WellDataFacadeIntegrationTest {
 
         return wellDataFacade.getAllWellDataItems();
     }
-
 
 
     private String getFullPathNameFromResourcesDirectory(final String fileNameAndPath) {
