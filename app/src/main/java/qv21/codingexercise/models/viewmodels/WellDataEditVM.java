@@ -28,6 +28,7 @@ public class WellDataEditVM extends ViewModel {
 
     public void navigateToWellDataDetailsScreen() {
         navigationManager.pop();
+        navigationManager.showScreen();
     }
 
     public void deleteWellData() {

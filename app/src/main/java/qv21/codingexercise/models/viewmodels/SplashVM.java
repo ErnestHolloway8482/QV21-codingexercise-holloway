@@ -57,6 +57,7 @@ public class SplashVM extends ViewModel {
         WellDataListScreen wellDataListScreen = new WellDataListScreen(MainActivity.getInstance());
         navigationManager.pop();
         navigationManager.push(wellDataListScreen);
+        navigationManager.showScreen();
     }
 
     private void seedWellDataBeforeSettingUpTheWellDataListScreen() {

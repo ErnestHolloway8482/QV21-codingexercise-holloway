@@ -31,11 +31,13 @@ public class WellDataDetailsVM extends ViewModel {
     public void navigateToWellDataListScreen() {
         wellDataFacade.clearSelectedWellDataUuidFromMemoryCache();
         navigationManager.pop();
+        navigationManager.showScreen();
     }
 
     public void navigateToWellDataEditScreen() {
         WellDataEditScreen wellDataEditScreen = new WellDataEditScreen(MainActivity.getInstance());
         navigationManager.push(wellDataEditScreen);
+        navigationManager.showScreen();
     }
 
     private void getWellDataByUuid(final String uuid) {
