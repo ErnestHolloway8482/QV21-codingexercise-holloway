@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,15 +25,34 @@ public class WellDataFileManager {
         }
     }
 
+    public List<String> readWellData(final InputStream inputStream) {
+        try {
+            return readStringLinesFromFile(inputStream);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
     @NonNull
     private List<String> readStringLinesFromFile(final String fileNameAndPath) throws IOException {
-        List<String> wellData = new ArrayList<>();
-        String csvRowContent;
-
         File file = new File(fileNameAndPath);
         FileReader fileReader = new FileReader(file);
-
         BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        return parseCSVRowsToStringList(bufferedReader);
+    }
+
+    @NonNull
+    private List<String> readStringLinesFromFile(final InputStream inputStream) throws IOException {
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+        return parseCSVRowsToStringList(bufferedReader);
+    }
+
+    private List<String> parseCSVRowsToStringList(BufferedReader bufferedReader) throws IOException {
+        List<String> wellData = new ArrayList<>();
+        String csvRowContent;
 
         do {
             csvRowContent = bufferedReader.readLine();
@@ -42,7 +63,6 @@ public class WellDataFileManager {
         } while (csvRowContent != null);
 
         bufferedReader.close();
-        fileReader.close();
 
         return wellData;
     }

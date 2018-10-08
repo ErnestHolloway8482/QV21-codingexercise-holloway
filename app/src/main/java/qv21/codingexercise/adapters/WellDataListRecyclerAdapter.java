@@ -5,9 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import io.objectbox.query.LazyList;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -23,7 +24,7 @@ import qv21.codingexercise.viewholders.WellDataItemViewHolder;
  * A {@link RecyclerView.Adapter} for the list of Articles.
  */
 public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataItemViewHolder> {
-    private LazyList<WellDataDM> wellDataList;
+    private List<WellDataDM> wellDataList;
 
     @Inject
     WellDataFacade wellDataFacade;
@@ -35,16 +36,16 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
      * Sets the list of well data items to display for this adapter and assigns the appropriate data change listener to it.
      * This is only done initially since LazyList objects are live and will auto-update
      *
-     * @param items is the {@link LazyList} cached in the database to support endless scrolling.
+     * @param items is the {@link List} cached in the database to support endless scrolling.
      */
-    public void setData(final LazyList<WellDataDM> items) {
-        //Only alow the RealmResults List to be set once and then add a corresponding listener to it.
-        //Since Lazy objects are live objects there is no need to set a new reference for it.
-        if (wellDataList == null) {
-            wellDataList = items;
+    public void setData(final List<WellDataDM> items) {
+        wellDataList = items;
 
-            //TODO add code to add a listener to the data set.
-        }
+//        //Only alow the RealmResults List to be set once and then add a corresponding listener to it.
+//        //Since Lazy objects are live objects there is no need to set a new reference for it.
+//        if (wellDataList == null) {
+//            wellDataList = items;
+//        }
     }
 
     @Override

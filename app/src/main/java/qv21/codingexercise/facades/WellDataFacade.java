@@ -1,10 +1,12 @@
 package qv21.codingexercise.facades;
 
+import java.io.InputStream;
 import java.util.List;
 
 import javax.inject.Singleton;
 
 import io.objectbox.query.LazyList;
+import io.objectbox.query.Query;
 import qv21.codingexercise.daos.WellDataDAO;
 import qv21.codingexercise.managers.DatabaseManager;
 import qv21.codingexercise.managers.MemoryCacheManager;
@@ -39,23 +41,21 @@ public class WellDataFacade {
     public boolean seedWellDataIntoDatabase(final String fileNameAndPath) {
         List<String> rawWellData = wellDataFileManager.readWellData(fileNameAndPath);
 
-        if (rawWellData == null) {
-            return false;
-        }
+        return storeDataToDatabase(rawWellData);
+    }
 
-        for (String csvRowData : rawWellData) {
-            WellDataDM wellData = wellDataMapper.mapWellData(csvRowData);
+    public boolean seedWellDataIntoDatabase(final InputStream inputStream) {
+        List<String> rawWellData = wellDataFileManager.readWellData(inputStream);
 
-            if (wellData != null) {
-                wellDataDAO.createWell(wellData);
-            }
-        }
-
-        return true;
+        return storeDataToDatabase(rawWellData);
     }
 
     public LazyList<WellDataDM> getAllWellDataItems() {
         return (LazyList<WellDataDM>) wellDataDAO.getAllWellData();
+    }
+
+    public Query<WellDataDM> getAllWellDataQuery(){
+        return wellDataDAO.getAllWellDataQuery();
     }
 
     public boolean updateWellData(final WellDataDM wellData) {
@@ -74,11 +74,11 @@ public class WellDataFacade {
         memoryCacheManager.setSelectedWellDataUuid(wellData.getUuid());
     }
 
-    public String getSelectedWellDataUuidFromMemoryCache(){
+    public String getSelectedWellDataUuidFromMemoryCache() {
         return memoryCacheManager.getSelectedWellDataUuid();
     }
 
-    public void clearSelectedWellDataUuidFromMemoryCache(){
+    public void clearSelectedWellDataUuidFromMemoryCache() {
         memoryCacheManager.setSelectedWellDataUuid(null);
     }
 
@@ -90,5 +90,21 @@ public class WellDataFacade {
         wellDataDAO.deleteAllWellData();
         databaseManager.closeDataBase();
         databaseManager.deleteDataBase();
+    }
+
+    private boolean storeDataToDatabase(final List<String> rawWellData) {
+        if (rawWellData == null) {
+            return false;
+        }
+
+        for (String csvRowData : rawWellData) {
+            WellDataDM wellData = wellDataMapper.mapWellData(csvRowData);
+
+            if (wellData != null) {
+                wellDataDAO.createWell(wellData);
+            }
+        }
+
+        return true;
     }
 }

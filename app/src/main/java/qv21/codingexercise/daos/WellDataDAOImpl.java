@@ -33,6 +33,14 @@ public class WellDataDAOImpl implements WellDataDAO {
     }
 
     @Override
+    public Query<WellDataDM> getAllWellDataQuery() {
+        QueryBuilder<WellDataDM> queryBuilder = wellDataBox.query();
+        Query<WellDataDM> query = queryBuilder.build();
+
+        return query;
+    }
+
+    @Override
     public long getNumberOfWellDataItems() {
         return wellDataBox.count();
     }

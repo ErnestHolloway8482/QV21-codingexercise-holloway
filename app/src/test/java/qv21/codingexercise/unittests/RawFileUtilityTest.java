@@ -12,15 +12,15 @@ public class RawFileUtilityTest {
 
     @Test
     public void getFullNameAndPathFromResourceIdWithValidPackageNameTest() {
-        Assert.assertNotNull(RawFileUtility.getFullNameAndPathFromResourceId("com.package.name", 1000));
+        Assert.assertNotNull(RawFileUtility.getFullNameAndPathFromResourceId("com.package.name", "well_data.csv"));
 
-        Assert.assertEquals("android.resource://com.package.name/1000",
-                RawFileUtility.getFullNameAndPathFromResourceId("com.package.name", 1000));
+        Assert.assertEquals("android.resource://com.package.name/raw/well_data.csv",
+                RawFileUtility.getFullNameAndPathFromResourceId("com.package.name", "well_data.csv"));
     }
 
     @Test
     public void getFullNameAndPathFromResourceIdWithInValidPackageNameTest() {
-        Assert.assertNull(RawFileUtility.getFullNameAndPathFromResourceId("", 1000));
-        Assert.assertNull(RawFileUtility.getFullNameAndPathFromResourceId(null, 1000));
+        Assert.assertNull(RawFileUtility.getFullNameAndPathFromResourceId("", "well_data.csv"));
+        Assert.assertNull(RawFileUtility.getFullNameAndPathFromResourceId(null, "well_data.csv"));
     }
 }

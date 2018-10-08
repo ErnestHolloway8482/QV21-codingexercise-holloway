@@ -64,7 +64,11 @@ public class NavigationManager {
      * @return the {@link Screen} that is at the top of the view stack.
      */
     public Screen peek() {
-        return viewStack.peek();
+        try {
+            return viewStack.peek();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
