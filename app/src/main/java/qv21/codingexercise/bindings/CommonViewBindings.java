@@ -56,8 +56,8 @@ public class CommonViewBindings {
      * @param view          The {@link RecyclerView} that'll invoke the command.
      * @param layoutManager The layout manager that the {@link RecyclerView} will use.
      */
-//    @BindingAdapter("app:layoutManager")
-//    public static void bindLayoutManager(final RecyclerView view, final RecyclerView.LayoutManager layoutManager) {
-//        view.setLayoutManager(layoutManager);
-//    }
+    @BindingAdapter("app:layoutManager")
+    public static void bindLayoutManager(final RecyclerView view, final RecyclerView.LayoutManager layoutManager) {
+        view.setLayoutManager(layoutManager);
+    }
 }

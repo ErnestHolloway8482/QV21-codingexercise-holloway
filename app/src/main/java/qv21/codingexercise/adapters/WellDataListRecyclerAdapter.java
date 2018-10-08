@@ -9,9 +9,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.databinding.WellDataListItemScreenBinding;
 import qv21.codingexercise.facades.WellDataFacade;
@@ -19,11 +16,10 @@ import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.models.viewmodels.WellDataListItemVM;
-import qv21.codingexercise.utilities.LoggerUtils;
 import qv21.codingexercise.viewholders.WellDataItemViewHolder;
 
 /**
- * A {@link RecyclerView.Adapter} for the list of Articles.
+ * A {@link RecyclerView.Adapter} for the list of Well Data Items.
  */
 public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataItemViewHolder> {
     private List<WellDataDM> wellDataList;
@@ -34,7 +30,7 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
     @Inject
     NavigationManager navigationManager;
 
-    public WellDataListRecyclerAdapter(){
+    public WellDataListRecyclerAdapter() {
         QV21Application.getAppComponent().inject(this);
     }
 
@@ -45,15 +41,12 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
      * @param items is the {@link List} cached in the database to support endless scrolling.
      */
     public void setData(final List<WellDataDM> items) {
-        wellDataList = items;
-
-        notifyDataSetChanged();
-
-//        //Only alow the RealmResults List to be set once and then add a corresponding listener to it.
-//        //Since Lazy objects are live objects there is no need to set a new reference for it.
-//        if (wellDataList == null) {
-//            wellDataList = items;
-//        }
+        //Only alow the RealmResults List to be set once and then add a corresponding listener to it.
+        //Since Lazy objects are live objects there is no need to set a new reference for it.
+        if (wellDataList == null) {
+            wellDataList = items;
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -80,15 +73,16 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
             return;
         }
 
-        Single.fromCallable(()->{
-            convert(viewHolder, position);
-            return null;
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(__->{},throwable -> LoggerUtils.logError(throwable.getMessage()));
+        convert(viewHolder, position);
 
-//        convert(viewHolder, position);
+//        Single.fromCallable(() -> {
+//            convert(viewHolder, position);
+//            return null;
+//        })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(__ -> {
+//                }, throwable -> LoggerUtils.logError(throwable.getMessage()));
     }
 
     @Override

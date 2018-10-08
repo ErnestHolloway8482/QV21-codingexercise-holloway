@@ -13,17 +13,23 @@ public class WellDataListScreen extends ScreenImpl<WellDataListVM, WellDataListS
         super(context, R.layout.well_data_list_screen);
 
         QV21Application.getAppComponent().inject(this);
+
+        setViewModel(mViewModel);
     }
 
     public WellDataListScreen(final Context context, final AttributeSet attrs) {
         super(context, attrs, R.layout.well_data_list_screen);
 
         QV21Application.getAppComponent().inject(this);
+
+        setViewModel(mViewModel);
     }
 
     public WellDataListScreen(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr, R.layout.well_data_list_screen);
 
         QV21Application.getAppComponent().inject(this);
+
+        setViewModel(mViewModel);
     }
 }

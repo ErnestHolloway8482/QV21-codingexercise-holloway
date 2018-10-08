@@ -1,6 +1,5 @@
 package qv21.codingexercise.activities;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.transition.Fade;
 import android.support.transition.TransitionManager;
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     private void setup() {
         QV21Application.getAppComponent().inject(this);
 
-        DataBindingUtil.setContentView(this, R.layout.main_activity);
+        setContentView(R.layout.main_activity);
 
         cardView = findViewById(R.id.cardView);
         progressBar = findViewById(R.id.progressBar);

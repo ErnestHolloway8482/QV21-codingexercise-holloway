@@ -13,17 +13,23 @@ public class WellDataDetailsScreen extends ScreenImpl<WellDataDetailsVM, WellDat
         super(context, R.layout.well_data_details_screen);
 
         QV21Application.getAppComponent().inject(this);
+
+        setViewModel(mViewModel);
     }
 
     public WellDataDetailsScreen(final Context context, final AttributeSet attrs) {
         super(context, attrs, R.layout.well_data_details_screen);
 
         QV21Application.getAppComponent().inject(this);
+
+        setViewModel(mViewModel);
     }
 
     public WellDataDetailsScreen(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr, R.layout.well_data_details_screen);
 
         QV21Application.getAppComponent().inject(this);
+
+        setViewModel(mViewModel);
     }
 }
