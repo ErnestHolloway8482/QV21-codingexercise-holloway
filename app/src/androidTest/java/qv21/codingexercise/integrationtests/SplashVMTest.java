@@ -6,7 +6,6 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,30 +47,35 @@ public class SplashVMTest extends BaseAndroidUnitTest {
     }
 
     @Test
-    @Ignore
     public void seedWellDataBeforeSettingUpTheWellDataListScreenTest() {
         Assert.assertFalse(wellDataFacade.doesWellDataExist());
 
         splashVM = new SplashVM(wellDataFacade, navigationManager);
 
-        sleep(30);
+        sleep(10);
 
         Assert.assertTrue(wellDataFacade.doesWellDataExist());
+
+        sleep(2);
+
+        Assert.assertTrue(navigationManager.isOnLastScreen());
         Assert.assertTrue(navigationManager.peek() instanceof WellDataListScreen);
     }
 
     @Test
-    @Ignore
     public void setupWellDataListScreenTest() {
         InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(MainActivity.getInstance().getResources(), R.raw.well_data);
 
         Assert.assertTrue(wellDataFacade.seedWellDataIntoDatabase(inputStream));
 
-        sleep(30);
+        sleep(10);
 
         splashVM = new SplashVM(wellDataFacade, navigationManager);
 
         Assert.assertTrue(wellDataFacade.doesWellDataExist());
+
+        sleep(10);
+
         Assert.assertTrue(navigationManager.peek() instanceof WellDataListScreen);
     }
 }

@@ -31,14 +31,12 @@ public class SplashVM extends BaseVM {
 
     private void navigateToWellDataListScreen() {
         if (wellDataFacade.doesWellDataExist()) {
-            displayProgressDialog(null);
+            displayProgressDialog();
             setupWellDataListScreen();
         } else {
             displayProgressDialog(R.string.reading_well_data_file);
             seedWellDataBeforeSettingUpTheWellDataListScreen();
         }
-
-        cleanupSubscribers();
     }
 
     private void setupWellDataListScreen() {
@@ -52,9 +50,7 @@ public class SplashVM extends BaseVM {
     }
 
     private void setupNavigationStackForWellDataListScreen() {
-        MainActivity.getInstance().runOnUiThread(() -> {
-            finalizeNavigationStackForWellDataListScreen();
-        });
+        MainActivity.getInstance().runOnUiThread(this::finalizeNavigationStackForWellDataListScreen);
     }
 
     private void finalizeNavigationStackForWellDataListScreen() {
@@ -73,7 +69,7 @@ public class SplashVM extends BaseVM {
         subscriber = Single.fromCallable(this::seedWellData)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(successful -> setupWellDataListScreen(), throwable -> LoggerUtils.log(throwable.getMessage()));
+                .subscribe(__ -> setupWellDataListScreen(), throwable -> LoggerUtils.log(throwable.getMessage()));
     }
 
     private boolean seedWellData() {
