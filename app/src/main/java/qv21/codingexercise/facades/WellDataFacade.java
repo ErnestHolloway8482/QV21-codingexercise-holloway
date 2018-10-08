@@ -2,6 +2,8 @@ package qv21.codingexercise.facades;
 
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import io.objectbox.query.LazyList;
 import qv21.codingexercise.daos.WellDataDAO;
 import qv21.codingexercise.managers.DatabaseManager;
@@ -10,6 +12,7 @@ import qv21.codingexercise.managers.WellDataFileManager;
 import qv21.codingexercise.mapper.WellDataMapper;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
+@Singleton
 public class WellDataFacade {
     private final WellDataFileManager wellDataFileManager;
     private final WellDataMapper wellDataMapper;

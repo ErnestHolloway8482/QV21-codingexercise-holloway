@@ -84,7 +84,7 @@ public class NavigationManager {
      * exceptional navigational cases need to be covered. This avoids the scenario as well as having a screen be automatically displayed when a screen is pushed/poped to/from the stack.
      */
     public void showScreen() {
-        if (viewContainer == null) {
+        if (viewContainer == null || viewStack.isEmpty()) {
             return;
         }
 

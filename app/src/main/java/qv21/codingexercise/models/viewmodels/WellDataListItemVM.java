@@ -23,8 +23,11 @@ public class WellDataListItemVM extends ViewModel {
     public void navigateToWellDataDetailsScreen(){
         wellDataFacade.storeSelectedWellDataUuidToMemoryCache(wellData.get());
 
-        WellDataDetailsScreen wellDataDetailsScreen = new WellDataDetailsScreen(MainActivity.getInstance());
-        navigationManager.push(wellDataDetailsScreen);
-        navigationManager.showScreen();
+        MainActivity.getInstance().runOnUiThread(()-> {
+            WellDataDetailsScreen wellDataDetailsScreen = new WellDataDetailsScreen(MainActivity.getInstance());
+
+            navigationManager.push(wellDataDetailsScreen);
+            navigationManager.showScreen();
+        });
     }
 }

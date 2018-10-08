@@ -15,17 +15,15 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import qv21.codingexercise.R;
-import qv21.codingexercise.managers.DatabaseManager;
+import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.views.SplashScreen;
 import qv21.codingexercise.views.ViewContainer;
 
 @Singleton
 public class MainActivity extends AppCompatActivity {
     @Inject
     NavigationManager navigationManager;
-
-    @Inject
-    DatabaseManager databaseManager;
 
     private static MainActivity instance;
 
@@ -111,9 +109,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupMainScreen() {
         navigationManager.setViewContainer((ViewContainer) findViewById(R.id.viewContainer));
 
-        //Add logic to display Splash Screen which is where the data content will initially be seeded.
-        //navigationManager.push(view);
-
+        SplashScreen splashScreen = new SplashScreen(this);
+        navigationManager.push(splashScreen);
         navigationManager.showScreen();
     }
 
@@ -122,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
      * Finalizes setup by adding this class to dependency graph and setup for image caching/databinding/screen transition animations/database.
      */
     private void setup() {
-        //TODO add code to inject the application component.
+        QV21Application.getAppComponent().inject(this);
 
         DataBindingUtil.setContentView(this, R.layout.main_activity);
 
@@ -138,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cleanup() {
-        databaseManager.closeDataBase();
-
         if (instance != null) {
             instance = null;
         }
