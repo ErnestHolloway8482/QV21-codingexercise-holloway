@@ -3,7 +3,6 @@ package qv21.codingexercise.models.viewmodels;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class WellDataListVM extends ViewModel {
 
     private DataSubscriptionList subscriber;
 
-    public ObservableField<RecyclerView.Adapter> adapter = new ObservableField<>();
+    public ObservableField<WellDataListRecyclerAdapter> recylcerViewAdapter = new ObservableField<>();
     public ObservableBoolean isListEmpty = new ObservableBoolean();
 
     public WellDataListVM(final WellDataFacade wellDataFacade) {
@@ -31,8 +30,7 @@ public class WellDataListVM extends ViewModel {
     }
 
     private void setupRecyclerViewAdapater() {
-        WellDataListRecyclerAdapter wellDataListRecyclerAdapter = new WellDataListRecyclerAdapter();
-        adapter.set(wellDataListRecyclerAdapter);
+        recylcerViewAdapter.set(new WellDataListRecyclerAdapter());
     }
 
     private void getWellDataFromDatabase() {
@@ -56,7 +54,7 @@ public class WellDataListVM extends ViewModel {
         } else {
             isListEmpty.set(false);
 
-            ((WellDataListRecyclerAdapter) adapter.get()).setData(wellDataList);
+            recylcerViewAdapter.get().setData(wellDataList);
         }
 
         cleanupSubscribers();

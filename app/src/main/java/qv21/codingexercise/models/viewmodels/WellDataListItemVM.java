@@ -7,6 +7,7 @@ import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
+import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.views.WellDataDetailsScreen;
 
 public class WellDataListItemVM extends ViewModel {
@@ -14,6 +15,8 @@ public class WellDataListItemVM extends ViewModel {
     private final NavigationManager navigationManager;
 
     public ObservableField<WellDataDM> wellData = new ObservableField<>();
+
+    public WellDataItemDOM wellDataDom;
 
     public WellDataListItemVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
         this.wellDataFacade = wellDataFacade;

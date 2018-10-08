@@ -49,7 +49,7 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
         sleep(2);
 
         Assert.assertTrue(wellDataListVM.isListEmpty.get());
-        Assert.assertEquals(0, wellDataListVM.adapter.get().getItemCount());
+        Assert.assertEquals(0, wellDataListVM.recylcerViewAdapter.get().getItemCount());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
 
         Assert.assertFalse(wellDataListVM.isListEmpty.get());
 
-        int totalItemCount = wellDataListVM.adapter.get().getItemCount();
+        int totalItemCount = wellDataListVM.recylcerViewAdapter.get().getItemCount();
 
         Assert.assertTrue(totalItemCount > 0);
     }

@@ -3,6 +3,7 @@
 buildscript {
     ext.objectboxVersion = '2.1.0'
     ext.daggerVersion = '2.15'
+    ext.lottieVersion = '2.7.0'
     
     repositories {
         google()

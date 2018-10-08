@@ -16,6 +16,7 @@ import qv21.codingexercise.databinding.WellDataListItemScreenBinding;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
+import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.models.viewmodels.WellDataListItemVM;
 import qv21.codingexercise.utilities.LoggerUtils;
 import qv21.codingexercise.viewholders.WellDataItemViewHolder;
@@ -33,13 +34,15 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
     NavigationManager navigationManager;
 
     /**
-     * Sets the list of well data items to display for this adapter and assigns the appropriate data change listener to it.
+     * Sets the list of well data items to display for this recylcerViewAdapter and assigns the appropriate data change listener to it.
      * This is only done initially since LazyList objects are live and will auto-update
      *
      * @param items is the {@link List} cached in the database to support endless scrolling.
      */
     public void setData(final List<WellDataDM> items) {
         wellDataList = items;
+
+        notifyDataSetChanged();
 
 //        //Only alow the RealmResults List to be set once and then add a corresponding listener to it.
 //        //Since Lazy objects are live objects there is no need to set a new reference for it.
@@ -80,7 +83,7 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(__->{},throwable -> LoggerUtils.logError(throwable.getMessage()));
 
-        convert(viewHolder, position);
+//        convert(viewHolder, position);
     }
 
     @Override
@@ -98,6 +101,7 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
     private void convert(@NonNull final WellDataItemViewHolder viewHolder, final int position) {
         WellDataListItemVM vm = new WellDataListItemVM(wellDataFacade, navigationManager);
         vm.wellData.set(wellDataList.get(position));
+        vm.wellDataDom = WellDataItemDOM.create(wellDataList.get(position));
         viewHolder.bind(vm);
     }
 }

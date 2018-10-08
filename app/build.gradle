@@ -101,11 +101,6 @@ dependencies {
 
 
     //Dependency Injection
-//    implementation 'javax.annotation:jsr250-api:1.0'
-//    implementation 'com.google.dagger:dagger:2.15'
-//    annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
-
-
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
@@ -120,6 +115,9 @@ dependencies {
 
     //CSV Reader
     implementation 'com.opencsv:opencsv:4.2'
+
+    //AirBnb Lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     //Android Based UI Testing Support Libraries
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
