@@ -30,13 +30,14 @@
             <android.support.v7.widget.AppCompatImageView android:id="@+id/articleThumbnail"
                                                           android:layout_width="64dp"
                                                           android:layout_height="64dp"
+                                                          app:tint="@color/colorAccent"
                                                           android:layout_gravity="center_horizontal"
-                                                          android:layout_margin="5dp"
+                                                          android:layout_margin="3dp"
                                                           app:srcCompat="@drawable/well_logo"/>
 
             <TextView android:id="@+id/owner" android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:layout_margin="5dp"
+                      android:layout_margin="3dp"
                       android:text="@{vm.wellDataDom.ownerName}"
                       android:textColor="@android:color/black"
                       android:textSize="20sp"
@@ -44,7 +45,7 @@
 
             <TextView android:id="@+id/wellName" android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:layout_margin="5dp"
+                      android:layout_margin="3dp"
                       android:text="@{vm.wellDataDom.wellName}"
                       android:textColor="@android:color/black"
                       android:textSize="16sp"
@@ -53,7 +54,7 @@
 
             <TextView android:id="@+id/tankName" android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:layout_margin="5dp"
+                      android:layout_margin="3dp"
                       android:text="@{vm.wellDataDom.tankName}"
                       android:textColor="@android:color/black"
                       android:textSize="12sp"
@@ -61,7 +62,7 @@
 
             <TextView android:id="@+id/tankNumber" android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:layout_margin="5dp"
+                      android:layout_margin="3dp"
                       android:text="@{Integer.toString(vm.wellDataDom.tankNumber)}"
                       android:textColor="@android:color/black"
                       android:textSize="12sp"
