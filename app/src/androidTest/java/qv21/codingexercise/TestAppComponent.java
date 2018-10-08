@@ -8,6 +8,11 @@ import qv21.codingexercise.dimodules.FacadeModule;
 import qv21.codingexercise.dimodules.ManagerModule;
 import qv21.codingexercise.dimodules.MapperModule;
 import qv21.codingexercise.dimodules.ViewModelModule;
+import qv21.codingexercise.integrationtests.SplashVMTest;
+import qv21.codingexercise.integrationtests.WellDataDetailsVMTest;
+import qv21.codingexercise.integrationtests.WellDataEditVMTest;
+import qv21.codingexercise.integrationtests.WellDataListItemVMTest;
+import qv21.codingexercise.integrationtests.WellDataListVMTest;
 
 @Singleton
 @Component(modules = {

@@ -1,4 +1,4 @@
-package qv21.codingexercise;
+package qv21.codingexercise.integrationtests;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -14,6 +14,8 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
+import qv21.codingexercise.BaseAndroidUnitTest;
+import qv21.codingexercise.R;
 import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.models.viewmodels.WellDataListVM;

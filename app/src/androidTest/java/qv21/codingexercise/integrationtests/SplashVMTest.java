@@ -1,4 +1,4 @@
-package qv21.codingexercise;
+package qv21.codingexercise.integrationtests;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -6,6 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +15,8 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
+import qv21.codingexercise.BaseAndroidUnitTest;
+import qv21.codingexercise.R;
 import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.NavigationManager;
@@ -45,6 +48,7 @@ public class SplashVMTest extends BaseAndroidUnitTest {
     }
 
     @Test
+    @Ignore
     public void seedWellDataBeforeSettingUpTheWellDataListScreenTest() {
         Assert.assertFalse(wellDataFacade.doesWellDataExist());
 
@@ -57,6 +61,7 @@ public class SplashVMTest extends BaseAndroidUnitTest {
     }
 
     @Test
+    @Ignore
     public void setupWellDataListScreenTest() {
         InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(MainActivity.getInstance().getResources(), R.raw.well_data);
 
