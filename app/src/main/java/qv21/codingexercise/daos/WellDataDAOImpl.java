@@ -7,29 +7,37 @@ import io.objectbox.query.Query;
 import io.objectbox.query.QueryBuilder;
 import qv21.codingexercise.managers.DatabaseManager;
 import qv21.codingexercise.managers.DatabaseManagerImpl;
-import qv21.codingexercise.models.database.WellData;
-import qv21.codingexercise.models.database.WellData_;
+import qv21.codingexercise.models.databasemodels.WellDataDM;
+import qv21.codingexercise.models.databasemodels.WellDataDM_;
 
 public class WellDataDAOImpl implements WellDataDAO {
     final DatabaseManager databaseManager;
-    final Box<WellData> wellDataBox;
+    final Box<WellDataDM> wellDataBox;
 
     public WellDataDAOImpl(final DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
-        wellDataBox = ((DatabaseManagerImpl) databaseManager).getBoxStore().boxFor(WellData.class);
+        wellDataBox = ((DatabaseManagerImpl) databaseManager).getBoxStore().boxFor(WellDataDM.class);
     }
 
     @Override
-    public boolean createWell(final WellData wellData) {
+    public boolean createWell(final WellDataDM wellData) {
         return wellDataBox.put(wellData) > 0;
     }
 
     @Override
-    public List<WellData> getAllWellData() {
-        QueryBuilder<WellData> queryBuilder = wellDataBox.query();
-        Query<WellData> query = queryBuilder.build();
+    public List<WellDataDM> getAllWellData() {
+        QueryBuilder<WellDataDM> queryBuilder = wellDataBox.query();
+        Query<WellDataDM> query = queryBuilder.build();
 
         return query.findLazy();
+    }
+
+    @Override
+    public Query<WellDataDM> getAllWellDataQuery() {
+        QueryBuilder<WellDataDM> queryBuilder = wellDataBox.query();
+        Query<WellDataDM> query = queryBuilder.build();
+
+        return query;
     }
 
     @Override
@@ -38,7 +46,7 @@ public class WellDataDAOImpl implements WellDataDAO {
     }
 
     @Override
-    public boolean updateWell(final WellData updatedWellData) {
+    public boolean updateWell(final WellDataDM updatedWellData) {
         return wellDataBox.put(updatedWellData) > 0;
     }
 
@@ -48,16 +56,16 @@ public class WellDataDAOImpl implements WellDataDAO {
     }
 
     @Override
-    public void deleteWellData(final WellData wellData) {
+    public void deleteWellData(final WellDataDM wellData) {
         wellDataBox.remove(wellData);
     }
 
     @Override
-    public WellData getWellDataByUuid(final String uuid) {
-        QueryBuilder<WellData> queryBuilder = wellDataBox.query();
-        queryBuilder.equal(WellData_.uuid, uuid);
+    public WellDataDM getWellDataByUuid(final String uuid) {
+        QueryBuilder<WellDataDM> queryBuilder = wellDataBox.query();
+        queryBuilder.equal(WellDataDM_.uuid, uuid);
 
-        Query<WellData> query = queryBuilder.build();
+        Query<WellDataDM> query = queryBuilder.build();
         return query.findFirst();
     }
 }

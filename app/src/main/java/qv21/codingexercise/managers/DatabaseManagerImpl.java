@@ -6,26 +6,19 @@ import javax.inject.Singleton;
 
 import io.objectbox.BoxStore;
 import io.objectbox.DebugFlags;
-import qv21.codingexercise.MainActivity;
-import qv21.codingexercise.models.database.MyObjectBox;
+import qv21.codingexercise.activities.MainActivity;
+import qv21.codingexercise.models.databasemodels.MyObjectBox;
+import qv21.codingexercise.utilities.LoggerUtils;
 
 @Singleton
 public class DatabaseManagerImpl implements DatabaseManager {
-    private final BoxStore boxStore;
+    private BoxStore boxStore;
 
     public DatabaseManagerImpl(final String fileNameAndPath, final boolean testModeEnabled) {
-        if (testModeEnabled) {
-            File testFile = new File(fileNameAndPath + "_test");
-
-            boxStore = MyObjectBox.builder()
-                    .debugFlags(DebugFlags.LOG_QUERIES | DebugFlags.LOG_QUERY_PARAMETERS)
-                    .directory(testFile)
-                    .build();
-        } else {
-            boxStore = MyObjectBox.builder()
-                    .androidContext(MainActivity.getInstance())
-                    .name(fileNameAndPath)
-                    .build();
+        try {
+            openDatabase(fileNameAndPath, testModeEnabled);
+        } catch (Exception e) {
+            LoggerUtils.logError(e.getMessage());
         }
     }
 
@@ -49,5 +42,21 @@ public class DatabaseManagerImpl implements DatabaseManager {
 
     public BoxStore getBoxStore() {
         return boxStore;
+    }
+
+    private void openDatabase(final String fileNameAndPath, final boolean testModeEnabled) {
+        if (testModeEnabled) {
+            File testFile = new File(fileNameAndPath + "_test");
+
+            boxStore = MyObjectBox.builder()
+                    .debugFlags(DebugFlags.LOG_QUERIES | DebugFlags.LOG_QUERY_PARAMETERS)
+                    .directory(testFile)
+                    .build();
+        } else {
+            boxStore = MyObjectBox.builder()
+                    .androidContext(MainActivity.getInstance())
+                    .name(fileNameAndPath)
+                    .build();
+        }
     }
 }

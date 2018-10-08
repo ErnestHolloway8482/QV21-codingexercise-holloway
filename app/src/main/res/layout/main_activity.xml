@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.MainActivity">
+
+    <qv21.codingexercise.views.ViewContainerImpl android:id="@+id/viewContainer"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent">
+    </qv21.codingexercise.views.ViewContainerImpl>
+
+    <android.support.v7.widget.CardView android:id="@+id/cardView"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_margin="10dp"
+                                        android:background="@color/cardview_dark_background"
+                                        android:shadowRadius="4"
+                                        android:visibility="gone"
+                                        app:cardCornerRadius="8dp"
+                                        app:cardElevation="10dp">
+
+        <ProgressBar android:id="@+id/progressBar"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center_horizontal"/>
+
+        <TextView android:id="@+id/progressBarMessage"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_horizontal"
+                  android:layout_marginTop="50dp"
+                  android:textSize="20sp"
+                  tools:text="Loading Articles..."/>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import qv21.codingexercise.mapper.WellDataMapper;
-import qv21.codingexercise.models.database.WellData;
+import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 @RunWith(JUnit4.class)
 public class WellDataMapperTest {
@@ -23,7 +23,7 @@ public class WellDataMapperTest {
         //Owner,API #,Longitude,Latitude,Property #,Lease / Well Name,Tank MID,Tank Name,Tank Nbr,Tank Size,BBLS Per Inch,SEC,TWP,RNG,COUNTY
         String csvRowData = "\"Continental Resources, Inc.\",2508321270,-104.32836,47.60448,200210,Sorenson 14-6H,1065,Sorenson - 247983,1,405.56,1.675867769,6,021N,058E,RICHLAND";
 
-        WellData wellData = wellDataMapper.mapWellData(csvRowData);
+        WellDataDM wellData = wellDataMapper.mapWellData(csvRowData);
 
         Assert.assertNotNull(wellData);
         Assert.assertNotNull(wellData.getUuid());
@@ -48,7 +48,7 @@ public class WellDataMapperTest {
     public void mapWellDataWithInValidStringTest() {
         //14 Items - Less than 15 items per line to parse
         String csvRowData = "\"Continental Resources, Inc.\",2508321270,-104.32836,47.60448,200210,Sorenson 14-6H,1065,Sorenson - 247983,1,405.56,1.675867769,6,021N,058E";
-        WellData wellData = wellDataMapper.mapWellData(csvRowData);
+        WellDataDM wellData = wellDataMapper.mapWellData(csvRowData);
         Assert.assertNull(wellData);
 
         //7 Items - Less than 15 items per line to parse

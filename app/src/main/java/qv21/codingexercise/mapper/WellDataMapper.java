@@ -4,19 +4,19 @@ import com.opencsv.CSVParser;
 
 import java.io.IOException;
 
-import qv21.codingexercise.models.database.WellData;
+import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 public class WellDataMapper {
     private static final int NUMER_OF_EXPECTED_DATA_COLUMNS_PER_ROW = 15;
 
-    public WellData mapWellData(final String csvRowContent) {
+    public WellDataDM mapWellData(final String csvRowContent) {
         String[] rowValues = splitCsvDataByCommaSeparator(csvRowContent);
 
         if (rowValues == null) {
             return null;
         } else {
             //"Owner,API #,Longitude,Latitude,Property #,Lease / Well Name,Tank MID,Tank Name,Tank Nbr,Tank Size,BBLS Per Inch,SEC,TWP,RNG,COUNTY";
-            WellData wellData = new WellData();
+            WellDataDM wellData = new WellDataDM();
             wellData.setOwnerName(rowValues[0]);
             wellData.setApiNumber(rowValues[1]);
             wellData.setLongitude(parseDouble(rowValues[2]));

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".activities.MainActivity">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="qv21.codingexercise.models.viewmodels.SplashVM"/>
+    </data>
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#000000">
+
+        <ImageView android:id="@+id/icon"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerInParent="true"
+                   android:src="@mipmap/ic_launcher_foreground"/>
+
+        <TextView android:id="@+id/appText"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/splash_screen_title"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="24sp"/>
+    </RelativeLayout>
+</layout>
