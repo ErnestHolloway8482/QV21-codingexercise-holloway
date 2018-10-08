@@ -19,4 +19,5 @@ import qv21.codingexercise.dimodules.ViewModelModule;
 })
 public interface TestAppComponent {
     void inject(WellDataListItemVMTest wellDataListItemVMTest);
+    void inject(WellDataListVMTest wellDataListVMTest);
 }

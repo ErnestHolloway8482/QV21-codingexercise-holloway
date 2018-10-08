@@ -10,6 +10,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import qv21.codingexercise.adapters.WellDataListRecyclerAdapter;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.utilities.LoggerUtils;
@@ -25,16 +26,25 @@ public class WellDataListVM extends ViewModel {
     public WellDataListVM(final WellDataFacade wellDataFacade) {
         this.wellDataFacade = wellDataFacade;
 
+        setupRecyclerViewAdapater();
+
         getWellDataFromDatabase();
+    }
+
+    private void setupRecyclerViewAdapater() {
+        WellDataListRecyclerAdapter wellDataListRecyclerAdapter = new WellDataListRecyclerAdapter();
+        adapter.set(wellDataListRecyclerAdapter);
     }
 
     private void getWellDataFromDatabase() {
         cleanupSubscribers();
 
-        subscriber = Single.fromCallable(() -> wellDataFacade.getAllWellDataItems())
+        subscriber = Single.fromCallable(() -> {
+            return wellDataFacade.getAllWellDataItems();
+        })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::updateRecyclerAdapter, throwable -> LoggerUtils.log(throwable.getMessage()));
+                .subscribe(wellDataList->updateRecyclerAdapter(wellDataList), throwable -> LoggerUtils.log(throwable.getMessage()));
     }
 
     private void updateRecyclerAdapter(final LazyList<WellDataDM> wellDataList) {
@@ -43,7 +53,7 @@ public class WellDataListVM extends ViewModel {
         } else {
             isListEmpty.set(false);
 
-            //TOOD add code here to setup up the RecyclerAdapter.
+            ((WellDataListRecyclerAdapter) adapter.get()).setData(wellDataList);
         }
 
         cleanupSubscribers();

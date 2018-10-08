@@ -15,19 +15,21 @@ public class WellDataListItemVM extends ViewModel {
 
     public ObservableField<WellDataDM> wellData = new ObservableField<>();
 
-    public WellDataListItemVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager){
+    public WellDataListItemVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
         this.wellDataFacade = wellDataFacade;
         this.navigationManager = navigationManager;
     }
 
-    public void navigateToWellDataDetailsScreen(){
+    public void navigateToWellDataDetailsScreen() {
         wellDataFacade.storeSelectedWellDataUuidToMemoryCache(wellData.get());
 
-        MainActivity.getInstance().runOnUiThread(()-> {
-            WellDataDetailsScreen wellDataDetailsScreen = new WellDataDetailsScreen(MainActivity.getInstance());
+        MainActivity.getInstance().runOnUiThread(this::setupWellDataDetailsScreen);
+    }
 
-            navigationManager.push(wellDataDetailsScreen);
-            navigationManager.showScreen();
-        });
+    private void setupWellDataDetailsScreen() {
+        WellDataDetailsScreen wellDataDetailsScreen = new WellDataDetailsScreen(MainActivity.getInstance());
+
+        navigationManager.push(wellDataDetailsScreen);
+        navigationManager.showScreen();
     }
 }

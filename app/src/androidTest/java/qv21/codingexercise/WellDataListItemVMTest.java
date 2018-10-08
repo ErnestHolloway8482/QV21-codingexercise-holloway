@@ -17,7 +17,6 @@ import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.viewmodels.WellDataListItemVM;
-import qv21.codingexercise.utilities.LoggerUtils;
 import qv21.codingexercise.views.WellDataDetailsScreen;
 
 @RunWith(AndroidJUnit4.class)
@@ -57,14 +56,5 @@ public class WellDataListItemVMTest extends BaseAndroidUnitTest {
 
         Assert.assertEquals(wellData.getUuid(), wellDataFacade.getSelectedWellDataUuidFromMemoryCache());
         Assert.assertTrue(navigationManager.peek() instanceof WellDataDetailsScreen);
-    }
-
-    private void sleep(final int numberOfSeconds) {
-        try {
-            int timeInSecobds = 1000 * numberOfSeconds;
-            Thread.sleep(timeInSecobds);
-        } catch (InterruptedException e) {
-            LoggerUtils.logError(e.getMessage());
-        }
     }
 }
