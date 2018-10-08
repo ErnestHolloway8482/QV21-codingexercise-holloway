@@ -90,6 +90,7 @@ public class WellDataFacade {
         wellDataDAO.deleteAllWellData();
         databaseManager.closeDataBase();
         databaseManager.deleteDataBase();
+        memoryCacheManager.setSelectedWellDataUuid(null);
     }
 
     private boolean storeDataToDatabase(final List<String> rawWellData) {

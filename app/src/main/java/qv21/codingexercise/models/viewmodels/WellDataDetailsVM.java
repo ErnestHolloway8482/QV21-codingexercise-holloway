@@ -30,14 +30,12 @@ public class WellDataDetailsVM extends ViewModel {
 
     public void navigateToWellDataListScreen() {
         wellDataFacade.clearSelectedWellDataUuidFromMemoryCache();
-        navigationManager.pop();
-        navigationManager.showScreen();
+
+        MainActivity.getInstance().runOnUiThread(this::setupWellDataListScreen);
     }
 
     public void navigateToWellDataEditScreen() {
-        WellDataEditScreen wellDataEditScreen = new WellDataEditScreen(MainActivity.getInstance());
-        navigationManager.push(wellDataEditScreen);
-        navigationManager.showScreen();
+        MainActivity.getInstance().runOnUiThread(this::setupWellDataEditScreen);
     }
 
     private void getWellDataByUuid(final String uuid) {
@@ -56,5 +54,16 @@ public class WellDataDetailsVM extends ViewModel {
                 subscriber = null;
             }
         }
+    }
+
+    private void setupWellDataListScreen() {
+        navigationManager.pop();
+        navigationManager.showScreen();
+    }
+
+    private void setupWellDataEditScreen() {
+        WellDataEditScreen wellDataEditScreen = new WellDataEditScreen(MainActivity.getInstance());
+        navigationManager.push(wellDataEditScreen);
+        navigationManager.showScreen();
     }
 }

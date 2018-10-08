@@ -21,4 +21,6 @@ public interface TestAppComponent {
     void inject(WellDataListItemVMTest wellDataListItemVMTest);
     void inject(WellDataListVMTest wellDataListVMTest);
     void inject(SplashVMTest splashVMTest);
+    void inject(WellDataDetailsVMTest wellDataDetailsVMTest);
+    void inject(WellDataEditVMTest wellDataEditVMTest);
 }

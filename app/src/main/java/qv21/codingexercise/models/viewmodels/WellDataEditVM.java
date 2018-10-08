@@ -7,6 +7,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
@@ -27,22 +28,16 @@ public class WellDataEditVM extends ViewModel {
     }
 
     public void navigateToWellDataDetailsScreen() {
-        navigationManager.pop();
-        navigationManager.showScreen();
+        MainActivity.getInstance().runOnUiThread(this::setupWellDataDetailsScreen);
     }
 
     public void deleteWellData() {
         cleanupSubscribers();
 
-        subscriber = Single.fromCallable(() -> {
-            wellDataFacade.clearSelectedWellDataUuidFromMemoryCache();
-            wellDataFacade.deleteWellData(wellData.get());
-            return null;
-        })
+        subscriber = Single.fromCallable(this::cleanUpWellDataItem)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(__ -> {
-                }, throwable -> LoggerUtils.log(throwable.getMessage()));
+                .subscribe(__ -> navigateToWellDataListScreen(), throwable -> LoggerUtils.log(throwable.getMessage()));
     }
 
     public void updateWellData() {
@@ -51,8 +46,7 @@ public class WellDataEditVM extends ViewModel {
         subscriber = Single.fromCallable(() -> wellDataFacade.updateWellData(wellData.get()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(__ -> {
-                }, throwable -> LoggerUtils.log(throwable.getMessage()));
+                .subscribe(__ -> navigateToWellDataDetailsScreen(), throwable -> LoggerUtils.log(throwable.getMessage()));
     }
 
     private void getWellDataByUuid(final String uuid) {
@@ -71,5 +65,32 @@ public class WellDataEditVM extends ViewModel {
                 subscriber = null;
             }
         }
+    }
+
+    private void setupWellDataDetailsScreen() {
+        navigationManager.pop();
+        navigationManager.showScreen();
+    }
+
+    private void navigateToWellDataListScreen() {
+        MainActivity.getInstance().runOnUiThread(this::setupWellDataListScreen);
+    }
+
+    private void setupWellDataListScreen() {
+        navigationManager.pop();
+        navigationManager.pop();
+        navigationManager.showScreen();
+    }
+
+    private void NavigateToWellDataDetailsScreen() {
+        MainActivity.getInstance().runOnUiThread(this::setupWellDataDetailsScreen);
+    }
+
+    private boolean cleanUpWellDataItem() {
+        wellDataFacade.clearSelectedWellDataUuidFromMemoryCache();
+        wellDataFacade.deleteWellData(wellData.get());
+        wellData.set(null);
+
+        return true;
     }
 }
