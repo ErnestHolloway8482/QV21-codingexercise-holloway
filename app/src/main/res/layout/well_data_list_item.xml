@@ -7,6 +7,8 @@
     <data>
         <import type="android.view.View"/>
 
+        <import type="java.lang.Integer"/>
+
         <variable
             name="vm"
             type="qv21.codingexercise.models.viewmodels.WellDataListItemVM"/>
@@ -37,7 +39,7 @@
                       android:layout_margin="5dp"
                       android:text="@{vm.wellDataDom.ownerName}"
                       android:textColor="@android:color/black"
-                      android:textSize="28sp"
+                      android:textSize="20sp"
                       tools:text="Custom Continental, Inc."/>
 
             <TextView android:id="@+id/wellName" android:layout_width="wrap_content"
@@ -60,7 +62,7 @@
             <TextView android:id="@+id/tankNumber" android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_margin="5dp"
-                      android:text="@{vm.wellDataDom.tankNumber}"
+                      android:text="@{Integer.toString(vm.wellDataDom.tankNumber)}"
                       android:textColor="@android:color/black"
                       android:textSize="12sp"
                       tools:text="1"/>

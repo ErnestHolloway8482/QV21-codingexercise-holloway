@@ -16,7 +16,7 @@ public class WellDataListItemVM extends ViewModel {
 
     public ObservableField<WellDataDM> wellData = new ObservableField<>();
 
-    public WellDataItemDOM wellDataDom;
+    public ObservableField<WellDataItemDOM> wellDataDom = new ObservableField<>();
 
     public WellDataListItemVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
         this.wellDataFacade = wellDataFacade;

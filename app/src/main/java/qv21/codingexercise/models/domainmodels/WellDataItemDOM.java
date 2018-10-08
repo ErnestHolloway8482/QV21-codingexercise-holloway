@@ -1,65 +1,63 @@
 package qv21.codingexercise.models.domainmodels;
 
-import android.databinding.ObservableDouble;
-import android.databinding.ObservableField;
-import android.databinding.ObservableFloat;
-import android.databinding.ObservableInt;
-
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 public class WellDataItemDOM {
     //UUID
-    public ObservableField<String> uuid = new ObservableField<>();
+    public String uuid;
 
     //Owner Information
-    public ObservableField<String> ownerName = new ObservableField<>();
+    public String ownerName;
 
     //Well Information
-    public ObservableField<String> apiNumber = new ObservableField<>();
-    public ObservableDouble longitude = new ObservableDouble();
-    public ObservableDouble latitude = new ObservableDouble();
-    public ObservableInt propertyNumber = new ObservableInt();
-    public ObservableField<String> county = new ObservableField<>();
-    public ObservableField<String> wellName = new ObservableField<>();
-    public ObservableInt sec = new ObservableInt();
-    public ObservableField<String> twp = new ObservableField<>();
-    public ObservableField<String> rng = new ObservableField<>();
+    public String apiNumber;
+    public double longitude;
+    public double latitude;
+    public int propertyNumber;
+    public String county;
+    public String wellName;
+    public int sec;
+    public String twp;
+    public String rng;
 
     //Tank Information
-    public ObservableField<String> tankName = new ObservableField<>();
-    public ObservableInt mid = new ObservableInt();
-    public ObservableInt tankNumber = new ObservableInt();
-    public ObservableFloat tankSize = new ObservableFloat();
-    public ObservableFloat bblsPerInch = new ObservableFloat();
+    public String tankName;
+    public int mid;
+    public int tankNumber;
+    public float tankSize;
+    public float bblsPerInch;
 
     public static WellDataItemDOM create(final WellDataDM wellDataDM) {
-        return new WellDataItemDOM(wellDataDM);
+        return getInstance(wellDataDM);
     }
 
-    private WellDataItemDOM(final WellDataDM wellDataDM) {
+    private static WellDataItemDOM getInstance(final WellDataDM wellDataDM) {
+        WellDataItemDOM wellDataItemDOM = new WellDataItemDOM();
+
         //UUID
-        uuid.set(wellDataDM.getUuid());
+        wellDataItemDOM.uuid = wellDataDM.getUuid();
 
         //Owner Information
-        ownerName.set(wellDataDM.getOwnerName());
+        wellDataItemDOM.ownerName = wellDataDM.getOwnerName();
 
         //Well Information
-        apiNumber.set(wellDataDM.getApiNumber());
-        longitude.set(wellDataDM.getLongitude());
-        latitude.set(wellDataDM.getLatitude());
-        propertyNumber.set(wellDataDM.getPropertyNumber());
-        county.set(wellDataDM.getCounty());
-        wellName.set(wellDataDM.getWellName());
-        sec.set(wellDataDM.getSec());
-        twp.set(wellDataDM.getTwp());
-        rng.set(wellDataDM.getRng());
+        wellDataItemDOM.apiNumber = wellDataDM.getApiNumber();
+        wellDataItemDOM.longitude = wellDataDM.getLongitude();
+        wellDataItemDOM.latitude = wellDataDM.getLatitude();
+        wellDataItemDOM.propertyNumber = wellDataDM.getPropertyNumber();
+        wellDataItemDOM.county = wellDataDM.getCounty();
+        wellDataItemDOM.wellName = wellDataDM.getWellName();
+        wellDataItemDOM.sec = wellDataDM.getSec();
+        wellDataItemDOM.twp = wellDataDM.getTwp();
+        wellDataItemDOM.rng = wellDataDM.getRng();
 
         //Tank Information
-        tankName.set(wellDataDM.getTankName());
-        mid.set(wellDataDM.getMid());
-        tankNumber.set(wellDataDM.getTankNumber());
-        tankSize.set(wellDataDM.getTankSize());
-        bblsPerInch.set(wellDataDM.getBblsPerInch());
+        wellDataItemDOM.tankName = wellDataDM.getTankName();
+        wellDataItemDOM.mid = wellDataDM.getMid();
+        wellDataItemDOM.tankNumber = wellDataDM.getTankNumber();
+        wellDataItemDOM.tankSize = wellDataDM.getTankSize();
+        wellDataItemDOM.bblsPerInch = wellDataDM.getBblsPerInch();
 
+        return wellDataItemDOM;
     }
 }

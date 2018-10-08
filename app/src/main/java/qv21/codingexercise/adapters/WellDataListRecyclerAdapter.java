@@ -10,7 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import qv21.codingexercise.application.QV21Application;
-import qv21.codingexercise.databinding.WellDataListItemScreenBinding;
+import qv21.codingexercise.databinding.WellDataListItemBinding;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
@@ -62,7 +62,7 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
     @NonNull
     @Override
     public WellDataItemViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
-        WellDataListItemScreenBinding binding = WellDataListItemScreenBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        WellDataListItemBinding binding = WellDataListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
         return new WellDataItemViewHolder(binding);
     }
@@ -100,7 +100,7 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
     private void convert(@NonNull final WellDataItemViewHolder viewHolder, final int position) {
         WellDataListItemVM vm = new WellDataListItemVM(wellDataFacade, navigationManager);
         vm.wellData.set(wellDataList.get(position));
-        vm.wellDataDom = WellDataItemDOM.create(wellDataList.get(position));
+        vm.wellDataDom.set(WellDataItemDOM.create(wellDataList.get(position)));
         viewHolder.bind(vm);
     }
 }
