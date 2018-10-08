@@ -30,10 +30,10 @@
             <android.support.v7.widget.AppCompatImageView android:id="@+id/articleThumbnail"
                                                           android:layout_width="64dp"
                                                           android:layout_height="64dp"
-                                                          app:tint="@color/colorAccent"
                                                           android:layout_gravity="center_horizontal"
                                                           android:layout_margin="3dp"
-                                                          app:srcCompat="@drawable/well_logo"/>
+                                                          app:srcCompat="@drawable/well_logo"
+                                                          app:tint="@color/colorAccent"/>
 
             <TextView android:id="@+id/owner" android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
