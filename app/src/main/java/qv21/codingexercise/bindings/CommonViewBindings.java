@@ -1,6 +1,7 @@
 package qv21.codingexercise.bindings;
 
 import android.databinding.BindingAdapter;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
@@ -48,13 +49,13 @@ public class CommonViewBindings {
         });
     }
 
-//    /**
-//     * Binds <c>{@link RecyclerView}</c>'s to <strong>command</strong>.
-//     * This allows the user to specify a layout manager for a {@link RecyclerView}
-//     *
-//     * @param view          The {@link RecyclerView} that'll invoke the command.
-//     * @param layoutManager The layout manager that the {@link RecyclerView} will use.
-//     */
+    /**
+     * Binds <c>{@link RecyclerView}</c>'s to <strong>command</strong>.
+     * This allows the user to specify a layout manager for a {@link RecyclerView}
+     *
+     * @param view          The {@link RecyclerView} that'll invoke the command.
+     * @param layoutManager The layout manager that the {@link RecyclerView} will use.
+     */
 //    @BindingAdapter("app:layoutManager")
 //    public static void bindLayoutManager(final RecyclerView view, final RecyclerView.LayoutManager layoutManager) {
 //        view.setLayoutManager(layoutManager);

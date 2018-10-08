@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.databinding.WellDataListItemScreenBinding;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.NavigationManager;
@@ -32,6 +33,10 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
 
     @Inject
     NavigationManager navigationManager;
+
+    public WellDataListRecyclerAdapter(){
+        QV21Application.getAppComponent().inject(this);
+    }
 
     /**
      * Sets the list of well data items to display for this recylcerViewAdapter and assigns the appropriate data change listener to it.
