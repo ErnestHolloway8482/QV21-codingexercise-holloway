@@ -20,7 +20,7 @@ import javax.inject.Singleton;
 import qv21.codingexercise.R;
 import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.managers.NavigationManager;
-import qv21.codingexercise.models.viewmodels.BaseVM;
+import qv21.codingexercise.models.viewmodels.MainActivityVM;
 import qv21.codingexercise.views.SplashScreen;
 import qv21.codingexercise.views.ViewContainer;
 
@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private static MainActivity instance;
 
     private boolean isRunning;
+
+    private MainActivityVM viewModel;
 
     private CardView cardView;
     private ProgressBar progressBar;
@@ -100,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public MainActivityVM getViewModel(){
+        return viewModel;
+    }
+
     /**
      * @return a singleton reference of the {@link AppCompatActivity}. This is useful for any Android based classes that needs a simple way to get an Activity's context.
      */
@@ -125,14 +131,15 @@ public class MainActivity extends AppCompatActivity {
     private void setup() {
         QV21Application.getAppComponent().inject(this);
 
-        BaseVM baseVM = new BaseVM();
 
+
+        viewModel = new MainActivityVM();
         ViewDataBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
-        binding.setVariable(BR.vm, baseVM);
+        binding.setVariable(BR.vm, viewModel);
 
-        cardView = findViewById(R.id.cardView);
-        progressBar = findViewById(R.id.progressBar);
-        progressBarMessage = findViewById(R.id.progressBarMessage);
+//        cardView = findViewById(R.id.cardView);
+//        progressBar = findViewById(R.id.progressBar);
+//        progressBarMessage = findViewById(R.id.progressBarMessage);
 
         Fade fade = new Fade(Fade.IN);
 
