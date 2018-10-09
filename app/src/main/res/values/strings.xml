@@ -21,4 +21,22 @@
     <string name="tank_mid_label">MID: %1$d</string>
     <string name="tank_size_label">Size: %1$f</string>
     <string name="tank_bbls_per_inch_label">BBLS Per Inch: %1$f</string>
+
+    <string name="owner_name_hint">Owner Name</string>
+    <string name="well_name_hint">Well Name</string>
+    <string name="well_api_hint">API Number</string>
+    <string name="well_property_hint">Property</string>
+    <string name="well_county_hint">County</string>
+    <string name="well_latitude_hint">Latitude</string>
+    <string name="well_longitude_hint">Longitude</string>
+    <string name="well_sec_hint">SEC</string>
+    <string name="well_twp_hint">TWP</string>
+    <string name="well_rng_hint">RNG</string>
+
+    <string name="tank_name_hint">Tank Name</string>
+    <string name="tank_number_hint">Number</string>
+    <string name="tank_mid_hint">MID</string>
+    <string name="tank_size_hint">Size</string>
+    <string name="tank_bbls_per_inch_hint">BBLS Per Inch</string>
+
 </resources>

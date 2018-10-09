@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".activities.MainActivity">
 
     <data>
         <import type="android.view.View"/>
+
+        <import type="java.lang.Integer"/>
+        <import type="java.lang.Double"/>
+        <import type="java.lang.Float"/>
 
         <variable
             name="vm"
@@ -14,11 +19,221 @@
     <RelativeLayout android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_centerInParent="true"
-                  android:text="EDIT WELL DATA SCREEN"
-                  android:textSize="28sp"
-        />
+        <ScrollView android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView android:id="@+id/wellLogo"
+                                                              android:layout_width="128dp"
+                                                              android:layout_height="128dp"
+                                                              android:layout_gravity="center_horizontal"
+                                                              android:layout_margin="3dp"
+                                                              app:srcCompat="@drawable/well_logo"
+                                                              app:tint="@color/colorAccent"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/wellOwner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:hint="@string/owner_name_hint"
+                    android:inputType="text"
+                    android:text="@={vm.wellDataDom.ownerName}"
+                    android:textColor="@android:color/black"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    tools:text="Custom Continental, Inc."/>
+
+                <include layout="@layout/line_seperator"/>
+
+                <TextView android:id="@+id/wellTitle" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@string/well_title_label"
+                          android:textColor="@android:color/black"
+                          android:textSize="28sp"
+                          android:textStyle="bold"
+                          tools:text="Well Information"/>
+
+                <include layout="@layout/line_seperator_small"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/wellName"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/well_name_hint"
+                                                                 android:inputType="text"
+                                                                 android:text="@={vm.wellDataDom.wellName}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="16sp"
+                                                                 android:textStyle="bold"
+                                                                 tools:text="Barton Creek Well"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/wellApiNumber"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/well_api_hint"
+                                                                 android:inputType="text"
+                                                                 android:text="@={vm.wellDataDom.apiNumber}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="Api Number"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/wellPropertyNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:hint="@string/well_property_hint"
+                    android:inputType="number"
+                    android:text="@={Integer.toString(vm.wellDataDom.propertyNumber)}"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    tools:text="Property Number"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/wellCounty"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/well_county_hint"
+                                                                 android:inputType="text"
+                                                                 android:text="@={vm.wellDataDom.county}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="Well County"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/wellLatitude"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/well_latitude_hint"
+                                                                 android:inputType="numberDecimal"
+                                                                 android:text="@={Double.toString(vm.wellDataDom.latitude)}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="Latitude"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/wellLongitude"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/well_longitude_hint"
+                                                                 android:inputType="numberDecimal"
+                                                                 android:text="@={Double.toString(vm.wellDataDom.longitude)}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="Longitude"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/wellSec"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/well_sec_hint"
+                                                                 android:inputType="number"
+                                                                 android:text="@={Integer.toString(vm.wellDataDom.sec)}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="SEC"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/wellTwp"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/well_twp_hint"
+                                                                 android:inputType="text"
+                                                                 android:text="@={vm.wellDataDom.twp}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="RNG"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/wellRng"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/well_rng_hint"
+                                                                 android:inputType="text"
+                                                                 android:text="@={vm.wellDataDom.rng}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="RNG"/>
+
+                <include layout="@layout/line_seperator"/>
+
+                <TextView android:id="@+id/tankTitle" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@string/tank_title_label"
+                          android:textColor="@android:color/black"
+                          android:textSize="28sp"
+                          android:textStyle="bold"
+                          tools:text="Tank Information"/>
+
+                <include layout="@layout/line_seperator_small"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/tankName"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/tank_name_hint"
+                                                                 android:inputType="text"
+                                                                 android:text="@={vm.wellDataDom.tankName}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="16sp"
+                                                                 android:textStyle="bold"
+                                                                 tools:text="Babylon Tank"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/tankNumber"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/tank_number_hint"
+                                                                 android:inputType="number"
+                                                                 android:text="@={Integer.toString(vm.wellDataDom.tankNumber)}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="Tank Number"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/tankMid"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/tank_mid_hint"
+                                                                 android:inputType="number"
+                                                                 android:text="@={Integer.toString(vm.wellDataDom.mid)}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="MID"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/tankSize"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/tank_size_hint"
+                                                                 android:inputType="numberDecimal"
+                                                                 android:text="@={Float.toString(vm.wellDataDom.tankSize)}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="Size"/>
+
+                <android.support.design.widget.TextInputEditText android:id="@+id/tankBblsPerInch"
+                                                                 android:layout_width="wrap_content"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:layout_margin="3dp"
+                                                                 android:hint="@string/tank_bbls_per_inch_hint"
+                                                                 android:inputType="numberDecimal"
+                                                                 android:text="@={Float.toString(vm.wellDataDom.bblsPerInch)}"
+                                                                 android:textColor="@android:color/black"
+                                                                 android:textSize="12sp"
+                                                                 tools:text="BBLS Per Inch"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
     </RelativeLayout>
 </layout>

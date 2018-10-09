@@ -11,6 +11,7 @@ import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
+import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.utilities.LoggerUtils;
 
 public class WellDataEditVM extends ViewModel {
@@ -19,6 +20,7 @@ public class WellDataEditVM extends ViewModel {
     private Disposable subscriber;
 
     public ObservableField<WellDataDM> wellData = new ObservableField<>();
+    public ObservableField<WellDataItemDOM> wellDataDom = new ObservableField<>();
 
     public WellDataEditVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
         this.navigationManager = navigationManager;
@@ -55,7 +57,10 @@ public class WellDataEditVM extends ViewModel {
         subscriber = Single.fromCallable(() -> wellDataFacade.getWellDataByUuid(uuid))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(value -> wellData.set(value), throwable -> LoggerUtils.log(throwable.getMessage()));
+                .subscribe(value -> {
+                    wellData.set(value);
+                    wellDataDom.set(WellDataItemDOM.create(wellData.get()));
+                }, throwable -> LoggerUtils.log(throwable.getMessage()));
     }
 
     private void cleanupSubscribers() {
@@ -90,6 +95,7 @@ public class WellDataEditVM extends ViewModel {
         wellDataFacade.clearSelectedWellDataUuidFromMemoryCache();
         wellDataFacade.deleteWellData(wellData.get());
         wellData.set(null);
+        wellDataDom.set(null);
 
         return true;
     }

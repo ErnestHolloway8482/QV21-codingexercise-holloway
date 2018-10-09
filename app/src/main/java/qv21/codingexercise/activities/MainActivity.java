@@ -1,5 +1,7 @@
 package qv21.codingexercise.activities;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.transition.Fade;
 import android.support.transition.TransitionManager;
@@ -10,12 +12,15 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.databinding.library.baseAdapters.BR;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import qv21.codingexercise.R;
 import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.models.viewmodels.BaseVM;
 import qv21.codingexercise.views.SplashScreen;
 import qv21.codingexercise.views.ViewContainer;
 
@@ -120,7 +125,10 @@ public class MainActivity extends AppCompatActivity {
     private void setup() {
         QV21Application.getAppComponent().inject(this);
 
-        setContentView(R.layout.main_activity);
+        BaseVM baseVM = new BaseVM();
+
+        ViewDataBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
+        binding.setVariable(BR.vm, baseVM);
 
         cardView = findViewById(R.id.cardView);
         progressBar = findViewById(R.id.progressBar);
