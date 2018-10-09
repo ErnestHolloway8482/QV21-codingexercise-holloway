@@ -6,11 +6,6 @@ import android.os.Bundle;
 import android.support.transition.Fade;
 import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -34,11 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean isRunning;
 
     private MainActivityVM viewModel;
-
-    private CardView cardView;
-    private ProgressBar progressBar;
-    private TextView progressBarMessage;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,23 +76,7 @@ public class MainActivity extends AppCompatActivity {
         return isRunning;
     }
 
-    public void displayProgressDialog(final boolean display, final int stringResourceId){
-        displayProgressDialog(true, getString(stringResourceId));
-    }
-
-    public void displayProgressDialog(final boolean display, final String message) {
-        if (display) {
-            progressBarMessage.setText(message);
-            cardView.setVisibility(View.VISIBLE);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        } else {
-            progressBarMessage.setText("");
-            cardView.setVisibility(View.GONE);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        }
-    }
-
-    public MainActivityVM getViewModel(){
+    public MainActivityVM getViewModel() {
         return viewModel;
     }
 
@@ -131,15 +105,9 @@ public class MainActivity extends AppCompatActivity {
     private void setup() {
         QV21Application.getAppComponent().inject(this);
 
-
-
         viewModel = new MainActivityVM();
         ViewDataBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         binding.setVariable(BR.vm, viewModel);
-
-//        cardView = findViewById(R.id.cardView);
-//        progressBar = findViewById(R.id.progressBar);
-//        progressBarMessage = findViewById(R.id.progressBarMessage);
 
         Fade fade = new Fade(Fade.IN);
 

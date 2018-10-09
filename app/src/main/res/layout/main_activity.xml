@@ -51,24 +51,20 @@
                                             android:layout_centerHorizontal="true"
                                             android:layout_centerVertical="true"
                                             android:layout_margin="10dp"
-                                            android:visibility="@{vm.isToolBarVisible ? View.VISIBLE : View.GONE}"
                                             android:background="@color/cardview_dark_background"
                                             android:shadowRadius="4"
+                                            android:visibility="@{vm.isProgressDialogVisible ? View.VISIBLE : View.GONE}"
                                             app:cardCornerRadius="8dp"
                                             app:cardElevation="10dp">
 
             <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
+                app:lottie_scale=".25"
                 app:lottie_rawRes="@raw/loading_animation"/>
-
-            <ProgressBar android:id="@+id/progressBar"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_gravity="center_horizontal"/>
-
 
             <TextView android:id="@+id/progressBarMessage"
                       android:layout_width="wrap_content"
