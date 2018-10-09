@@ -14,4 +14,5 @@ public interface WellDataDAO {
     void deleteAllWellData();
     void deleteWellData(final WellDataDM wellData);
     WellDataDM getWellDataByUuid(final String uuid);
+    Query<WellDataDM> getWellDataByUuidQuery(final String uuid);
 }

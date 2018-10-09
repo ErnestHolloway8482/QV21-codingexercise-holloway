@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import qv21.codingexercise.R;
 import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.databinding.WellDataEditScreenBinding;
-import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.models.viewmodels.WellDataEditVM;
 
 public class WellDataEditScreen extends ScreenImpl<WellDataEditVM, WellDataEditScreenBinding> {
@@ -14,9 +13,6 @@ public class WellDataEditScreen extends ScreenImpl<WellDataEditVM, WellDataEditS
         super(context, R.layout.well_data_edit_screen);
 
         QV21Application.getAppComponent().inject(this);
-
-        mViewModel.wellDataDom.set(new WellDataItemDOM());
-        mViewModel.wellDataDom.get().ownerName = "Pookums";
 
         setViewModel(mViewModel);
     }

@@ -70,6 +70,10 @@ public class WellDataFacade {
         return wellDataDAO.getWellDataByUuid(uuid);
     }
 
+    public Query<WellDataDM> getWellDataByUuidQuery(final String uuid) {
+        return wellDataDAO.getWellDataByUuidQuery(uuid);
+    }
+
     public void storeSelectedWellDataUuidToMemoryCache(final WellDataDM wellData) {
         memoryCacheManager.setSelectedWellDataUuid(wellData.getUuid());
     }

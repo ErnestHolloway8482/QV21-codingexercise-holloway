@@ -17,7 +17,7 @@ import qv21.codingexercise.models.databasemodels.WellDataDM;
 public class WellDataListVM extends ViewModel {
     private final WellDataFacade wellDataFacade;
 
-    private DataSubscriptionList subscriber;
+    private DataSubscriptionList subscriber = new DataSubscriptionList();
 
     public final ObservableField<WellDataListRecyclerAdapter> recylcerViewAdapter = new ObservableField<>();
 
@@ -39,10 +39,6 @@ public class WellDataListVM extends ViewModel {
     }
 
     private void getWellDataFromDatabase() {
-        cleanupSubscribers();
-
-        subscriber = new DataSubscriptionList();
-
         wellDataFacade.getAllWellDataQuery()
                 .subscribe(subscriber)
                 .on(AndroidScheduler.mainThread()).observer(this::updateRecyclerAdapter);
@@ -56,8 +52,6 @@ public class WellDataListVM extends ViewModel {
 
             recylcerViewAdapter.get().setData(wellDataList);
         }
-
-        cleanupSubscribers();
     }
 
     private void cleanupSubscribers() {
@@ -67,5 +61,11 @@ public class WellDataListVM extends ViewModel {
                 subscriber = null;
             }
         }
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        cleanupSubscribers();
     }
 }

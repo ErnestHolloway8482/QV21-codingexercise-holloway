@@ -3,6 +3,7 @@ package qv21.codingexercise.models.viewmodels;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -30,25 +31,32 @@ public class WellDataEditVM extends ViewModel {
     }
 
     public void navigateToWellDataDetailsScreen() {
-        MainActivity.getInstance().onBackPressed();
+        MainActivity.getInstance().runOnUiThread(this::setupWellDataDetailsScreen);
     }
 
     public void deleteWellData() {
         cleanupSubscribers();
 
-        subscriber = Single.fromCallable(this::cleanUpWellDataItem)
+        subscriber = Completable.fromAction(this::cleanUpWellDataItem)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(__ -> navigateToWellDataListScreen(), throwable -> LoggerUtils.log(throwable.getMessage()));
+                .subscribe();
     }
 
     public void updateWellData() {
         cleanupSubscribers();
 
-        subscriber = Single.fromCallable(() -> wellDataFacade.updateWellData(wellData.get()))
+        subscriber = Completable.fromAction(this::copyContentsFromDOMAndUpdate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(__ -> navigateToWellDataDetailsScreen(), throwable -> LoggerUtils.log(throwable.getMessage()));
+                .subscribe();
+    }
+
+    private void copyContentsFromDOMAndUpdate(){
+        WellDataItemDOM.updateContentsOfWellData(wellData.get(), wellDataDom.get());
+        wellDataFacade.updateWellData(wellData.get());
+
+        navigateToWellDataDetailsScreen();
     }
 
     private void getWellDataByUuid(final String uuid) {
@@ -76,18 +84,24 @@ public class WellDataEditVM extends ViewModel {
         MainActivity.getInstance().runOnUiThread(this::setupWellDataListScreen);
     }
 
+    private void setupWellDataDetailsScreen(){
+        navigationManager.pop();
+        navigationManager.showScreen();
+    }
+
     private void setupWellDataListScreen() {
         navigationManager.pop();
         navigationManager.pop();
         navigationManager.showScreen();
     }
 
-    private boolean cleanUpWellDataItem() {
+    private void cleanUpWellDataItem() {
+        WellDataItemDOM.updateContentsOfWellData(wellData.get(), wellDataDom.get());
         wellDataFacade.clearSelectedWellDataUuidFromMemoryCache();
         wellDataFacade.deleteWellData(wellData.get());
         wellData.set(null);
         wellDataDom.set(null);
 
-        return true;
+        navigateToWellDataListScreen();
     }
 }

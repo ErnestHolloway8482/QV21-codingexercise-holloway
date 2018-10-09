@@ -9,9 +9,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.databinding.WellDataListItemBinding;
 import qv21.codingexercise.facades.WellDataFacade;
@@ -19,7 +16,6 @@ import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.models.viewmodels.WellDataListItemVM;
-import qv21.codingexercise.utilities.LoggerUtils;
 import qv21.codingexercise.viewholders.WellDataItemViewHolder;
 
 /**
@@ -47,10 +43,9 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
     public void setData(final List<WellDataDM> items) {
         //Only alow the RealmResults List to be set once and then add a corresponding listener to it.
         //Since Lazy objects are live objects there is no need to set a new reference for it.
-        if (wellDataList == null) {
-            wellDataList = items;
-            notifyDataSetChanged();
-        }
+        wellDataList = items;
+
+        notifyDataSetChanged();
     }
 
     @Override
@@ -77,14 +72,16 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
             return;
         }
 
-        Single.fromCallable(() -> {
-            convert(viewHolder, position);
-            return null;
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(__ -> {
-                }, throwable -> LoggerUtils.logError(throwable.getMessage()));
+        convert(viewHolder, position);
+
+//        Single.fromCallable(() -> {
+//            convert(viewHolder, position);
+//            return null;
+//        })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(__ -> {
+//                }, throwable -> LoggerUtils.logError(throwable.getMessage()));
     }
 
     @Override
