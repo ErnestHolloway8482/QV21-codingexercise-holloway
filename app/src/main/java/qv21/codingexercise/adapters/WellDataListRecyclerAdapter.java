@@ -77,8 +77,6 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
             return;
         }
 
-//        convert(viewHolder, position);
-
         Single.fromCallable(() -> {
             convert(viewHolder, position);
             return null;
