@@ -30,7 +30,7 @@ public class WellDataEditVM extends ViewModel {
     }
 
     public void navigateToWellDataDetailsScreen() {
-        MainActivity.getInstance().runOnUiThread(this::setupWellDataDetailsScreen);
+        MainActivity.getInstance().onBackPressed();
     }
 
     public void deleteWellData() {
@@ -72,11 +72,6 @@ public class WellDataEditVM extends ViewModel {
         }
     }
 
-    private void setupWellDataDetailsScreen() {
-        navigationManager.pop();
-        navigationManager.showScreen();
-    }
-
     private void navigateToWellDataListScreen() {
         MainActivity.getInstance().runOnUiThread(this::setupWellDataListScreen);
     }
@@ -85,10 +80,6 @@ public class WellDataEditVM extends ViewModel {
         navigationManager.pop();
         navigationManager.pop();
         navigationManager.showScreen();
-    }
-
-    private void NavigateToWellDataDetailsScreen() {
-        MainActivity.getInstance().runOnUiThread(this::setupWellDataDetailsScreen);
     }
 
     private boolean cleanUpWellDataItem() {

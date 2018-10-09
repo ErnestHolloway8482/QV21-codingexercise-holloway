@@ -10,11 +10,13 @@ public class BaseVM extends ViewModel {
     public ObservableField<String> progressDialogMessage = new ObservableField<>();
     public ObservableBoolean displayProgressDialog = new ObservableBoolean();
 
-    public ObservableBoolean isToolBarDisplayed = new ObservableBoolean();
+    public ObservableBoolean isToolBarVisible = new ObservableBoolean();
     public ObservableField<String> toolBarTitle = new ObservableField<>();
-    public ObservableBoolean isToolBarBackButtonDisplayed = new ObservableBoolean();
-    public ObservableBoolean isToolBarSaveButtonDisplayed = new ObservableBoolean();
-    public ObservableBoolean isToolBarDeleteButtonDisplayed = new ObservableBoolean();
+    public ObservableBoolean isToolBarBackButtonVisible= new ObservableBoolean();
+
+    public void onNavigationBackButtonPressed(){
+        MainActivity.getInstance().onBackPressed();
+    }
 
     protected void displayProgressDialog() {
         progressDialogMessage.set("");
