@@ -1,5 +1,7 @@
 package qv21.codingexercise.models.viewmodels;
 
+import android.arch.lifecycle.ViewModel;
+
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +18,7 @@ import qv21.codingexercise.utilities.LoggerUtils;
 import qv21.codingexercise.utilities.RawFileUtility;
 import qv21.codingexercise.views.WellDataListScreen;
 
-public class SplashVM {
+public class SplashVM extends ViewModel {
     private final WellDataFacade wellDataFacade;
     private final NavigationManager navigationManager;
     private Disposable subscriber;
