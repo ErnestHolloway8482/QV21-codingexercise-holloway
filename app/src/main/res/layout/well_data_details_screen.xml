@@ -1,17 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".activities.MainActivity">
 
     <data>
         <import type="android.view.View"/>
+        <import type="java.lang.String"/>
 
         <variable
             name="vm"
             type="qv21.codingexercise.models.viewmodels.WellDataDetailsVM"/>
     </data>
 
-    <RelativeLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/editWellDataButton"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="22dp"
+            android:background="?android:attr/selectableItemBackground"
+            app:command="@{vm::navigateToWellDataEditScreen}"
+            app:srcCompat="@drawable/ic_mode_edit_black_24dp"/>
+
+        <ScrollView android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView android:id="@+id/wellLogo"
+                                                              android:layout_width="128dp"
+                                                              android:layout_height="128dp"
+                                                              android:layout_gravity="center_horizontal"
+                                                              android:layout_margin="3dp"
+                                                              app:srcCompat="@drawable/well_logo"
+                                                              app:tint="@color/colorAccent"/>
+
+                <TextView android:id="@+id/owner" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{vm.wellDataDom.ownerName}"
+                          android:textColor="@android:color/black"
+                          android:textSize="28sp"
+                          android:textStyle="bold"
+                          tools:text="Custom Continental, Inc."/>
+
+                <include layout="@layout/line_seperator"/>
+
+                <TextView android:id="@+id/wellTitle" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@string/well_title_label"
+                          android:textColor="@android:color/black"
+                          android:textSize="28sp"
+                          android:textStyle="bold"
+                          tools:text="Well Information"/>
+
+                <include layout="@layout/line_seperator_small"/>
+
+                <TextView android:id="@+id/wellName" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/well_name_label, vm.wellDataDom.wellName)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          tools:text="Barton Creek Well"/>
+
+                <TextView android:id="@+id/wellApiNumber" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/well_api_label, vm.wellDataDom.apiNumber)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="Api Number"/>
+
+                <TextView android:id="@+id/wellPropertyNumber" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/well_property_label, vm.wellDataDom.propertyNumber)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="Property Number"/>
+
+                <TextView android:id="@+id/wellCounty" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/well_county_label, vm.wellDataDom.county)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="Well County"/>
+
+                <TextView android:id="@+id/wellLocation" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/well_location_label, vm.wellDataDom.latitude, vm.wellDataDom.longitude)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="Latitude: 0, Longitude: 0"/>
+
+                <TextView android:id="@+id/wellSec" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/well_sec_label, vm.wellDataDom.sec)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="SEC"/>
+
+                <TextView android:id="@+id/wellTwp" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/well_twp_label, vm.wellDataDom.twp)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="RNG"/>
+
+                <TextView android:id="@+id/wellRng" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/well_rng_label, vm.wellDataDom.rng)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="RNG"/>
+
+                <include layout="@layout/line_seperator"/>
+
+                <TextView android:id="@+id/tankTitle" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@string/tank_title_label"
+                          android:textColor="@android:color/black"
+                          android:textSize="28sp"
+                          android:textStyle="bold"
+                          tools:text="Tank Information"/>
+
+                <include layout="@layout/line_seperator_small"/>
+
+                <TextView android:id="@+id/tankName" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/tank_name_label, vm.wellDataDom.tankName)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          tools:text="Babylon Tank"/>
+
+                <TextView android:id="@+id/tankNumber" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/tank_number_label, vm.wellDataDom.tankNumber)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="Tank Number"/>
+
+                <TextView android:id="@+id/tankMid" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/tank_mid_label, vm.wellDataDom.mid)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="MID"/>
+
+                <TextView android:id="@+id/tankSize" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/tank_size_label, vm.wellDataDom.tankSize)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="Size"/>
+
+                <TextView android:id="@+id/tankBblsPerInch" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:text="@{String.format(@string/tank_bbls_per_inch_label, vm.wellDataDom.bblsPerInch)}"
+                          android:textColor="@android:color/black"
+                          android:textSize="12sp"
+                          tools:text="BBLS Per Inch"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
     </RelativeLayout>
 </layout>

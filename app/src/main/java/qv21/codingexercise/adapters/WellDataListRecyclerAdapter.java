@@ -43,10 +43,9 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
     public void setData(final List<WellDataDM> items) {
         //Only alow the RealmResults List to be set once and then add a corresponding listener to it.
         //Since Lazy objects are live objects there is no need to set a new reference for it.
-        if (wellDataList == null) {
-            wellDataList = items;
-            notifyDataSetChanged();
-        }
+        wellDataList = items;
+
+        notifyDataSetChanged();
     }
 
     @Override

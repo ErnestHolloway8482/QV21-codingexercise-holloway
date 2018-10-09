@@ -68,4 +68,13 @@ public class WellDataDAOImpl implements WellDataDAO {
         Query<WellDataDM> query = queryBuilder.build();
         return query.findFirst();
     }
+
+    @Override
+    public Query<WellDataDM> getWellDataByUuidQuery(final String uuid) {
+        QueryBuilder<WellDataDM> queryBuilder = wellDataBox.query();
+        queryBuilder.equal(WellDataDM_.uuid, uuid);
+
+        Query<WellDataDM> query = queryBuilder.build();
+        return query;
+    }
 }

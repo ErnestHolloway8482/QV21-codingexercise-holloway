@@ -11,6 +11,7 @@ import qv21.codingexercise.adapters.WellDataListRecyclerAdapter;
 import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.views.SplashScreen;
 import qv21.codingexercise.views.WellDataDetailsScreen;
+import qv21.codingexercise.views.WellDataEditScreen;
 import qv21.codingexercise.views.WellDataListScreen;
 
 @Singleton
@@ -27,8 +28,12 @@ public interface AppComponent {
     void inject(MainActivity mainActivity);
 
     void inject(SplashScreen splashScreen);
+
     void inject(WellDataListScreen wellDataListSCreen);
+
     void inject(WellDataDetailsScreen wellDataDetailsScreen);
+
+    void inject(WellDataEditScreen wellDataEditScreen);
 
     void inject(WellDataListRecyclerAdapter wellDataListRecyclerAdapter);
 
