@@ -6,11 +6,6 @@ import android.os.Bundle;
 import android.support.transition.Fade;
 import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -20,7 +15,7 @@ import javax.inject.Singleton;
 import qv21.codingexercise.R;
 import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.managers.NavigationManager;
-import qv21.codingexercise.models.viewmodels.BaseVM;
+import qv21.codingexercise.models.viewmodels.MainActivityVM;
 import qv21.codingexercise.views.SplashScreen;
 import qv21.codingexercise.views.ViewContainer;
 
@@ -33,10 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isRunning;
 
-    private CardView cardView;
-    private ProgressBar progressBar;
-    private TextView progressBarMessage;
-
+    private MainActivityVM viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,20 +76,8 @@ public class MainActivity extends AppCompatActivity {
         return isRunning;
     }
 
-    public void displayProgressDialog(final boolean display, final int stringResourceId){
-        displayProgressDialog(true, getString(stringResourceId));
-    }
-
-    public void displayProgressDialog(final boolean display, final String message) {
-        if (display) {
-            progressBarMessage.setText(message);
-            cardView.setVisibility(View.VISIBLE);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        } else {
-            progressBarMessage.setText("");
-            cardView.setVisibility(View.GONE);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        }
+    public MainActivityVM getViewModel() {
+        return viewModel;
     }
 
     /**
@@ -125,14 +105,9 @@ public class MainActivity extends AppCompatActivity {
     private void setup() {
         QV21Application.getAppComponent().inject(this);
 
-        BaseVM baseVM = new BaseVM();
-
+        viewModel = new MainActivityVM();
         ViewDataBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
-        binding.setVariable(BR.vm, baseVM);
-
-        cardView = findViewById(R.id.cardView);
-        progressBar = findViewById(R.id.progressBar);
-        progressBarMessage = findViewById(R.id.progressBarMessage);
+        binding.setVariable(BR.vm, viewModel);
 
         Fade fade = new Fade(Fade.IN);
 

@@ -15,6 +15,8 @@ import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 public class WellDataListVM extends ViewModel {
+    private static final String SCREEN_NAME = "Well Entries";
+
     private final WellDataFacade wellDataFacade;
 
     private DataSubscriptionList subscriber = new DataSubscriptionList();
@@ -27,6 +29,8 @@ public class WellDataListVM extends ViewModel {
 
     public WellDataListVM(final WellDataFacade wellDataFacade) {
         this.wellDataFacade = wellDataFacade;
+
+        MainActivity.getInstance().getViewModel().displayToolBar(false, SCREEN_NAME);
 
         setupRecyclerViewAdapter();
 
@@ -66,6 +70,7 @@ public class WellDataListVM extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        MainActivity.getInstance().getViewModel().dismissToolbar();
         cleanupSubscribers();
     }
 }
