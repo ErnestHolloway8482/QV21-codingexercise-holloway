@@ -30,7 +30,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:visibility="@{vm.isToolBarVisible ? View.VISIBLE : View.GONE}"
-                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+                    app:navigationIcon="@{vm.isToolBarBackButtonVisible ? @drawable/ic_arrow_back_black_24dp : null}"
+                    app:titleTextColor="@android:color/white"
                     app:navigationOnClick="@{vm::onNavigationBackButtonPressed}"
                     app:title="@{vm.toolBarTitle}"/>
             </android.support.design.widget.AppBarLayout>
@@ -57,23 +58,33 @@
                                             app:cardCornerRadius="8dp"
                                             app:cardElevation="10dp">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_scale=".25"
-                app:lottie_rawRes="@raw/loading_animation"/>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-            <TextView android:id="@+id/progressBarMessage"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center_horizontal"
-                      android:layout_marginTop="50dp"
-                      android:text="@{vm.progressDialogMessage}"
-                      android:textSize="20sp"
-                      tools:text="Loading Articles..."/>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/progress_circular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/preloader"
+                    app:lottie_scale=".20"/>
+
+                <TextView android:id="@+id/progressBarMessage"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_below="@id/progress_circular"
+                          android:layout_centerHorizontal="true"
+                          android:layout_marginTop="10dp"
+                          android:text="@{vm.progressDialogMessage}"
+                          android:textSize="20sp"
+                          tools:text="Loading Articles..."/>
+
+
+            </RelativeLayout>
+
+
         </android.support.v7.widget.CardView>
 
     </RelativeLayout>

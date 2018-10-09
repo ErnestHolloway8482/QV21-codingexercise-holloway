@@ -16,6 +16,8 @@ import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.utilities.LoggerUtils;
 
 public class WellDataEditVM extends ViewModel {
+    private static final String SCREEN_NAME = "Edit Well Details";
+
     private final NavigationManager navigationManager;
     private final WellDataFacade wellDataFacade;
     private Disposable subscriber;
@@ -26,6 +28,8 @@ public class WellDataEditVM extends ViewModel {
     public WellDataEditVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
         this.navigationManager = navigationManager;
         this.wellDataFacade = wellDataFacade;
+
+        MainActivity.getInstance().getViewModel().displayToolBar(true, SCREEN_NAME);
 
         getWellDataByUuid(wellDataFacade.getSelectedWellDataUuidFromMemoryCache());
     }
@@ -52,7 +56,7 @@ public class WellDataEditVM extends ViewModel {
                 .subscribe();
     }
 
-    private void copyContentsFromDOMAndUpdate(){
+    private void copyContentsFromDOMAndUpdate() {
         WellDataItemDOM.updateContentsOfWellData(wellData.get(), wellDataDom.get());
         wellDataFacade.updateWellData(wellData.get());
 
@@ -84,7 +88,7 @@ public class WellDataEditVM extends ViewModel {
         MainActivity.getInstance().runOnUiThread(this::setupWellDataListScreen);
     }
 
-    private void setupWellDataDetailsScreen(){
+    private void setupWellDataDetailsScreen() {
         navigationManager.pop();
         navigationManager.showScreen();
     }
@@ -103,5 +107,12 @@ public class WellDataEditVM extends ViewModel {
         wellDataDom.set(null);
 
         navigateToWellDataListScreen();
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        MainActivity.getInstance().getViewModel().dismissToolbar();
+        cleanupSubscribers();
     }
 }

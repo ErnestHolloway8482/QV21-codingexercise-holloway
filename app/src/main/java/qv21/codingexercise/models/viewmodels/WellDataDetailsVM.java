@@ -15,6 +15,8 @@ import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.views.WellDataEditScreen;
 
 public class WellDataDetailsVM extends ViewModel {
+    private static final String SCREEN_NAME = "Well Details";
+
     private final WellDataFacade wellDataFacade;
     private final NavigationManager navigationManager;
     private DataSubscriptionList subscriber = new DataSubscriptionList();
@@ -25,6 +27,8 @@ public class WellDataDetailsVM extends ViewModel {
     public WellDataDetailsVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
         this.wellDataFacade = wellDataFacade;
         this.navigationManager = navigationManager;
+
+        MainActivity.getInstance().getViewModel().displayToolBar(true, SCREEN_NAME);
 
         getWellDataByUuid(wellDataFacade.getSelectedWellDataUuidFromMemoryCache());
     }
@@ -73,6 +77,7 @@ public class WellDataDetailsVM extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        MainActivity.getInstance().getViewModel().dismissToolbar();
         cleanupSubscribers();
     }
 }
