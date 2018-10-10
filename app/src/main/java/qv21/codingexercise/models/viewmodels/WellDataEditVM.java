@@ -1,6 +1,5 @@
 package qv21.codingexercise.models.viewmodels;
 
-import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 
 import io.reactivex.Completable;
@@ -15,7 +14,7 @@ import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.utilities.LoggerUtils;
 
-public class WellDataEditVM extends ViewModel {
+public class WellDataEditVM extends BaseVM {
     private static final String SCREEN_NAME = "Edit Well Details";
 
     private final NavigationManager navigationManager;
@@ -29,9 +28,14 @@ public class WellDataEditVM extends ViewModel {
         this.navigationManager = navigationManager;
         this.wellDataFacade = wellDataFacade;
 
-        MainActivity.getInstance().getViewModel().displayToolBar(true, SCREEN_NAME);
+        setupToolBar();
 
         getWellDataByUuid(wellDataFacade.getSelectedWellDataUuidFromMemoryCache());
+    }
+
+    @Override
+    public void setupToolBar() {
+        MainActivity.getInstance().getViewModel().displayToolBar(true, SCREEN_NAME);
     }
 
     public void navigateToWellDataDetailsScreen() {

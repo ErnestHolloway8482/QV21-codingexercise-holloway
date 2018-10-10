@@ -13,6 +13,7 @@ import com.android.databinding.library.baseAdapters.BR;
 import javax.inject.Inject;
 
 import qv21.codingexercise.activities.MainActivity;
+import qv21.codingexercise.models.viewmodels.BaseVM;
 
 /**
  * This base class represents the content for any screen that the user is able to navigate to.
@@ -20,7 +21,7 @@ import qv21.codingexercise.activities.MainActivity;
  * @param <VM> is the binding data that the screen will use to display contents and extends {@link ViewModel}
  * @param <DB> is the data binding mechanism provided by the data binding library to link a given data structure to the view. This extends {@link ViewDataBinding}.
  */
-public abstract class ScreenImpl<VM extends ViewModel, DB extends ViewDataBinding> extends RelativeLayout implements Screen<VM> {
+public abstract class ScreenImpl<VM extends BaseVM, DB extends ViewDataBinding> extends RelativeLayout implements Screen<VM> {
     @Inject
     protected VM mViewModel;
 
@@ -72,6 +73,11 @@ public abstract class ScreenImpl<VM extends ViewModel, DB extends ViewDataBindin
         mViewModel = model;
         mViewDataBinding.setVariable(BR.vm, mViewModel);
         mViewDataBinding.executePendingBindings();
+    }
+
+    @Override
+    public void setupToolbar() {
+        mViewModel.setupToolBar();
     }
 
     /**

@@ -9,4 +9,6 @@ public interface Screen<VM extends ViewModel> {
      * @param model is the ViewModel.
      */
     void setViewModel(final VM model);
+
+    void setupToolbar();
 }

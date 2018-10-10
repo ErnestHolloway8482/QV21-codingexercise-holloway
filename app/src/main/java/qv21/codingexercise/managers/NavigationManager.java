@@ -93,6 +93,7 @@ public class NavigationManager {
         }
 
         //Gives us the opportunity to organize the view stack first before displaying anything.
+        viewStack.peek().setupToolbar();
 
         //Whenever we show the current screen, we always show the screen at the top of the stack.
         viewContainer.replaceView(viewStack.peek());
