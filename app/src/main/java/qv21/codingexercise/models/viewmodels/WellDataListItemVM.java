@@ -9,6 +9,9 @@ import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.views.WellDataDetailsScreen;
 
+/**
+ * {@link android.arch.lifecycle.ViewModel} that serves as the controller logic for the {@link qv21.codingexercise.views.WellDataListScreen}
+ */
 public class WellDataListItemVM extends BaseVM {
     private final WellDataFacade wellDataFacade;
     private final NavigationManager navigationManager;

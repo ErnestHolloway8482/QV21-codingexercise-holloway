@@ -36,7 +36,6 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
 
     /**
      * Sets the list of well data items to display for this recylcerViewAdapter and assigns the appropriate data change listener to it.
-     * 
      *
      * @param items is the {@link List} cached in the database to support endless scrolling.
      */
@@ -71,15 +70,6 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
         }
 
         convert(viewHolder, position);
-
-//        Single.fromCallable(() -> {
-//            convert(viewHolder, position);
-//            return null;
-//        })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(__ -> {
-//                }, throwable -> LoggerUtils.logError(throwable.getMessage()));
     }
 
     @Override
