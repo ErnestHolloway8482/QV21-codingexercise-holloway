@@ -36,13 +36,11 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
 
     /**
      * Sets the list of well data items to display for this recylcerViewAdapter and assigns the appropriate data change listener to it.
-     * This is only done initially since LazyList objects are live and will auto-update
+     * 
      *
      * @param items is the {@link List} cached in the database to support endless scrolling.
      */
     public void setData(final List<WellDataDM> items) {
-        //Only alow the RealmResults List to be set once and then add a corresponding listener to it.
-        //Since Lazy objects are live objects there is no need to set a new reference for it.
         wellDataList = items;
 
         notifyDataSetChanged();

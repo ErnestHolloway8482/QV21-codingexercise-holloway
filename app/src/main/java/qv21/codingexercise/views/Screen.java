@@ -10,5 +10,8 @@ public interface Screen<VM extends ViewModel> {
      */
     void setViewModel(final VM model);
 
+    /**
+     * Configures the top level {@link android.support.v7.widget.Toolbar} for a given screen as defined by the {@link qv21.codingexercise.activities.MainActivity}
+     */
     void setupToolbar();
 }

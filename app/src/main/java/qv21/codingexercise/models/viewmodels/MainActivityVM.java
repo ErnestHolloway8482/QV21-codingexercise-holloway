@@ -23,19 +23,17 @@ public class MainActivityVM extends BaseVM {
         MainActivity.getInstance().onBackPressed();
     }
 
-    public void displayProgressDialog() {
-        progressDialogMessage.set("");
-        isProgressDialogVisible.set(true);
-    }
-
     public void displayProgressDialog(final String message) {
         progressDialogMessage.set(message);
         isProgressDialogVisible.set(true);
     }
 
+    public void displayProgressDialog() {
+        displayProgressDialog("");
+    }
+
     public void displayProgressDialog(final int resourceId) {
-        progressDialogMessage.set(MainActivity.getInstance().getString(resourceId));
-        isProgressDialogVisible.set(true);
+        displayProgressDialog(MainActivity.getInstance().getString(resourceId));
     }
 
     public void dismissProgressDialog() {
