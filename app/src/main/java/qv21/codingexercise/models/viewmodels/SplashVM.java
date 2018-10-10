@@ -17,9 +17,9 @@ import qv21.codingexercise.utilities.RawFileUtility;
 import qv21.codingexercise.views.WellDataListScreen;
 
 /**
- * {@link android.arch.lifecycle.ViewModel} that defines the controller logic for the initial splash screen that is presented anytime the user starts the app.
- * This class will navigate directly to the well list screen if the data has already been seeded from the file into the database, otherwise it will
- * seed the data first before allowing the user to view the well list screen.
+ * {@link android.arch.lifecycle.ViewModel} that defines the controller logic for the {@link qv21.codingexercise.views.SplashScreen} that is presented anytime the user starts the app.
+ * This class will navigate directly to the {@link WellDataListScreen} if the data has already been seeded from the file into the database, otherwise it will
+ * seed the data first before allowing the user to view the {@linkl WellDataListScreen}.
  */
 public class SplashVM extends BaseVM {
     private final WellDataFacade wellDataFacade;

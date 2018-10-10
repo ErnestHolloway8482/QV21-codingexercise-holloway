@@ -13,6 +13,9 @@ import qv21.codingexercise.adapters.WellDataListRecyclerAdapter;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
+/**
+ * @link android.arch.lifecycle.ViewModel} that serves as the controller logic for the {@link qv21.codingexercise.views.WellDataListScreen}
+ */
 public class WellDataListVM extends BaseVM {
     private static final String SCREEN_NAME = "Well Entries";
 

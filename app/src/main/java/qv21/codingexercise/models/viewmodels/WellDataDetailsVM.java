@@ -13,6 +13,9 @@ import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.views.WellDataEditScreen;
 
+/**
+ * @link android.arch.lifecycle.ViewModel} that serves as the controller logic for the {@link qv21.codingexercise.views.WellDataDetailsScreen}
+ */
 public class WellDataDetailsVM extends BaseVM {
     private static final String SCREEN_NAME = "Well Details";
 
