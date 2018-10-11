@@ -6,7 +6,7 @@ import android.view.View;
 
 /**
  * Defines a custom <strong>app:command</strong> attribute and binds the appropriate View event handlers to it.
- * This attribute can be used to bind a View's event (i.e. click) to an arbitrary method.
+ * This attribute can be used to bindViewModel a View's event (i.e. click) to an arbitrary method.
  * <p>
  * Example:
  * <code><Button app:command="@{viewModel.exampleCommand}"/></code>

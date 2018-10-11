@@ -10,6 +10,7 @@ import qv21.codingexercise.managers.MemoryCacheManager;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.managers.WellDataFileManager;
 
+//A dagger {@link Module} that serves as a factory for Manager type objects and fully enables dependency injection.
 @Module
 public class ManagerModule {
     @Singleton

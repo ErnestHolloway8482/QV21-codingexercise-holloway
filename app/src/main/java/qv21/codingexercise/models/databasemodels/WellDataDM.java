@@ -6,6 +6,9 @@ import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Index;
 
+/**
+ * Datbase model for the well data.
+ */
 @Entity
 public class WellDataDM {
     @Id

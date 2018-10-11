@@ -2,6 +2,9 @@ package qv21.codingexercise.models.domainmodels;
 
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
+/**
+ * Domain model definition for the well data that is displayed on the screens within the app.
+ */
 public class WellDataItemDOM {
     //UUID
     public String uuid;

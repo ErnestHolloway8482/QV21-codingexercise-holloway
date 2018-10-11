@@ -3,7 +3,8 @@ package qv21.codingexercise.utilities;
 import android.os.Build;
 
 /**
- * Created by ernestholloway on 11/1/15.
+ * This utility class is used to indicate certain states of the current build type/flavor and can be used
+ * for automated testing to configure test mode behavior.
  */
 public class BuildConfigUtility {
     private static boolean isInTestMode = false;

@@ -79,15 +79,15 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
 
     /**
      * This method will read the item from the database and convert it to a view model and then
-     * bind the result to a view.
+     * bindViewModel the result to a view.
      *
-     * @param viewHolder is the view contents to bind the data to.
+     * @param viewHolder is the view contents to bindViewModel the data to.
      * @param position   is the current scroll position which represents the data corresponding data index to grab from the database.
      */
     private void convert(@NonNull final WellDataItemViewHolder viewHolder, final int position) {
         WellDataListItemVM vm = new WellDataListItemVM(wellDataFacade, navigationManager);
         vm.wellData.set(wellDataList.get(position));
         vm.wellDataDom.set(WellDataItemDOM.create(wellDataList.get(position)));
-        viewHolder.bind(vm);
+        viewHolder.bindViewModel(vm);
     }
 }

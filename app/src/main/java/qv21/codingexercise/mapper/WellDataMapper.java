@@ -6,6 +6,10 @@ import java.io.IOException;
 
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
+/**
+ * This mapper class will take the string representation of a row of information from a well_data.csv file and covert it into the corresponding
+ * domain model that will eventually be entered into the embedded database.
+ */
 public class WellDataMapper {
     private static final int NUMER_OF_EXPECTED_DATA_COLUMNS_PER_ROW = 15;
 

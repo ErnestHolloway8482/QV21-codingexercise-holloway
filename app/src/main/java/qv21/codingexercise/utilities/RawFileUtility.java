@@ -6,6 +6,9 @@ import android.net.Uri;
 import java.io.InputStream;
 import java.util.Locale;
 
+/**
+ * This utility class is used to help convert raw file resources into fully qulified URL's or InputStream depending on the scenario in how a file is to be read.
+ */
 public class RawFileUtility {
     private static final String RAW_FILE_RESOURCE_URL_FORMAT = "android.resource://%s/raw/%s";
 
@@ -18,10 +21,10 @@ public class RawFileUtility {
         return uri.toString();
     }
 
-    public static InputStream getInputStreamFromResourceId(final Resources resources, final int resourceId){
-        try{
+    public static InputStream getInputStreamFromResourceId(final Resources resources, final int resourceId) {
+        try {
             return resources.openRawResource(resourceId);
-        } catch(Resources.NotFoundException e){
+        } catch (Resources.NotFoundException e) {
             return null;
         }
     }

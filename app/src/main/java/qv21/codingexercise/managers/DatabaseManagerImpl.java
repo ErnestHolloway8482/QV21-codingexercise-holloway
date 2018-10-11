@@ -10,6 +10,10 @@ import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.models.databasemodels.MyObjectBox;
 import qv21.codingexercise.utilities.LoggerUtils;
 
+/**
+ * This is a {@link Singleton} implementation of {@link DatabaseManager} that allows the {@link BoxStore} to be initialized, opened, and closed and serves
+ * as the main mechanism for allowing CRUD based operations on {@link io.objectbox.annotation.Entity} objects.
+ */
 @Singleton
 public class DatabaseManagerImpl implements DatabaseManager {
     private BoxStore boxStore;
