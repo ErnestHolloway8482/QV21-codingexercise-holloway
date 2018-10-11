@@ -8,6 +8,7 @@ import android.os.Build;
  */
 public class BuildConfigUtility {
     private static boolean isInTestMode = false;
+    private static boolean isInAndroidTestMode = false;
     private static boolean isNetworkDisabledForTest;
 
     public static boolean isLoggingEnabled() {
@@ -20,5 +21,13 @@ public class BuildConfigUtility {
 
     public static void setIsInTestMode(final boolean isInTestMode) {
         BuildConfigUtility.isInTestMode = isInTestMode;
+    }
+
+    public static boolean isIsInAndroidTestMode() {
+        return isInAndroidTestMode;
+    }
+
+    public static void setIsInAndroidTestMode(final boolean isInAndroidTestMode) {
+        BuildConfigUtility.isInAndroidTestMode = isInAndroidTestMode;
     }
 }

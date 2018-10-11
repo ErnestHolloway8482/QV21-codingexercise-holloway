@@ -60,8 +60,13 @@ public class WellDataDetailsVMTest extends BaseAndroidUnitTest {
 
     @After
     public void tearDown() {
-        wellDataFacade.cleanUpWellData();
-        navigationManager.clearAllViewsFromStack();
+        if (wellDataFacade != null) {
+            wellDataFacade.cleanUpWellData();
+        }
+
+        if (navigationManager != null) {
+            navigationManager.clearAllViewsFromStack();
+        }
     }
 
     @Test

@@ -50,7 +50,7 @@ public class DatabaseManagerImpl implements DatabaseManager {
 
     private void openDatabase(final String fileNameAndPath, final boolean testModeEnabled) {
         if (testModeEnabled) {
-            File testFile = new File(fileNameAndPath + "_test");
+            File testFile = new File(fileNameAndPath);
 
             boxStore = MyObjectBox.builder()
                     .debugFlags(DebugFlags.LOG_QUERIES | DebugFlags.LOG_QUERY_PARAMETERS)

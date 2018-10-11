@@ -15,7 +15,7 @@ public class DatabaseManagerImplTest {
 
     @Before
     public void setup() {
-        databaseManager = new DatabaseManagerImpl("well_data", true);
+        databaseManager = new DatabaseManagerImpl("well_data_test", true);
     }
 
     @After

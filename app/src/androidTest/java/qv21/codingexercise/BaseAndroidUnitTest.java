@@ -1,5 +1,6 @@
 package qv21.codingexercise;
 
+import qv21.codingexercise.utilities.BuildConfigUtility;
 import qv21.codingexercise.utilities.LoggerUtils;
 
 public class BaseAndroidUnitTest {
@@ -9,6 +10,7 @@ public class BaseAndroidUnitTest {
 
     public BaseAndroidUnitTest(){
         testAppComponent = DaggerTestAppComponent.builder().build();
+        BuildConfigUtility.setIsInAndroidTestMode(true);
     }
 
     protected TestAppComponent getTestAppComponent(){

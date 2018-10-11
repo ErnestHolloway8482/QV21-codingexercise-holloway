@@ -1,8 +1,11 @@
 package qv21.codingexercise.managers;
 
+import javax.inject.Singleton;
+
 /**
- * This is the interface that any database manager class should implement.
+ * This is the {@link Singleton} interface that any database manager class should implement.
  */
+@Singleton
 public interface DatabaseManager {
     public static final int DATA_BASE_VERSION_NUMBER = 1;
 

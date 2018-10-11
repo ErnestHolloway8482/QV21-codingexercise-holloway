@@ -1,7 +1,5 @@
 package qv21.codingexercise.dimodules;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import qv21.codingexercise.facades.WellDataFacade;
@@ -41,7 +39,6 @@ public class ViewModelModule {
         return new WellDataEditVM(wellDataFacade, navigationManager);
     }
 
-    @Singleton
     @Provides
     public static MainActivityVM provideMainActivityVM() {
         return new MainActivityVM();

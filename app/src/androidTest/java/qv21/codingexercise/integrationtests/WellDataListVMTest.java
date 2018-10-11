@@ -34,7 +34,6 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
     @Before
     public void setup() {
         getTestAppComponent().inject(this);
-
     }
 
     @After
