@@ -1,9 +1,9 @@
 package qv21.codingexercise.utilities;
 
 import android.content.res.Resources;
-import android.net.Uri;
 
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Locale;
 
 /**
@@ -17,7 +17,7 @@ public class RawFileUtility {
             return null;
         }
 
-        Uri uri = Uri.parse(String.format(Locale.ENGLISH, RAW_FILE_RESOURCE_URL_FORMAT, packageName, fileName));
+        URI uri = URI.create(String.format(Locale.ENGLISH, RAW_FILE_RESOURCE_URL_FORMAT, packageName, fileName));
         return uri.toString();
     }
 
