@@ -26,11 +26,10 @@ public class ManagerModule {
         if (BuildConfigUtility.isIsInAndroidTestMode()) {
             return new DatabaseManagerImpl("well_data_android_test", false);
         } else if (BuildConfigUtility.isInTestMode()) {
-            return new DatabaseManagerImpl("well_data_unit_Test", true);
+            return new DatabaseManagerImpl("well_data_unit_test", true);
         } else {
             return new DatabaseManagerImpl("well_data", false);
         }
-
     }
 
     @Singleton

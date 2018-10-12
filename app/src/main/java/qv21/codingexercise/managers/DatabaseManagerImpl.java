@@ -8,7 +8,7 @@ import io.objectbox.BoxStore;
 import io.objectbox.DebugFlags;
 import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.models.databasemodels.MyObjectBox;
-import qv21.codingexercise.utilities.LoggerUtils;
+import qv21.codingexercise.utilities.BuildConfigUtility;
 
 /**
  * This is a {@link Singleton} implementation of {@link DatabaseManager} that allows the {@link BoxStore} to be initialized, opened, and closed and serves
@@ -16,14 +16,10 @@ import qv21.codingexercise.utilities.LoggerUtils;
  */
 @Singleton
 public class DatabaseManagerImpl implements DatabaseManager {
-    private BoxStore boxStore;
+    private final BoxStore boxStore;
 
     public DatabaseManagerImpl(final String fileNameAndPath, final boolean testModeEnabled) {
-        try {
-            openDatabase(fileNameAndPath, testModeEnabled);
-        } catch (Exception e) {
-            LoggerUtils.logError(e.getMessage());
-        }
+        boxStore = openDatabase(fileNameAndPath, testModeEnabled);
     }
 
     @Override
@@ -48,19 +44,52 @@ public class DatabaseManagerImpl implements DatabaseManager {
         return boxStore;
     }
 
-    private void openDatabase(final String fileNameAndPath, final boolean testModeEnabled) {
-        if (testModeEnabled) {
-            File testFile = new File(fileNameAndPath);
-
-            boxStore = MyObjectBox.builder()
-                    .debugFlags(DebugFlags.LOG_QUERIES | DebugFlags.LOG_QUERY_PARAMETERS)
-                    .directory(testFile)
-                    .build();
-        } else {
-            boxStore = MyObjectBox.builder()
-                    .androidContext(MainActivity.getInstance())
-                    .name(fileNameAndPath)
-                    .build();
+    private BoxStore openDatabase(final String fileNameAndPath, final boolean testModeEnabled) {
+        try {
+            return createBoxStore(fileNameAndPath, testModeEnabled);
+        } catch (Exception e) {
+            return MyObjectBox.builder().buildDefault();
         }
+    }
+
+    private BoxStore createBoxStore(final String fileNameAndPath, final boolean testModeEnabled) {
+        if (testModeEnabled) {
+            return createBoxStoreForJava(fileNameAndPath);
+        } else {
+            if (BuildConfigUtility.isIsInAndroidTestMode()) {
+                if (BuildConfigUtility.getBoxStore() == null) {
+                    BuildConfigUtility.setBoxStore(createBoxStoreForAndroid(fileNameAndPath));
+                } else {
+                    BuildConfigUtility.getBoxStore().closeThreadResources();
+                    BuildConfigUtility.getBoxStore().close();
+                    BoxStore.deleteAllFiles(MainActivity.getInstance(), fileNameAndPath);
+                    BuildConfigUtility.setBoxStore(createBoxStoreForAndroid(fileNameAndPath));
+                }
+
+                return BuildConfigUtility.getBoxStore();
+            } else {
+                return createBoxStoreForAndroid(fileNameAndPath);
+            }
+        }
+    }
+
+    private BoxStore createBoxStoreForJava(final String fileNameAndPath) {
+        File testFile = new File(fileNameAndPath);
+
+        BoxStore.deleteAllFiles(testFile);
+
+        return MyObjectBox.builder()
+                .debugFlags(DebugFlags.LOG_QUERIES | DebugFlags.LOG_QUERY_PARAMETERS)
+                .directory(testFile)
+                .build();
+    }
+
+    private BoxStore createBoxStoreForAndroid(final String fileNameAndPath) {
+        BoxStore boxStore = MyObjectBox.builder()
+                .androidContext(MainActivity.getInstance())
+                .name(fileNameAndPath)
+                .build();
+
+        return boxStore;
     }
 }

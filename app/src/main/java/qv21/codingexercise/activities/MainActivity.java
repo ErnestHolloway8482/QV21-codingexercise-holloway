@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setup() {
         QV21Application.getAppComponent().inject(this);
-
+        
         viewModel = new MainActivityVM();
         ViewDataBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         binding.setVariable(BR.vm, viewModel);

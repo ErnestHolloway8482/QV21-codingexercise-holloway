@@ -35,6 +35,10 @@ public class WellDataItemDOM {
     }
 
     public static void updateContentsOfWellData(final WellDataDM wellDataDM, final WellDataItemDOM wellDataItemDOM) {
+        if (wellDataDM == null || wellDataItemDOM == null) {
+            return;
+        }
+
         //Owner Information
         wellDataDM.setOwnerName(wellDataItemDOM.ownerName);
 
@@ -58,6 +62,10 @@ public class WellDataItemDOM {
     }
 
     private static WellDataItemDOM getInstance(final WellDataDM wellDataDM) {
+        if (wellDataDM == null) {
+            return null;
+        }
+
         WellDataItemDOM wellDataItemDOM = new WellDataItemDOM();
 
         //UUID

@@ -57,6 +57,10 @@ public class WellDataDetailsVM extends BaseVM {
     }
 
     private void updateDataModels(final List<WellDataDM> value) {
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+
         wellData.set(value.get(0));
         wellDataDom.set(WellDataItemDOM.create(wellData.get()));
     }

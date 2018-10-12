@@ -73,13 +73,19 @@ public class WellDataEditVM extends BaseVM {
     private void getWellDataByUuid(final String uuid) {
         cleanupSubscribers();
 
-        subscriber = Single.fromCallable(() -> wellDataFacade.getWellDataByUuid(uuid))
+        subscriber = Single.fromCallable(() -> retrieveWellDataByUUIDFromDatabase(uuid))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(value -> {
-                    wellData.set(value);
-                    wellDataDom.set(WellDataItemDOM.create(wellData.get()));
+                .subscribe(__ -> {
                 }, throwable -> LoggerUtils.log(throwable.getMessage()));
+    }
+
+    private boolean retrieveWellDataByUUIDFromDatabase(final String uuid) {
+        WellDataDM wellDataDM = wellDataFacade.getWellDataByUuid(uuid);
+        wellData.set(wellDataDM);
+        wellDataDom.set(WellDataItemDOM.create(wellData.get()));
+
+        return (wellDataDM != null);
     }
 
     private void cleanupSubscribers() {
