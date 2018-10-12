@@ -6,6 +6,10 @@ import javax.inject.Singleton;
 
 import qv21.codingexercise.activities.MainActivity;
 
+/**
+ * {@link Singleton} manager that is used to display a modal pop-up dialog to the user for critical messages that need
+ * to be conveyed.
+ */
 @Singleton
 public class AlertDialogManagerImpl implements AlertDialogManager {
 
