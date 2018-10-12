@@ -16,6 +16,7 @@ import qv21.codingexercise.BaseAndroidUnitTest;
 import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.daos.WellDataDAO;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.AlertDialogManager;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.viewmodels.WellDataEditVM;
@@ -33,6 +34,9 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
 
     @Inject
     WellDataFacade wellDataFacade;
+
+    @Inject
+    AlertDialogManager alertDialogManager;
 
     @Inject
     WellDataDAO wellDataDAO;
@@ -76,7 +80,7 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
         Assert.assertFalse(navigationManager.isOnLastScreen());
         Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
 
-        wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager);
+        wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager, alertDialogManager);
 
         sleep(10);
 
@@ -88,7 +92,7 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
         Assert.assertFalse(navigationManager.isOnLastScreen());
         Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
 
-        wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager);
+        wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager, alertDialogManager);
 
         wellDataEditVM.navigateToWellDataDetailsScreen();
 
@@ -104,7 +108,7 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
         Assert.assertFalse(navigationManager.isOnLastScreen());
         Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
 
-        wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager);
+        wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager, alertDialogManager);
 
         sleep(10);
 
@@ -127,7 +131,7 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
         Assert.assertFalse(navigationManager.isOnLastScreen());
         Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
 
-        wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager);
+        wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager, alertDialogManager);
 
         sleep(10);
 

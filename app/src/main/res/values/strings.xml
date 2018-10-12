@@ -39,4 +39,9 @@
     <string name="tank_size_hint">Size</string>
     <string name="tank_bbls_per_inch_hint">BBLS Per Inch</string>
 
+    <string name="delete_well_data_alert_title">Warning!</string>
+    <string name="delete_well_data_alert_message">Are you sure that you want to delete this well data?</string>
+    <string name="delete_well_data_alert_action_delete_message">Delete</string>
+    <string name="delete_well_data_alert_action_cancel_message">Cancel</string>
+
 </resources>

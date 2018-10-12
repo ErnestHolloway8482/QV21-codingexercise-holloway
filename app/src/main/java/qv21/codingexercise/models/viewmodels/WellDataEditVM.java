@@ -7,8 +7,10 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import qv21.codingexercise.R;
 import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.AlertDialogManager;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
@@ -22,14 +24,16 @@ public class WellDataEditVM extends BaseVM {
 
     private final NavigationManager navigationManager;
     private final WellDataFacade wellDataFacade;
+    private final AlertDialogManager alertDialogManager;
     private Disposable subscriber;
 
     public ObservableField<WellDataDM> wellData = new ObservableField<>();
     public ObservableField<WellDataItemDOM> wellDataDom = new ObservableField<>();
 
-    public WellDataEditVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
+    public WellDataEditVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager, final AlertDialogManager alertDialogManager) {
         this.navigationManager = navigationManager;
         this.wellDataFacade = wellDataFacade;
+        this.alertDialogManager = alertDialogManager;
 
         setupToolBar();
 
@@ -48,10 +52,19 @@ public class WellDataEditVM extends BaseVM {
     public void deleteWellData() {
         cleanupSubscribers();
 
-        subscriber = Completable.fromAction(this::cleanUpWellDataItem)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+        String title = MainActivity.getInstance().getString(R.string.delete_well_data_alert_title);
+        String body = MainActivity.getInstance().getString(R.string.delete_well_data_alert_message);
+        String actionButton1Text = MainActivity.getInstance().getString(R.string.delete_well_data_alert_action_delete_message);
+        String actionButton2Text = MainActivity.getInstance().getString(R.string.delete_well_data_alert_action_cancel_message);
+
+        alertDialogManager.displayAlertMessage(
+                title,
+                body,
+                actionButton1Text,
+                this::performDeleteAsync,
+                actionButton2Text,
+                () -> {
+                });
     }
 
     public void updateWellData() {
@@ -120,6 +133,13 @@ public class WellDataEditVM extends BaseVM {
         wellDataDom.set(null);
 
         navigateToWellDataListScreen();
+    }
+
+    private void performDeleteAsync() {
+        subscriber = Completable.fromAction(this::cleanUpWellDataItem)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 
     @Override

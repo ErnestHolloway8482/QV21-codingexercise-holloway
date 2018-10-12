@@ -4,6 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import qv21.codingexercise.managers.AlertDialogManager;
+import qv21.codingexercise.managers.AlertDialogManagerImpl;
 import qv21.codingexercise.managers.DatabaseManager;
 import qv21.codingexercise.managers.DatabaseManagerImpl;
 import qv21.codingexercise.managers.MemoryCacheManager;
@@ -42,5 +44,11 @@ public class ManagerModule {
     @Provides
     public static MemoryCacheManager provideMemoryCacheManager() {
         return new MemoryCacheManager();
+    }
+
+    @Singleton
+    @Provides
+    public static AlertDialogManager provideAlertDialogManager() {
+        return new AlertDialogManagerImpl();
     }
 }
