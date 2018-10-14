@@ -66,14 +66,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        navigationManager.onBackPressed();
+
         //Pop off the view stack until nothing is left before allowing the user to exit the app since we are running the app as a single activity multiple screen setup.
         if (navigationManager.isOnLastScreen()) {
-            navigationManager.pop();
-            super.onBackPressed();
             finish();
-        } else {
-            navigationManager.pop();
-            navigationManager.showScreen();
         }
     }
 

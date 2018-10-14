@@ -105,4 +105,17 @@ public class NavigationManager {
     public boolean isOnLastScreen() {
         return viewStack.size() == 1;
     }
+
+    /**
+     * Pop off the view stack until nothing is left before allowing the user to exit the app since we are running the app as a single activity multiple screen setup.
+     */
+    public void onBackPressed() {
+        //
+        if (isOnLastScreen()) {
+            pop();
+        } else {
+            pop();
+            showScreen();
+        }
+    }
 }
