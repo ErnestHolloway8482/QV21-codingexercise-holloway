@@ -17,6 +17,7 @@ import qv21.codingexercise.R;
 import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.viewmodels.MainActivityVM;
+import qv21.codingexercise.utilities.BuildConfigUtility;
 import qv21.codingexercise.views.SplashScreen;
 import qv21.codingexercise.views.ViewContainer;
 
@@ -121,7 +122,9 @@ public class MainActivity extends AppCompatActivity {
 
         TransitionManager.beginDelayedTransition(findViewById(R.id.viewContainer), autoTransition);
 
-        setupMainScreen();
+        if(!BuildConfigUtility.isIsInAndroidTestMode()){
+            setupMainScreen();
+        }
     }
 
     private void cleanup() {

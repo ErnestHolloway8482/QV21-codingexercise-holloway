@@ -1,5 +1,6 @@
 package qv21.codingexercise.facades;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
@@ -48,6 +49,12 @@ public class WellDataFacade {
 
     public boolean doesWellDataExist() {
         return wellDataDAO.getNumberOfWellDataItems() > 0;
+    }
+
+    public boolean doesWellDataFileExist(String parentPath, String fileName){
+        File file = new File(parentPath, fileName);
+
+        return file.exists();
     }
 
     public boolean seedWellDataIntoDatabase(final String fileNameAndPath) {

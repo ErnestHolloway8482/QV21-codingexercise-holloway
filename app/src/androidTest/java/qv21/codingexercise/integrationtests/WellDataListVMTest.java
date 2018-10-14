@@ -32,7 +32,6 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
     private WellDataListVM wellDataListVM;
 
 
-
     @Before
     public void setup() {
         getTestAppComponent().inject(this);
@@ -40,7 +39,14 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
 
     @After
     public void tearDown() {
-        wellDataFacade.cleanUpWellData();
+        String parentPath = MainActivity.getInstance().getFileStreamPath("well_data_android_test").getPath();
+        String fileName = "well_data_android_test";
+
+        if (wellDataFacade.doesWellDataFileExist(parentPath, fileName)) {
+            wellDataFacade.cleanUpWellData();
+        }
+
+        sleep(10);
     }
 
     @Test
@@ -64,8 +70,6 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
         Assert.assertTrue(wellDataFacade.doesWellDataExist());
 
         wellDataListVM = new WellDataListVM(wellDataFacade);
-
-        sleep(10);
 
         Assert.assertFalse(wellDataListVM.isListEmpty.get());
 
