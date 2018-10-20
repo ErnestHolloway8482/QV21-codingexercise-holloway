@@ -1,6 +1,5 @@
 package qv21.codingexercise.models.viewmodels;
 
-import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +13,10 @@ import qv21.codingexercise.adapters.WellDataListRecyclerAdapter;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
-public class WellDataListVM extends ViewModel {
+/**
+ * @link android.arch.lifecycle.ViewModel} that serves as the controller logic for the {@link qv21.codingexercise.views.WellDataListScreen}
+ */
+public class WellDataListVM extends BaseVM {
     private static final String SCREEN_NAME = "Well Entries";
 
     private final WellDataFacade wellDataFacade;
@@ -30,11 +32,14 @@ public class WellDataListVM extends ViewModel {
     public WellDataListVM(final WellDataFacade wellDataFacade) {
         this.wellDataFacade = wellDataFacade;
 
-        MainActivity.getInstance().getViewModel().displayToolBar(false, SCREEN_NAME);
-
+        setupToolBar();
         setupRecyclerViewAdapter();
-
         getWellDataFromDatabase();
+    }
+
+    @Override
+    public void setupToolBar() {
+        MainActivity.getInstance().getViewModel().displayToolBar(false, SCREEN_NAME);
     }
 
     private void setupRecyclerViewAdapter() {

@@ -8,6 +8,9 @@ import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.databinding.WellDataEditScreenBinding;
 import qv21.codingexercise.models.viewmodels.WellDataEditVM;
 
+/**
+ * {@link Screen} object contents for the well data edit screen that inflates the provided layout resources and binds the associated {@link android.arch.lifecycle.ViewModel}
+ */
 public class WellDataEditScreen extends ScreenImpl<WellDataEditVM, WellDataEditScreenBinding> {
     public WellDataEditScreen(final Context context) {
         super(context, R.layout.well_data_edit_screen);

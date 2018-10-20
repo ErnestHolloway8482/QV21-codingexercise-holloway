@@ -31,10 +31,11 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
 
     private WellDataListVM wellDataListVM;
 
+
+
     @Before
     public void setup() {
         getTestAppComponent().inject(this);
-
     }
 
     @After

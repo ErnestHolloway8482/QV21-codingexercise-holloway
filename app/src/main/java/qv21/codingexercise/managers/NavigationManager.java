@@ -11,10 +11,10 @@ import qv21.codingexercise.views.Screen;
 import qv21.codingexercise.views.ViewContainer;
 
 /**
- * This is a singleton manager that allows for navigating between screens within the app. In order to reduce the dependency
+ * This is a {@link Singleton} manager that allows for navigating between screens within the app. In order to reduce the dependency
  * on managing multiple life cycle events across {@link android.support.v7.app.AppCompatActivity} or {@link android.support.v4.app.Fragment} classes,
  * this project instead utilizes a simple stack of views that are swapped within a view container. This is more or less in line with current Android architecture decisions that
- * are beginning to move away from Activity and Fragment based navigation due to the issues that arise with having to manage way too many lifecyles and lack of flebility that the
+ * are beginning to move away from Activity and Fragment based navigation due to the issues that arise with having to manage way too many lifecylce and lack of flexibility that the
  * FragmentManager gives you when it comes to managing your back stack.
  */
 @Singleton
@@ -93,6 +93,7 @@ public class NavigationManager {
         }
 
         //Gives us the opportunity to organize the view stack first before displaying anything.
+        viewStack.peek().setupToolbar();
 
         //Whenever we show the current screen, we always show the screen at the top of the stack.
         viewContainer.replaceView(viewStack.peek());

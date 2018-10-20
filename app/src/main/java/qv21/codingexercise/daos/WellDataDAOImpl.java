@@ -10,6 +10,9 @@ import qv21.codingexercise.managers.DatabaseManagerImpl;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.databasemodels.WellDataDM_;
 
+/**
+ * A Database Access Object that defines various CRUD database operations for the {@link WellDataDM} database object.
+ */
 public class WellDataDAOImpl implements WellDataDAO {
     final DatabaseManager databaseManager;
     final Box<WellDataDM> wellDataBox;

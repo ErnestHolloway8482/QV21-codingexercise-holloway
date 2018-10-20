@@ -1,6 +1,5 @@
 package qv21.codingexercise.models.viewmodels;
 
-import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 
 import qv21.codingexercise.activities.MainActivity;
@@ -10,7 +9,10 @@ import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.views.WellDataDetailsScreen;
 
-public class WellDataListItemVM extends ViewModel {
+/**
+ * {@link android.arch.lifecycle.ViewModel} that serves as the controller logic for the well data items that are displayed in the list as part of the {@link qv21.codingexercise.adapters.WellDataListRecyclerAdapter}
+ */
+public class WellDataListItemVM extends BaseVM {
     private final WellDataFacade wellDataFacade;
     private final NavigationManager navigationManager;
 

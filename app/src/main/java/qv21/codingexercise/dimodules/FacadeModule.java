@@ -11,6 +11,7 @@ import qv21.codingexercise.managers.MemoryCacheManager;
 import qv21.codingexercise.managers.WellDataFileManager;
 import qv21.codingexercise.mapper.WellDataMapper;
 
+//A dagger {@link Module} that serves as a factory for Facade objects and fully enables dependency injection.
 @Module
 public class FacadeModule {
     @Singleton

@@ -6,10 +6,10 @@ package qv21.codingexercise.utilities;
 import android.util.Log;
 
 /**
- * LoggerUtils
+ * This utility is used as a convenience method for logging debug data within the android console.
  */
 public class LoggerUtils {
-    private static final String LOG_TAG = "UnderArmoungMMF:";
+    private static final String LOG_TAG = "QV21:";
 
     public static void log(String message) {
         if (BuildConfigUtility.isLoggingEnabled()) {

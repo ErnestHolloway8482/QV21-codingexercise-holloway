@@ -1,6 +1,5 @@
 package qv21.codingexercise.models.viewmodels;
 
-import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 
 import java.util.List;
@@ -14,7 +13,10 @@ import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.views.WellDataEditScreen;
 
-public class WellDataDetailsVM extends ViewModel {
+/**
+ * @link android.arch.lifecycle.ViewModel} that serves as the controller logic for the {@link qv21.codingexercise.views.WellDataDetailsScreen}
+ */
+public class WellDataDetailsVM extends BaseVM {
     private static final String SCREEN_NAME = "Well Details";
 
     private final WellDataFacade wellDataFacade;
@@ -28,9 +30,14 @@ public class WellDataDetailsVM extends ViewModel {
         this.wellDataFacade = wellDataFacade;
         this.navigationManager = navigationManager;
 
-        MainActivity.getInstance().getViewModel().displayToolBar(true, SCREEN_NAME);
+        setupToolBar();
 
         getWellDataByUuid(wellDataFacade.getSelectedWellDataUuidFromMemoryCache());
+    }
+
+    @Override
+    public void setupToolBar() {
+        MainActivity.getInstance().getViewModel().displayToolBar(true, SCREEN_NAME);
     }
 
     public void navigateToWellDataListScreen() {
@@ -50,6 +57,10 @@ public class WellDataDetailsVM extends ViewModel {
     }
 
     private void updateDataModels(final List<WellDataDM> value) {
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+
         wellData.set(value.get(0));
         wellDataDom.set(WellDataItemDOM.create(wellData.get()));
     }

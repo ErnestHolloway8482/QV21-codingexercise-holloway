@@ -5,6 +5,10 @@ import android.app.Application;
 import qv21.codingexercise.dimodules.AppComponent;
 import qv21.codingexercise.dimodules.DaggerAppComponent;
 
+/**
+ * Main application entry point. The primary goal of this class is to setup up the {@link DaggerAppComponent}
+ * so that dependency injection can be utilized.
+ */
 public class QV21Application extends Application {
     private static AppComponent appComponent;
 

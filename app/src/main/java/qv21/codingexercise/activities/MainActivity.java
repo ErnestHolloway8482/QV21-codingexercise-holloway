@@ -3,6 +3,7 @@ package qv21.codingexercise.activities;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.transition.AutoTransition;
 import android.support.transition.Fade;
 import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,10 @@ import qv21.codingexercise.models.viewmodels.MainActivityVM;
 import qv21.codingexercise.views.SplashScreen;
 import qv21.codingexercise.views.ViewContainer;
 
+/**
+ * This is {@link AppCompatActivity} that is responsible for setting up the initial screen, and initializing the {@link NavigationManager}
+ * such that moving between different screens of the application is possible.
+ */
 @Singleton
 public class MainActivity extends AppCompatActivity {
     @Inject
@@ -76,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
         return isRunning;
     }
 
+    /**
+     * @return instance of the {@link MainActivityVM}. This allows any of the corresponding {@link android.arch.lifecycle.ViewModel} classes
+     * to access and configure global screen elements such as the {@link android.widget.Toolbar}, loading spinner, and {@link android.support.v7.app.AppCompatDialog}.
+     */
     public MainActivityVM getViewModel() {
         return viewModel;
     }
@@ -104,14 +113,16 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setup() {
         QV21Application.getAppComponent().inject(this);
-
+        
         viewModel = new MainActivityVM();
         ViewDataBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         binding.setVariable(BR.vm, viewModel);
 
         Fade fade = new Fade(Fade.IN);
 
-        TransitionManager.beginDelayedTransition(findViewById(R.id.viewContainer), fade);
+        AutoTransition autoTransition = new AutoTransition();
+
+        TransitionManager.beginDelayedTransition(findViewById(R.id.viewContainer), autoTransition);
 
         setupMainScreen();
     }

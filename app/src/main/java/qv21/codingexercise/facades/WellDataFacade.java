@@ -14,6 +14,18 @@ import qv21.codingexercise.managers.WellDataFileManager;
 import qv21.codingexercise.mapper.WellDataMapper;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
+/**
+ * This class combines the interaction between the {@link WellDataFileManager}, {@link WellDataMapper}, {@link DatabaseManager}, {@link WellDataDAO}, and the {@link MemoryCacheManager}
+ * into a {@link Singleton} class that handles the primary operations.
+ * <p>
+ * -Seeding the well data information from the .csv file into the embedded database
+ * -Cleaning up the database once the user is finished with a session
+ * -Determing if the database exists
+ * -CRUD operations on the {@link WellDataDM} database objects.
+ * <p>
+ * This makes it simple to give this type of operation to any of the {@link android.arch.lifecycle.ViewModel} and simplfiy the number of dependencies that need to be placed
+ * inside of controller logic related classes. It all makes it simpler to do integration testing.
+ */
 @Singleton
 public class WellDataFacade {
     private final WellDataFileManager wellDataFileManager;
@@ -54,7 +66,7 @@ public class WellDataFacade {
         return (LazyList<WellDataDM>) wellDataDAO.getAllWellData();
     }
 
-    public Query<WellDataDM> getAllWellDataQuery(){
+    public Query<WellDataDM> getAllWellDataQuery() {
         return wellDataDAO.getAllWellDataQuery();
     }
 

@@ -2,6 +2,9 @@ package qv21.codingexercise.models.domainmodels;
 
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
+/**
+ * Domain model definition for the well data that is displayed on the screens within the app.
+ */
 public class WellDataItemDOM {
     //UUID
     public String uuid;
@@ -32,6 +35,10 @@ public class WellDataItemDOM {
     }
 
     public static void updateContentsOfWellData(final WellDataDM wellDataDM, final WellDataItemDOM wellDataItemDOM) {
+        if (wellDataDM == null || wellDataItemDOM == null) {
+            return;
+        }
+
         //Owner Information
         wellDataDM.setOwnerName(wellDataItemDOM.ownerName);
 
@@ -55,6 +62,10 @@ public class WellDataItemDOM {
     }
 
     private static WellDataItemDOM getInstance(final WellDataDM wellDataDM) {
+        if (wellDataDM == null) {
+            return null;
+        }
+
         WellDataItemDOM wellDataItemDOM = new WellDataItemDOM();
 
         //UUID

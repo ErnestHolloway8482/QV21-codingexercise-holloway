@@ -13,6 +13,9 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
+/**
+ * A {@link Singleton} file manager that will read the contents of the .csv file containing the raw well data content and parse it into {@link List<String>}
+ */
 @Singleton
 public class WellDataFileManager {
     private static final String CSV_ROW_HEADER = "Owner,API #,Longitude,Latitude,Property #,Lease / Well Name,Tank MID,Tank Name,Tank Nbr,Tank Size,BBLS Per Inch,SEC,TWP,RNG,COUNTY";

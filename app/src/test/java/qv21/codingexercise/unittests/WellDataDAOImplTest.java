@@ -23,7 +23,7 @@ public class WellDataDAOImplTest {
 
     @Before
     public void setup() {
-        databaseManager = new DatabaseManagerImpl("well_data", true);
+        databaseManager = new DatabaseManagerImpl("well_data_test", true);
         wellDataDAO = new WellDataDAOImpl(databaseManager);
     }
 
