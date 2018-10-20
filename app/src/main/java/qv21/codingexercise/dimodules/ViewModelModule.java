@@ -28,8 +28,13 @@ public class ViewModelModule {
 
     @Provides
     public static WellDataListVM provideWellDataListVM(final WellDataFacade wellDataFacade,
-                                                       final MainActivityProviderManager mainActivityProviderManager) {
-        return new WellDataListVM(wellDataFacade, mainActivityProviderManager);
+                                                       final NavigationManager navigationManager,
+                                                       final MainActivityProviderManager mainActivityProviderManager,
+                                                       final ScreenManager screenManager) {
+        return new WellDataListVM(wellDataFacade,
+                navigationManager,
+                mainActivityProviderManager,
+                screenManager);
     }
 
     @Provides
