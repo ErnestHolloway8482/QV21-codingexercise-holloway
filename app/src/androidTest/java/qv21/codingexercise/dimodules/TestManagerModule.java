@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import qv21.codingexercise.AlertDialogManagerAndroidTestImpl;
 import qv21.codingexercise.MainActivityProviderManageAndroidTestImpl;
 import qv21.codingexercise.managers.AlertDialogManager;
 import qv21.codingexercise.managers.DatabaseManager;
@@ -61,7 +62,7 @@ public class TestManagerModule {
     @Singleton
     @Provides
     public static AlertDialogManager provideAlertDialogManager(final MainActivityProviderManager mainActivityProviderManager) {
-        return Mockito.mock(AlertDialogManager.class);
+        return new AlertDialogManagerAndroidTestImpl(mainActivityProviderManager);
     }
 
     @Singleton

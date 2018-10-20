@@ -8,7 +8,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import qv21.codingexercise.R;
-import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.AlertDialogManager;
 import qv21.codingexercise.managers.MainActivityProviderManager;
@@ -53,7 +52,7 @@ public class WellDataEditVM extends BaseVM {
 
     @Override
     public void setupToolBar() {
-       mainActivityProviderManager.provideMainActivity().getViewModel().displayToolBar(true, SCREEN_NAME);
+        mainActivityProviderManager.provideMainActivity().getViewModel().displayToolBar(true, SCREEN_NAME);
     }
 
     public void navigateToWellDataDetailsScreen() {
@@ -122,7 +121,7 @@ public class WellDataEditVM extends BaseVM {
     }
 
     private void navigateToWellDataListScreen() {
-        MainActivity.getInstance().runOnUiThread(this::setupWellDataListScreen);
+        mainActivityProviderManager.runOnUiThread(this::setupWellDataListScreen);
     }
 
     private void setupWellDataDetailsScreen() {
@@ -156,7 +155,7 @@ public class WellDataEditVM extends BaseVM {
     @Override
     protected void onCleared() {
         super.onCleared();
-        MainActivity.getInstance().getViewModel().dismissToolbar();
+        mainActivityProviderManager.provideMainActivity().getViewModel().dismissToolbar();
         cleanupSubscribers();
     }
 }
