@@ -114,7 +114,6 @@ public class WellDataFacadeIntegrationTest {
         Assert.assertEquals(uuid, foundWellData.getUuid());
     }
 
-
     private LazyList<WellDataDM> getWellDataFromFile() {
         Assert.assertFalse(wellDataFacade.doesWellDataExist());
 

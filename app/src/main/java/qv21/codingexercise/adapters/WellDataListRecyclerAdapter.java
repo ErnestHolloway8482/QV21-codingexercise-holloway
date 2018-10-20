@@ -7,12 +7,11 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.databinding.WellDataListItemBinding;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ScreenManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.models.viewmodels.WellDataListItemVM;
@@ -24,18 +23,24 @@ import qv21.codingexercise.viewholders.WellDataItemViewHolder;
 public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataItemViewHolder> {
     private List<WellDataDM> wellDataList;
 
-    @Inject
-    WellDataFacade wellDataFacade;
 
-    @Inject
-    NavigationManager navigationManager;
+    private final WellDataFacade wellDataFacade;
+    private final NavigationManager navigationManager;
+    private final MainActivityProviderManager mainActivityProviderManager;
+    private final ScreenManager screenManager;
 
-    public WellDataListRecyclerAdapter() {
-        QV21Application.getAppComponent().inject(this);
+    public WellDataListRecyclerAdapter(final WellDataFacade wellDataFacade,
+                                       final NavigationManager navigationManager,
+                                       final MainActivityProviderManager mainActivityProviderManager,
+                                       final ScreenManager screenManager) {
+        this.wellDataFacade = wellDataFacade;
+        this.navigationManager = navigationManager;
+        this.mainActivityProviderManager = mainActivityProviderManager;
+        this.screenManager = screenManager;
     }
 
     /**
-     * Sets the list of well data items to display for this recylcerViewAdapter and assigns the appropriate data change listener to it.
+     * Sets the list of well data items to display for this recyclerViewAdapter and assigns the appropriate data change listener to it.
      *
      * @param items is the {@link List} cached in the database to support endless scrolling.
      */
@@ -85,7 +90,7 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
      * @param position   is the current scroll position which represents the data corresponding data index to grab from the database.
      */
     private void convert(@NonNull final WellDataItemViewHolder viewHolder, final int position) {
-        WellDataListItemVM vm = new WellDataListItemVM(wellDataFacade, navigationManager);
+        WellDataListItemVM vm = new WellDataListItemVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
         vm.wellData.set(wellDataList.get(position));
         vm.wellDataDom.set(WellDataItemDOM.create(wellDataList.get(position)));
         viewHolder.bindViewModel(vm);

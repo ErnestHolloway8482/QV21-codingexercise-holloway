@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.transition.AutoTransition;
-import android.support.transition.Fade;
 import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -15,10 +14,11 @@ import javax.inject.Singleton;
 
 import qv21.codingexercise.R;
 import qv21.codingexercise.application.QV21Application;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ResourceManager;
 import qv21.codingexercise.models.viewmodels.MainActivityVM;
 import qv21.codingexercise.views.SplashScreen;
-import qv21.codingexercise.views.ViewContainer;
 
 /**
  * This is {@link AppCompatActivity} that is responsible for setting up the initial screen, and initializing the {@link NavigationManager}
@@ -28,6 +28,12 @@ import qv21.codingexercise.views.ViewContainer;
 public class MainActivity extends AppCompatActivity {
     @Inject
     NavigationManager navigationManager;
+
+    @Inject
+    MainActivityProviderManager mainActivityProviderManager;
+
+    @Inject
+    ResourceManager resourceManager;
 
     private static MainActivity instance;
 
@@ -68,12 +74,10 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         //Pop off the view stack until nothing is left before allowing the user to exit the app since we are running the app as a single activity multiple screen setup.
         if (navigationManager.isOnLastScreen()) {
-            navigationManager.pop();
-            super.onBackPressed();
+            navigationManager.onBackPressed();
             finish();
         } else {
-            navigationManager.pop();
-            navigationManager.showScreen();
+            navigationManager.onBackPressed();
         }
     }
 
@@ -100,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
      * Initializes the main search article screen that is the first screen of the app. It also makes sure to provide the view container for the {@link NavigationManager}
      */
     private void setupMainScreen() {
-        navigationManager.setViewContainer((ViewContainer) findViewById(R.id.viewContainer));
+        navigationManager.setViewContainer(findViewById(R.id.viewContainer));
 
         SplashScreen splashScreen = new SplashScreen(this);
         navigationManager.push(splashScreen);
@@ -113,12 +117,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setup() {
         QV21Application.getAppComponent().inject(this);
-        
-        viewModel = new MainActivityVM();
+
+        viewModel = new MainActivityVM(mainActivityProviderManager, resourceManager);
         ViewDataBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         binding.setVariable(BR.vm, viewModel);
-
-        Fade fade = new Fade(Fade.IN);
 
         AutoTransition autoTransition = new AutoTransition();
 

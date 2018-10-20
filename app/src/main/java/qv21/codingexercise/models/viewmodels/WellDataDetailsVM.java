@@ -6,11 +6,13 @@ import java.util.List;
 
 import io.objectbox.android.AndroidScheduler;
 import io.objectbox.reactive.DataSubscriptionList;
-import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ScreenManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
+import qv21.codingexercise.views.Screen;
 import qv21.codingexercise.views.WellDataEditScreen;
 
 /**
@@ -21,14 +23,22 @@ public class WellDataDetailsVM extends BaseVM {
 
     private final WellDataFacade wellDataFacade;
     private final NavigationManager navigationManager;
+    private final MainActivityProviderManager mainActivityProviderManager;
+    private final ScreenManager screenManager;
+
     private DataSubscriptionList subscriber = new DataSubscriptionList();
 
     public ObservableField<WellDataDM> wellData = new ObservableField<>();
     public ObservableField<WellDataItemDOM> wellDataDom = new ObservableField<>();
 
-    public WellDataDetailsVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
+    public WellDataDetailsVM(final WellDataFacade wellDataFacade,
+                             final NavigationManager navigationManager,
+                             final MainActivityProviderManager mainActivityProviderManager,
+                             final ScreenManager screenManager) {
         this.wellDataFacade = wellDataFacade;
         this.navigationManager = navigationManager;
+        this.mainActivityProviderManager = mainActivityProviderManager;
+        this.screenManager = screenManager;
 
         setupToolBar();
 
@@ -37,17 +47,17 @@ public class WellDataDetailsVM extends BaseVM {
 
     @Override
     public void setupToolBar() {
-        MainActivity.getInstance().getViewModel().displayToolBar(true, SCREEN_NAME);
+        mainActivityProviderManager.provideMainActivity().getViewModel().displayToolBar(true, SCREEN_NAME);
     }
 
     public void navigateToWellDataListScreen() {
         wellDataFacade.clearSelectedWellDataUuidFromMemoryCache();
 
-        MainActivity.getInstance().runOnUiThread(this::setupWellDataListScreen);
+        mainActivityProviderManager.runOnUiThread(this::setupWellDataListScreen);
     }
 
     public void navigateToWellDataEditScreen() {
-        MainActivity.getInstance().runOnUiThread(this::setupWellDataEditScreen);
+        mainActivityProviderManager.runOnUiThread(this::setupWellDataEditScreen);
     }
 
     private void getWellDataByUuid(final String uuid) {
@@ -80,7 +90,7 @@ public class WellDataDetailsVM extends BaseVM {
     }
 
     private void setupWellDataEditScreen() {
-        WellDataEditScreen wellDataEditScreen = new WellDataEditScreen(MainActivity.getInstance());
+        Screen wellDataEditScreen = screenManager.getScreenFromClass(WellDataEditScreen.class);
         navigationManager.push(wellDataEditScreen);
         navigationManager.showScreen();
     }
@@ -88,7 +98,7 @@ public class WellDataDetailsVM extends BaseVM {
     @Override
     protected void onCleared() {
         super.onCleared();
-        MainActivity.getInstance().getViewModel().dismissToolbar();
+        mainActivityProviderManager.provideMainActivity().getViewModel().dismissToolbar();
         cleanupSubscribers();
     }
 }
