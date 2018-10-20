@@ -71,6 +71,8 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
 
         Screen wellDataEditScreen = screenManager.getScreenFromClass(WellDataEditScreen.class);
         navigationManager.push(wellDataEditScreen);
+
+        assertThatNavigationStackIsOnWellDataEditScreen();
     }
 
     @After
@@ -81,9 +83,6 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
 
     @Test
     public void wellDataIsLoadedTest() {
-        Assert.assertFalse(navigationManager.isOnLastScreen());
-        Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
-
         wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager, alertDialogManager, mainActivityProviderManager, resourceManager);
 
         sleep(10);
@@ -93,9 +92,6 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
 
     @Test
     public void navigateToWellDataDetailsScreenTest() {
-        Assert.assertFalse(navigationManager.isOnLastScreen());
-        Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
-
         wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager, alertDialogManager, mainActivityProviderManager, resourceManager);
 
         wellDataEditVM.navigateToWellDataDetailsScreen();
@@ -109,9 +105,6 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
 
     @Test
     public void deleteWellDataTest() {
-        Assert.assertFalse(navigationManager.isOnLastScreen());
-        Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
-
         wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager, alertDialogManager, mainActivityProviderManager, resourceManager);
 
         sleep(10);
@@ -132,9 +125,6 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
 
     @Test
     public void updateWellDataTest() {
-        Assert.assertFalse(navigationManager.isOnLastScreen());
-        Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
-
         wellDataEditVM = new WellDataEditVM(wellDataFacade, navigationManager, alertDialogManager, mainActivityProviderManager, resourceManager);
 
         sleep(10);
@@ -143,6 +133,8 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
 
         WellDataDM currentWellData = wellDataFacade.getWellDataByUuid(uuid);
         currentWellData.setOwnerName("Owner-A");
+
+        wellDataEditVM.wellDataDom.get().ownerName = "Owner-A";
 
         wellDataEditVM.wellData.set(currentWellData);
 
@@ -159,5 +151,10 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
 
         Assert.assertTrue(navigationManager.peek() instanceof WellDataDetailsScreen);
         Assert.assertFalse(navigationManager.isOnLastScreen());
+    }
+
+    private void assertThatNavigationStackIsOnWellDataEditScreen() {
+        Assert.assertFalse(navigationManager.isOnLastScreen());
+        Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
     }
 }
