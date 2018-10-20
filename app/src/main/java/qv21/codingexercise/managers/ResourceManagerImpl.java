@@ -10,6 +10,9 @@ import javax.inject.Singleton;
 
 import qv21.codingexercise.utilities.StringUtility;
 
+/**
+ * A {@link Singleton} class that handles converting resource identifies into {@link String} or {@link InputStream} objects.
+ */
 @Singleton
 public class ResourceManagerImpl implements ResourceManager {
     private static final String RAW_FILE_RESOURCE_URL_FORMAT = "android.resource://%s/raw/%s";

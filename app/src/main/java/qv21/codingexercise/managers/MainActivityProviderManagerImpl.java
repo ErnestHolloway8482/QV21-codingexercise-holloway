@@ -7,6 +7,10 @@ import javax.inject.Singleton;
 import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.application.QV21Application;
 
+/**
+ * A {@link Singleton} class that is used to provide instances of the {@link android.app.Activity} and {@link Resources} from this class.
+ * In addition to this class provides a convenience method for forcing runnable where needed to run on the UI thread.
+ */
 @Singleton
 public class MainActivityProviderManagerImpl implements MainActivityProviderManager {
     @Override

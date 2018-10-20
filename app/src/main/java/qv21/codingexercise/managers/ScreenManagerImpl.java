@@ -8,6 +8,9 @@ import qv21.codingexercise.views.WellDataDetailsScreen;
 import qv21.codingexercise.views.WellDataEditScreen;
 import qv21.codingexercise.views.WellDataListScreen;
 
+/**
+ * A {@link Singleton} class that will provide an instance of a {@link Screen} based on the given class type.
+ */
 @Singleton
 public class ScreenManagerImpl implements ScreenManager {
     final MainActivityProviderManager mainActivityProviderManager;
