@@ -15,13 +15,11 @@ import qv21.codingexercise.unittests.ScreenManagerTest;
         MapperModule.class,
         FacadeModule.class,
         ViewModelModule.class,
-        TestContextModule.class
 })
 public interface TestAppComponent {
     void inject(BaseVM baseVM);
 
     void inject(ScreenManagerTest screenManagerTest);
     void inject(NavigationManagerTest navigationManagerTest);
-
     void inject(BaseUnitTest unitTest);
 }

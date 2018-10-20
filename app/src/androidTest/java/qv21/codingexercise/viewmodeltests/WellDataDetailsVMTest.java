@@ -1,4 +1,4 @@
-package qv21.codingexercise.integrationtests;
+package qv21.codingexercise.viewmodeltests;
 
 import android.support.test.runner.AndroidJUnit4;
 

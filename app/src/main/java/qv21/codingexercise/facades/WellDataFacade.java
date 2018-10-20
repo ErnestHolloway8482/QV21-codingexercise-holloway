@@ -105,8 +105,8 @@ public class WellDataFacade {
         memoryCacheManager.setSelectedWellDataUuid(null);
     }
 
-    public void closeDatabase() {
-        databaseManager.closeDataBase();
+    public boolean closeDatabase() {
+        return databaseManager.closeDataBase();
     }
 
     public void cleanUpWellData() {

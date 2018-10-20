@@ -1,12 +1,11 @@
 package qv21.codingexercise;
 
-import com.betterup.codingexercise.dimodules.DaggerTestAppComponent;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import qv21.codingexercise.dimodules.DaggerTestAppComponent;
 import qv21.codingexercise.dimodules.TestAppComponent;
 import qv21.codingexercise.utilities.BuildConfigUtility;
 

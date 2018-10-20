@@ -11,7 +11,7 @@ public class BaseAndroidUnitTest {
     protected final String TEST_DATABASE_FILENAME = "well_data_android_test";
 
     public BaseAndroidUnitTest(){
-        testAppComponent = DaggerTestAppComponent.builder().build();
+        testAppComponent = DaggerAndroidTes.builder().build();
         BuildConfigUtility.setIsInAndroidTestMode(true);
     }
 

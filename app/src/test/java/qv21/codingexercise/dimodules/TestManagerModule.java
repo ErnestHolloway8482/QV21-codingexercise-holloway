@@ -6,12 +6,11 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import qv21.codingexercise.AlertDialogManagerAndroidTestImpl;
-import qv21.codingexercise.MainActivityProviderManageAndroidTestImpl;
 import qv21.codingexercise.managers.AlertDialogManager;
 import qv21.codingexercise.managers.DatabaseManager;
 import qv21.codingexercise.managers.DatabaseManagerImpl;
 import qv21.codingexercise.managers.MainActivityProviderManager;
+import qv21.codingexercise.managers.MainActivityProviderManagerImpl;
 import qv21.codingexercise.managers.MemoryCacheManager;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.managers.NavigationManagerImpl;
@@ -38,12 +37,10 @@ public class TestManagerModule {
     @Singleton
     @Provides
     public static DatabaseManager providerDatabaseManager() {
-        if (BuildConfigUtility.isIsInAndroidTestMode()) {
-            return new DatabaseManagerImpl("well_data_android_test", false);
-        } else if (BuildConfigUtility.isInTestMode()) {
+        if (BuildConfigUtility.isInTestMode()) {
             return new DatabaseManagerImpl("well_data_unit_test", true);
         } else {
-            return new DatabaseManagerImpl("well_data", false);
+            return null;
         }
     }
 
@@ -62,13 +59,13 @@ public class TestManagerModule {
     @Singleton
     @Provides
     public static AlertDialogManager provideAlertDialogManager(final MainActivityProviderManager mainActivityProviderManager) {
-        return new AlertDialogManagerAndroidTestImpl(mainActivityProviderManager);
+        return Mockito.mock(AlertDialogManager.class);
     }
 
     @Singleton
     @Provides
     public static MainActivityProviderManager provideMainActivityProviderManager() {
-        return new MainActivityProviderManageAndroidTestImpl();
+        return Mockito.mock(MainActivityProviderManagerImpl.class);
     }
 
     @Singleton

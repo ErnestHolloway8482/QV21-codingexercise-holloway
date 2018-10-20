@@ -1,4 +1,4 @@
-package qv21.codingexercise.integrationtests;
+package qv21.codingexercise.viewmodeltests;
 
 import android.support.test.runner.AndroidJUnit4;
 
@@ -18,11 +18,12 @@ import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.managers.ScreenManager;
-import qv21.codingexercise.models.viewmodels.WellDataListVM;
+import qv21.codingexercise.models.viewmodels.SplashVM;
 import qv21.codingexercise.utilities.RawFileUtility;
+import qv21.codingexercise.views.WellDataListScreen;
 
 @RunWith(AndroidJUnit4.class)
-public class WellDataListVMTest extends BaseAndroidUnitTest {
+public class SplashVMTest extends BaseAndroidUnitTest {
     @Inject
     WellDataFacade wellDataFacade;
 
@@ -35,15 +36,11 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
     @Inject
     ScreenManager screenManager;
 
-
-
-    private WellDataListVM wellDataListVM;
+    private SplashVM splashVM;
 
     @Before
     public void setup() {
         getTestAppComponent().inject(this);
-
-        wellDataListVM = new WellDataListVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
     }
 
     @After
@@ -52,27 +49,35 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
     }
 
     @Test
-    public void wellDataListIsEmptyTest() {
+    public void seedWellDataBeforeSettingUpTheWellDataListScreenTest() {
+        Assert.assertFalse(wellDataFacade.doesWellDataExist());
+
+        splashVM = new SplashVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
+
+        sleep(10);
+
+        Assert.assertTrue(wellDataFacade.doesWellDataExist());
+
         sleep(2);
 
-        Assert.assertTrue(wellDataListVM.isListEmpty.get());
-        Assert.assertEquals(0, wellDataListVM.recyclerViewAdapter.get().getItemCount());
+        Assert.assertTrue(navigationManager.isOnLastScreen());
+        Assert.assertTrue(navigationManager.peek() instanceof WellDataListScreen);
     }
 
     @Test
-    public void wellDataListIsNotEmptyTest() {
+    public void setupWellDataListScreenTest() {
         InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(mainActivityProviderManager.getResources(), R.raw.well_data);
 
         Assert.assertTrue(wellDataFacade.seedWellDataIntoDatabase(inputStream));
 
         sleep(10);
 
+        splashVM = new SplashVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
+
         Assert.assertTrue(wellDataFacade.doesWellDataExist());
 
-        Assert.assertFalse(wellDataListVM.isListEmpty.get());
+        sleep(10);
 
-        int totalItemCount = wellDataListVM.recyclerViewAdapter.get().getItemCount();
-
-        Assert.assertTrue(totalItemCount > 0);
+        Assert.assertTrue(navigationManager.peek() instanceof WellDataListScreen);
     }
 }
