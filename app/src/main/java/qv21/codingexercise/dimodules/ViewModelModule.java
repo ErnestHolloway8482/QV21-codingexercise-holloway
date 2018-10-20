@@ -45,8 +45,10 @@ public class ViewModelModule {
 
     @Provides
     public static WellDataDetailsVM provideWellDataDetailsVM(final WellDataFacade wellDataFacade,
-                                                             final NavigationManager navigationManager) {
-        return new WellDataDetailsVM(wellDataFacade, navigationManager);
+                                                             final NavigationManager navigationManager,
+                                                             final MainActivityProviderManager mainActivityProviderManager,
+                                                             final ScreenManager screenManager) {
+        return new WellDataDetailsVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
     }
 
     @Provides

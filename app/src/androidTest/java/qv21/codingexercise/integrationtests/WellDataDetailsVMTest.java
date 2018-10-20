@@ -1,33 +1,30 @@
 package qv21.codingexercise.integrationtests;
 
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
 import qv21.codingexercise.BaseAndroidUnitTest;
-import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.daos.WellDataDAO;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ScreenManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.viewmodels.WellDataDetailsVM;
+import qv21.codingexercise.views.Screen;
 import qv21.codingexercise.views.WellDataDetailsScreen;
 import qv21.codingexercise.views.WellDataEditScreen;
 import qv21.codingexercise.views.WellDataListScreen;
 
 @RunWith(AndroidJUnit4.class)
 public class WellDataDetailsVMTest extends BaseAndroidUnitTest {
-    @Rule
-    public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-
     @Inject
     NavigationManager navigationManager;
 
@@ -36,6 +33,12 @@ public class WellDataDetailsVMTest extends BaseAndroidUnitTest {
 
     @Inject
     WellDataDAO wellDataDAO;
+
+    @Inject
+    ScreenManager screenManager;
+
+    @Inject
+    MainActivityProviderManager mainActivityProviderManager;
 
     private WellDataDetailsVM wellDataDetailsVM;
 
@@ -49,33 +52,25 @@ public class WellDataDetailsVMTest extends BaseAndroidUnitTest {
 
         wellDataFacade.storeSelectedWellDataUuidToMemoryCache(wellDataDM);
 
-        MainActivity.getInstance().runOnUiThread(() -> {
-            WellDataListScreen wellDataListScreen = new WellDataListScreen(MainActivity.getInstance());
-            navigationManager.push(wellDataListScreen);
+        Screen wellDataListScreen = screenManager.getScreenFromClass(WellDataListScreen.class);
+        navigationManager.push(wellDataListScreen);
 
-            WellDataDetailsScreen wellDataDetailsScreen = new WellDataDetailsScreen(MainActivity.getInstance());
-            navigationManager.push(wellDataDetailsScreen);
-        });
+        Screen wellDataDetailsScreen = screenManager.getScreenFromClass(WellDataDetailsScreen.class);
+        navigationManager.push(wellDataDetailsScreen);
+
+        assertThatWellDataDetailsScreenIsAtTopOfStack();
+
+        wellDataDetailsVM = new WellDataDetailsVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
     }
 
     @After
     public void tearDown() {
-        if (wellDataFacade != null) {
-            wellDataFacade.cleanUpWellData();
-        }
-
-        if (navigationManager != null) {
-            navigationManager.clearAllViewsFromStack();
-        }
+        wellDataFacade.cleanUpWellData();
+        navigationManager.clearAllViewsFromStack();
     }
 
     @Test
     public void wellDataIsLoadedTest() {
-        Assert.assertFalse(navigationManager.isOnLastScreen());
-        Assert.assertFalse(navigationManager.peek() instanceof WellDataDetailsScreen);
-
-        wellDataDetailsVM = new WellDataDetailsVM(wellDataFacade, navigationManager);
-
         sleep(10);
 
         Assert.assertNotNull(wellDataDetailsVM.wellData.get());
@@ -83,11 +78,6 @@ public class WellDataDetailsVMTest extends BaseAndroidUnitTest {
 
     @Test
     public void navigateToWellDataListScreenTest() {
-        Assert.assertFalse(navigationManager.isOnLastScreen());
-        Assert.assertFalse(navigationManager.peek() instanceof WellDataDetailsScreen);
-
-        wellDataDetailsVM = new WellDataDetailsVM(wellDataFacade, navigationManager);
-
         wellDataDetailsVM.navigateToWellDataListScreen();
 
         sleep(10);
@@ -99,16 +89,16 @@ public class WellDataDetailsVMTest extends BaseAndroidUnitTest {
 
     @Test
     public void navigateToWellDataEditScreenTest() {
-        Assert.assertFalse(navigationManager.isOnLastScreen());
-        Assert.assertFalse(navigationManager.peek() instanceof WellDataDetailsScreen);
-
-        wellDataDetailsVM = new WellDataDetailsVM(wellDataFacade, navigationManager);
-
         wellDataDetailsVM.navigateToWellDataEditScreen();
 
         sleep(10);
 
         Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
         Assert.assertNotNull(wellDataFacade.getSelectedWellDataUuidFromMemoryCache());
+    }
+
+    private void assertThatWellDataDetailsScreenIsAtTopOfStack() {
+        Assert.assertFalse(navigationManager.isOnLastScreen());
+        Assert.assertTrue(navigationManager.peek() instanceof WellDataDetailsScreen);
     }
 }

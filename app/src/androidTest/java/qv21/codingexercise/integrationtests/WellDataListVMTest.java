@@ -14,7 +14,6 @@ import javax.inject.Inject;
 
 import qv21.codingexercise.BaseAndroidUnitTest;
 import qv21.codingexercise.R;
-import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.models.viewmodels.WellDataListVM;
@@ -23,13 +22,12 @@ import qv21.codingexercise.utilities.RawFileUtility;
 @RunWith(AndroidJUnit4.class)
 public class WellDataListVMTest extends BaseAndroidUnitTest {
     @Inject
-    WellDataFacade wellDataFacade;
-
-    @Inject
     MainActivityProviderManager mainActivityProviderManager;
 
-    private WellDataListVM wellDataListVM;
+    @Inject
+    WellDataFacade wellDataFacade;
 
+    private WellDataListVM wellDataListVM;
 
     @Before
     public void setup() {
@@ -60,7 +58,7 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
 
     @Test
     public void wellDataListIsNotEmptyTest() {
-        InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(MainActivity.getInstance().getResources(), R.raw.well_data);
+        InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(mainActivityProviderManager.getResources(), R.raw.well_data);
 
         Assert.assertTrue(wellDataFacade.seedWellDataIntoDatabase(inputStream));
 
