@@ -7,10 +7,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import qv21.codingexercise.BaseUnitTest;
 import qv21.codingexercise.managers.DatabaseManagerImpl;
 
 @RunWith(JUnit4.class)
-public class DatabaseManagerImplTest {
+public class DatabaseManagerImplTest extends BaseUnitTest {
     private DatabaseManagerImpl databaseManager;
 
     @Before

@@ -59,7 +59,7 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
 
         setupNavigationStackForWellDataEditScreen();
 
-        assertThatNavigationStackIsOnWellDataEditScreen();
+        assertThatWellDataEditScreenIsAtTopOfNavigationStack();
     }
 
     @After
@@ -161,7 +161,7 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
         navigationManager.push(wellDataEditScreen);
     }
 
-    private void assertThatNavigationStackIsOnWellDataEditScreen() {
+    private void assertThatWellDataEditScreenIsAtTopOfNavigationStack() {
         Assert.assertFalse(navigationManager.isOnLastScreen());
         Assert.assertTrue(navigationManager.peek() instanceof WellDataEditScreen);
     }

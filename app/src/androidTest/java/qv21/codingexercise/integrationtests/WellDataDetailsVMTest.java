@@ -46,22 +46,15 @@ public class WellDataDetailsVMTest extends BaseAndroidUnitTest {
     public void setup() {
         getTestAppComponent().inject(this);
 
-        WellDataDM wellDataDM = new WellDataDM();
+        setupSelectedWellDataItem();
 
-        wellDataDAO.createWell(wellDataDM);
+        setupNavigationStackForWellDataDetailsScreen();
 
-        wellDataFacade.storeSelectedWellDataUuidToMemoryCache(wellDataDM);
-
-        Screen wellDataListScreen = screenManager.getScreenFromClass(WellDataListScreen.class);
-        navigationManager.push(wellDataListScreen);
-
-        Screen wellDataDetailsScreen = screenManager.getScreenFromClass(WellDataDetailsScreen.class);
-        navigationManager.push(wellDataDetailsScreen);
-
-        assertThatWellDataDetailsScreenIsAtTopOfStack();
+        assertThatWellDataDetailsScreenIsAtTopOfNavigationStack();
 
         wellDataDetailsVM = new WellDataDetailsVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
     }
+
 
     @After
     public void tearDown() {
@@ -97,7 +90,23 @@ public class WellDataDetailsVMTest extends BaseAndroidUnitTest {
         Assert.assertNotNull(wellDataFacade.getSelectedWellDataUuidFromMemoryCache());
     }
 
-    private void assertThatWellDataDetailsScreenIsAtTopOfStack() {
+    private void setupNavigationStackForWellDataDetailsScreen() {
+        Screen wellDataListScreen = screenManager.getScreenFromClass(WellDataListScreen.class);
+        navigationManager.push(wellDataListScreen);
+
+        Screen wellDataDetailsScreen = screenManager.getScreenFromClass(WellDataDetailsScreen.class);
+        navigationManager.push(wellDataDetailsScreen);
+    }
+
+    private void setupSelectedWellDataItem() {
+        WellDataDM wellDataDM = new WellDataDM();
+
+        wellDataDAO.createWell(wellDataDM);
+
+        wellDataFacade.storeSelectedWellDataUuidToMemoryCache(wellDataDM);
+    }
+
+    private void assertThatWellDataDetailsScreenIsAtTopOfNavigationStack() {
         Assert.assertFalse(navigationManager.isOnLastScreen());
         Assert.assertTrue(navigationManager.peek() instanceof WellDataDetailsScreen);
     }

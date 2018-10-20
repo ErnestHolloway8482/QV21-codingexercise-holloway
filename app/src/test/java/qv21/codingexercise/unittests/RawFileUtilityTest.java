@@ -5,10 +5,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import qv21.codingexercise.BaseUnitTest;
 import qv21.codingexercise.utilities.RawFileUtility;
 
 @RunWith(JUnit4.class)
-public class RawFileUtilityTest {
+public class RawFileUtilityTest extends BaseUnitTest {
 
     @Test
     public void getFullNameAndPathFromResourceIdWithValidPackageNameTest() {

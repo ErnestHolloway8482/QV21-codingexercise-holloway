@@ -9,10 +9,11 @@ import org.junit.runners.JUnit4;
 import java.net.URL;
 import java.util.List;
 
+import qv21.codingexercise.BaseUnitTest;
 import qv21.codingexercise.managers.WellDataFileManager;
 
 @RunWith(JUnit4.class)
-public class WellDataFileManagerTest {
+public class WellDataFileManagerTest extends BaseUnitTest {
     private WellDataFileManager wellDataFileManager;
 
     @Before

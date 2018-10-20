@@ -12,14 +12,14 @@ import qv21.codingexercise.models.viewmodels.BaseVM;
 
 @Singleton
 @Component(modules = {
-        TestManagerModule.class,
+        AndroidTestManagerModule.class,
         DAOModule.class,
         MapperModule.class,
         FacadeModule.class,
         ViewModelModule.class,
-        TestContextModule.class
+        AndroidTestContextModule.class
 })
-public interface TestAppComponent {
+public interface AndroidTestAppComponent {
     void inject(WellDataListItemVMTest wellDataListItemVMTest);
 
     void inject(WellDataListVMTest wellDataListVMTest);
