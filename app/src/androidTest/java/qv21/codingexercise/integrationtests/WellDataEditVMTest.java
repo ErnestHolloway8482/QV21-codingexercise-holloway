@@ -55,22 +55,9 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
     public void setup() {
         getTestAppComponent().inject(this);
 
-        WellDataDM wellDataDM = new WellDataDM();
+        setupSelectedWellDataItem();
 
-        wellDataDAO.createWell(wellDataDM);
-
-        wellDataFacade.storeSelectedWellDataUuidToMemoryCache(wellDataDM);
-
-        navigationManager.clearAllViewsFromStack();
-
-        Screen wellDataListScreen = screenManager.getScreenFromClass(WellDataListScreen.class);
-        navigationManager.push(wellDataListScreen);
-
-        Screen wellDataDetailsScreen = screenManager.getScreenFromClass(WellDataDetailsScreen.class);
-        navigationManager.push(wellDataDetailsScreen);
-
-        Screen wellDataEditScreen = screenManager.getScreenFromClass(WellDataEditScreen.class);
-        navigationManager.push(wellDataEditScreen);
+        setupNavigationStackForWellDataEditScreen();
 
         assertThatNavigationStackIsOnWellDataEditScreen();
     }
@@ -151,6 +138,27 @@ public class WellDataEditVMTest extends BaseAndroidUnitTest {
 
         Assert.assertTrue(navigationManager.peek() instanceof WellDataDetailsScreen);
         Assert.assertFalse(navigationManager.isOnLastScreen());
+    }
+
+    private void setupSelectedWellDataItem() {
+        WellDataDM wellDataDM = new WellDataDM();
+
+        wellDataDAO.createWell(wellDataDM);
+
+        wellDataFacade.storeSelectedWellDataUuidToMemoryCache(wellDataDM);
+    }
+
+    private void setupNavigationStackForWellDataEditScreen() {
+        navigationManager.clearAllViewsFromStack();
+
+        Screen wellDataListScreen = screenManager.getScreenFromClass(WellDataListScreen.class);
+        navigationManager.push(wellDataListScreen);
+
+        Screen wellDataDetailsScreen = screenManager.getScreenFromClass(WellDataDetailsScreen.class);
+        navigationManager.push(wellDataDetailsScreen);
+
+        Screen wellDataEditScreen = screenManager.getScreenFromClass(WellDataEditScreen.class);
+        navigationManager.push(wellDataEditScreen);
     }
 
     private void assertThatNavigationStackIsOnWellDataEditScreen() {

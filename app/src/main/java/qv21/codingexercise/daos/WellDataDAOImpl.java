@@ -38,9 +38,7 @@ public class WellDataDAOImpl implements WellDataDAO {
     @Override
     public Query<WellDataDM> getAllWellDataQuery() {
         QueryBuilder<WellDataDM> queryBuilder = wellDataBox.query();
-        Query<WellDataDM> query = queryBuilder.build();
-
-        return query;
+        return queryBuilder.build();
     }
 
     @Override
@@ -77,7 +75,6 @@ public class WellDataDAOImpl implements WellDataDAO {
         QueryBuilder<WellDataDM> queryBuilder = wellDataBox.query();
         queryBuilder.equal(WellDataDM_.uuid, uuid);
 
-        Query<WellDataDM> query = queryBuilder.build();
-        return query;
+        return queryBuilder.build();
     }
 }
