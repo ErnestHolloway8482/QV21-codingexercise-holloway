@@ -9,6 +9,7 @@ import dagger.Component;
 import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.adapters.WellDataListRecyclerAdapter;
 import qv21.codingexercise.application.QV21Application;
+import qv21.codingexercise.models.viewmodels.BaseVM;
 import qv21.codingexercise.views.SplashScreen;
 import qv21.codingexercise.views.WellDataDetailsScreen;
 import qv21.codingexercise.views.WellDataEditScreen;
@@ -46,6 +47,8 @@ public interface AppComponent {
     void inject(WellDataEditScreen wellDataEditScreen);
 
     void inject(WellDataListRecyclerAdapter wellDataListRecyclerAdapter);
+
+    void inject(BaseVM baseVM);
 
     @Component.Builder
     public interface Builder {

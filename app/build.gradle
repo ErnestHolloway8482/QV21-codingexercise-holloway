@@ -82,11 +82,11 @@ dependencies {
     testImplementation "io.objectbox:objectbox-linux:$objectboxVersion"
     testImplementation "io.objectbox:objectbox-macos:$objectboxVersion"
     testImplementation "io.objectbox:objectbox-windows:$objectboxVersion"
-    testImplementation "com.google.dagger:dagger:$daggerVersion"
 
+    testImplementation "com.google.dagger:dagger:$daggerVersion"
     testImplementation "com.google.dagger:dagger-android-support:$daggerVersion"
     testAnnotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-    testAnnotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+
 
     //Android Based Unit Testing Support Libraries
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -97,13 +97,10 @@ dependencies {
     androidTestImplementation "com.google.dagger:dagger:$daggerVersion"
     androidTestImplementation "com.google.dagger:dagger-android-support:$daggerVersion"
     androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-
 
     //Dependency Injection
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
 
     //RX JAVA

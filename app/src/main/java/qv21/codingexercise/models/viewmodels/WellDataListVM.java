@@ -8,9 +8,9 @@ import java.util.List;
 
 import io.objectbox.android.AndroidScheduler;
 import io.objectbox.reactive.DataSubscriptionList;
-import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.adapters.WellDataListRecyclerAdapter;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 /**
@@ -20,6 +20,7 @@ public class WellDataListVM extends BaseVM {
     private static final String SCREEN_NAME = "Well Entries";
 
     private final WellDataFacade wellDataFacade;
+    private final MainActivityProviderManager mainActivityProviderManager;
 
     private DataSubscriptionList subscriber = new DataSubscriptionList();
 
@@ -29,8 +30,9 @@ public class WellDataListVM extends BaseVM {
 
     public ObservableBoolean isListEmpty = new ObservableBoolean();
 
-    public WellDataListVM(final WellDataFacade wellDataFacade) {
+    public WellDataListVM(final WellDataFacade wellDataFacade, final MainActivityProviderManager mainActivityProviderManager) {
         this.wellDataFacade = wellDataFacade;
+        this.mainActivityProviderManager = mainActivityProviderManager;
 
         setupToolBar();
         setupRecyclerViewAdapter();
@@ -39,11 +41,11 @@ public class WellDataListVM extends BaseVM {
 
     @Override
     public void setupToolBar() {
-        MainActivity.getInstance().getViewModel().displayToolBar(false, SCREEN_NAME);
+        mainActivityProviderManager.provideMainActivity().getViewModel().displayToolBar(false, SCREEN_NAME);
     }
 
     private void setupRecyclerViewAdapter() {
-        linearLayoutManager.set(new LinearLayoutManager(MainActivity.getInstance()));
+        linearLayoutManager.set(new LinearLayoutManager(mainActivityProviderManager.provideMainActivity()));
         recylcerViewAdapter.set(new WellDataListRecyclerAdapter());
     }
 
@@ -75,7 +77,7 @@ public class WellDataListVM extends BaseVM {
     @Override
     protected void onCleared() {
         super.onCleared();
-        MainActivity.getInstance().getViewModel().dismissToolbar();
+        mainActivityProviderManager.provideMainActivity().getViewModel().dismissToolbar();
         cleanupSubscribers();
     }
 }

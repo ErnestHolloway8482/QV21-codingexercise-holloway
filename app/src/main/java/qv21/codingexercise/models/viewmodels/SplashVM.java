@@ -9,11 +9,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import qv21.codingexercise.R;
-import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ScreenManager;
 import qv21.codingexercise.utilities.LoggerUtils;
 import qv21.codingexercise.utilities.RawFileUtility;
+import qv21.codingexercise.views.Screen;
 import qv21.codingexercise.views.WellDataListScreen;
 
 /**
@@ -24,22 +26,29 @@ import qv21.codingexercise.views.WellDataListScreen;
 public class SplashVM extends BaseVM {
     private final WellDataFacade wellDataFacade;
     private final NavigationManager navigationManager;
+    private final MainActivityProviderManager mainActivityProviderManager;
+    private final ScreenManager screenManager;
     private Disposable subscriber;
     private Disposable delaySubscriber;
 
-    public SplashVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager) {
+    public SplashVM(final WellDataFacade wellDataFacade,
+                    final NavigationManager navigationManager,
+                    MainActivityProviderManager mainActivityProviderManager,
+                    ScreenManager screenManager) {
         this.wellDataFacade = wellDataFacade;
         this.navigationManager = navigationManager;
+        this.mainActivityProviderManager = mainActivityProviderManager;
+        this.screenManager = screenManager;
 
         navigateToWellDataListScreen();
     }
 
     private void navigateToWellDataListScreen() {
         if (wellDataFacade.doesWellDataExist()) {
-            MainActivity.getInstance().getViewModel().displayProgressDialog();
+            mainActivityProviderManager.provideMainActivity().getViewModel().displayProgressDialog();
             setupWellDataListScreen();
         } else {
-            MainActivity.getInstance().getViewModel().displayProgressDialog(R.string.reading_well_data_file);
+            mainActivityProviderManager.provideMainActivity().getViewModel().displayProgressDialog(R.string.reading_well_data_file);
             seedWellDataBeforeSettingUpTheWellDataListScreen();
         }
     }
@@ -55,14 +64,14 @@ public class SplashVM extends BaseVM {
     }
 
     private void setupNavigationStackForWellDataListScreen() {
-        MainActivity.getInstance().runOnUiThread(this::finalizeNavigationStackForWellDataListScreen);
+        mainActivityProviderManager.runOnUiThread(this::finalizeNavigationStackForWellDataListScreen);
     }
 
     private void finalizeNavigationStackForWellDataListScreen() {
-        MainActivity.getInstance().getViewModel().dismissProgressDialog();
+        mainActivityProviderManager.provideMainActivity().getViewModel().dismissProgressDialog();
 
         //Guarantees that after we leave the splash screen that the well data list screen is the only screen on the navigation stack.
-        WellDataListScreen wellDataListScreen = new WellDataListScreen(MainActivity.getInstance());
+        Screen wellDataListScreen = screenManager.getScreenFromClass(WellDataListScreen.class);
         navigationManager.clearAllViewsFromStack();
         navigationManager.push(wellDataListScreen);
         navigationManager.showScreen();
@@ -78,7 +87,7 @@ public class SplashVM extends BaseVM {
     }
 
     private boolean seedWellData() {
-        InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(MainActivity.getInstance().getResources(), R.raw.well_data);
+        InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(mainActivityProviderManager.provideMainActivity().getResources(), R.raw.well_data);
 
         return wellDataFacade.seedWellDataIntoDatabase(inputStream);
     }

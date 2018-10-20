@@ -11,7 +11,9 @@ import qv21.codingexercise.R;
 import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
 import qv21.codingexercise.managers.AlertDialogManager;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ResourceManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.utilities.LoggerUtils;
@@ -25,15 +27,24 @@ public class WellDataEditVM extends BaseVM {
     private final NavigationManager navigationManager;
     private final WellDataFacade wellDataFacade;
     private final AlertDialogManager alertDialogManager;
+    private final MainActivityProviderManager mainActivityProviderManager;
+    private final ResourceManager resourceManager;
+
     private Disposable subscriber;
 
     public ObservableField<WellDataDM> wellData = new ObservableField<>();
     public ObservableField<WellDataItemDOM> wellDataDom = new ObservableField<>();
 
-    public WellDataEditVM(final WellDataFacade wellDataFacade, final NavigationManager navigationManager, final AlertDialogManager alertDialogManager) {
+    public WellDataEditVM(final WellDataFacade wellDataFacade,
+                          final NavigationManager navigationManager,
+                          final AlertDialogManager alertDialogManager,
+                          final MainActivityProviderManager mainActivityProviderManager,
+                          final ResourceManager resourceManager) {
         this.navigationManager = navigationManager;
         this.wellDataFacade = wellDataFacade;
         this.alertDialogManager = alertDialogManager;
+        this.mainActivityProviderManager = mainActivityProviderManager;
+        this.resourceManager = resourceManager;
 
         setupToolBar();
 
@@ -42,20 +53,20 @@ public class WellDataEditVM extends BaseVM {
 
     @Override
     public void setupToolBar() {
-        MainActivity.getInstance().getViewModel().displayToolBar(true, SCREEN_NAME);
+       mainActivityProviderManager.provideMainActivity().getViewModel().displayToolBar(true, SCREEN_NAME);
     }
 
     public void navigateToWellDataDetailsScreen() {
-        MainActivity.getInstance().runOnUiThread(this::setupWellDataDetailsScreen);
+        mainActivityProviderManager.runOnUiThread(this::setupWellDataDetailsScreen);
     }
 
     public void deleteWellData() {
         cleanupSubscribers();
 
-        String title = MainActivity.getInstance().getString(R.string.delete_well_data_alert_title);
-        String body = MainActivity.getInstance().getString(R.string.delete_well_data_alert_message);
-        String actionButton1Text = MainActivity.getInstance().getString(R.string.delete_well_data_alert_action_delete_message);
-        String actionButton2Text = MainActivity.getInstance().getString(R.string.delete_well_data_alert_action_cancel_message);
+        String title = resourceManager.getString(R.string.delete_well_data_alert_title);
+        String body = resourceManager.getString(R.string.delete_well_data_alert_message);
+        String actionButton1Text = resourceManager.getString(R.string.delete_well_data_alert_action_delete_message);
+        String actionButton2Text = resourceManager.getString(R.string.delete_well_data_alert_action_cancel_message);
 
         alertDialogManager.displayAlertMessage(
                 title,

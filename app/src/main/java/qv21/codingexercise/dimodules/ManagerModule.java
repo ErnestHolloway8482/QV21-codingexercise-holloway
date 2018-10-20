@@ -8,8 +8,15 @@ import qv21.codingexercise.managers.AlertDialogManager;
 import qv21.codingexercise.managers.AlertDialogManagerImpl;
 import qv21.codingexercise.managers.DatabaseManager;
 import qv21.codingexercise.managers.DatabaseManagerImpl;
+import qv21.codingexercise.managers.MainActivityProviderManager;
+import qv21.codingexercise.managers.MainActivityProviderManagerImpl;
 import qv21.codingexercise.managers.MemoryCacheManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.NavigationManagerImpl;
+import qv21.codingexercise.managers.ResourceManager;
+import qv21.codingexercise.managers.ResourceManagerImpl;
+import qv21.codingexercise.managers.ScreenManager;
+import qv21.codingexercise.managers.ScreenManagerImpl;
 import qv21.codingexercise.managers.WellDataFileManager;
 import qv21.codingexercise.utilities.BuildConfigUtility;
 
@@ -19,7 +26,7 @@ public class ManagerModule {
     @Singleton
     @Provides
     public static NavigationManager provideNavigationManager() {
-        return new NavigationManager();
+        return new NavigationManagerImpl();
     }
 
     @Singleton
@@ -48,7 +55,25 @@ public class ManagerModule {
 
     @Singleton
     @Provides
-    public static AlertDialogManager provideAlertDialogManager() {
-        return new AlertDialogManagerImpl();
+    public static AlertDialogManager provideAlertDialogManager(final MainActivityProviderManager mainActivityProviderManager) {
+        return new AlertDialogManagerImpl(mainActivityProviderManager);
+    }
+
+    @Singleton
+    @Provides
+    public static MainActivityProviderManager provideMainActivityProviderManager() {
+        return new MainActivityProviderManagerImpl();
+    }
+
+    @Singleton
+    @Provides
+    public static ResourceManager provideResourceManager(final MainActivityProviderManager mainActivityProviderManager) {
+        return new ResourceManagerImpl(mainActivityProviderManager);
+    }
+
+    @Singleton
+    @Provides
+    public static ScreenManager provideScreenManager(final MainActivityProviderManager mainActivityProviderManager) {
+        return new ScreenManagerImpl(mainActivityProviderManager);
     }
 }

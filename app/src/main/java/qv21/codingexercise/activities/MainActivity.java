@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.transition.AutoTransition;
-import android.support.transition.Fade;
 import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,9 +16,7 @@ import qv21.codingexercise.R;
 import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.managers.NavigationManager;
 import qv21.codingexercise.models.viewmodels.MainActivityVM;
-import qv21.codingexercise.utilities.BuildConfigUtility;
 import qv21.codingexercise.views.SplashScreen;
-import qv21.codingexercise.views.ViewContainer;
 
 /**
  * This is {@link AppCompatActivity} that is responsible for setting up the initial screen, and initializing the {@link NavigationManager}
@@ -67,11 +64,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        navigationManager.onBackPressed();
-
         //Pop off the view stack until nothing is left before allowing the user to exit the app since we are running the app as a single activity multiple screen setup.
         if (navigationManager.isOnLastScreen()) {
+            navigationManager.onBackPressed();
             finish();
+        } else {
+            navigationManager.onBackPressed();
         }
     }
 
@@ -98,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
      * Initializes the main search article screen that is the first screen of the app. It also makes sure to provide the view container for the {@link NavigationManager}
      */
     private void setupMainScreen() {
-        navigationManager.setViewContainer((ViewContainer) findViewById(R.id.viewContainer));
+        navigationManager.setViewContainer(findViewById(R.id.viewContainer));
 
         SplashScreen splashScreen = new SplashScreen(this);
         navigationManager.push(splashScreen);
@@ -111,20 +109,16 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setup() {
         QV21Application.getAppComponent().inject(this);
-        
+
         viewModel = new MainActivityVM();
         ViewDataBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         binding.setVariable(BR.vm, viewModel);
-
-        Fade fade = new Fade(Fade.IN);
 
         AutoTransition autoTransition = new AutoTransition();
 
         TransitionManager.beginDelayedTransition(findViewById(R.id.viewContainer), autoTransition);
 
-        if(!BuildConfigUtility.isIsInAndroidTestMode()){
-            setupMainScreen();
-        }
+        setupMainScreen();
     }
 
     private void cleanup() {
