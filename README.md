@@ -83,14 +83,14 @@ In lieu of listing each and every dependency I will list them by group with a br
 
 # Things To Improve On/Challenges:
 
--While the overall approach was great to be able to provide really solid test coverage, it required a TON of work to complete as a result the project took me longer than anticipated. One of the biggest challenges that I had with the project was figuring out what to mock out for the View Model test so that I could run them as unit tests without having to start an activity.
+- While the overall approach was great to be able to provide really solid test coverage, it required a TON of work to complete as a result the project took me longer than anticipated. One of the biggest challenges that I had with the project was figuring out what to mock out for the View Model test so that I could run them as unit tests without having to start an activity.
 
--While the View Models tests pass, I had to introduce thread sleeping to account for the asynchronous nature of the calls which in general should try to be avoided when writing unit tests. For next time, I’d like to figure out a better way to deal with threading within my unit tests or find a way to disable it during unit testing so that the code can be tested sequentially without fear of having unintended side effects should I not wait long enough for a background task to finish before verifying its result.
+- While the View Models tests pass, I had to introduce thread sleeping to account for the asynchronous nature of the calls which in general should try to be avoided when writing unit tests. For next time, I’d like to figure out a better way to deal with threading within my unit tests or find a way to disable it during unit testing so that the code can be tested sequentially without fear of having unintended side effects should I not wait long enough for a background task to finish before verifying its result.
 
--I would have liked to add screen animation transitions when swapping out the screens. While the screen transitions are super quick, I would have liked to make them more interesting.
+- I would have liked to add screen animation transitions when swapping out the screens. While the screen transitions are super quick, I would have liked to make them more interesting.
 
--I would have liked to have done some additional improvements on the overall UI. It looks presentable, but it would have been good to add in additional colors and assets to make the design pop some more.
+- I would have liked to have done some additional improvements on the overall UI. It looks presentable, but it would have been good to add in additional colors and assets to make the design pop some more.
 
--The project took longer in order to get all of the architectural components to work well together. I could have taken the simpler approach, but my goal wasn’t just to get the project working. I wanted to get as close to what I would do on a real production project to maximize the chance of the software working well, being easier to maintain, and more importantly being able to change.
+- The project took longer in order to get all of the architectural components to work well together. I could have taken the simpler approach, but my goal wasn’t just to get the project working. I wanted to get as close to what I would do on a real production project to maximize the chance of the software working well, being easier to maintain, and more importantly being able to change.
 
 
