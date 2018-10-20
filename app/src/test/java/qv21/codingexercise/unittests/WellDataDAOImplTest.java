@@ -11,13 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.objectbox.query.LazyList;
+import qv21.codingexercise.BaseUnitTest;
 import qv21.codingexercise.daos.WellDataDAO;
 import qv21.codingexercise.daos.WellDataDAOImpl;
 import qv21.codingexercise.managers.DatabaseManagerImpl;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 @RunWith(JUnit4.class)
-public class WellDataDAOImplTest {
+public class WellDataDAOImplTest extends BaseUnitTest {
     private DatabaseManagerImpl databaseManager;
     private WellDataDAO wellDataDAO;
 
@@ -164,5 +165,4 @@ public class WellDataDAOImplTest {
 
         return wellDataList;
     }
-
 }

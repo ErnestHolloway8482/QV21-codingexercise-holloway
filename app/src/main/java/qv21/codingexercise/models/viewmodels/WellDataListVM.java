@@ -8,9 +8,11 @@ import java.util.List;
 
 import io.objectbox.android.AndroidScheduler;
 import io.objectbox.reactive.DataSubscriptionList;
-import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.adapters.WellDataListRecyclerAdapter;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.MainActivityProviderManager;
+import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ScreenManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 /**
@@ -20,17 +22,26 @@ public class WellDataListVM extends BaseVM {
     private static final String SCREEN_NAME = "Well Entries";
 
     private final WellDataFacade wellDataFacade;
+    private final NavigationManager navigationManager;
+    private final MainActivityProviderManager mainActivityProviderManager;
+    private final ScreenManager screenManager;
 
     private DataSubscriptionList subscriber = new DataSubscriptionList();
 
-    public final ObservableField<WellDataListRecyclerAdapter> recylcerViewAdapter = new ObservableField<>();
+    public final ObservableField<WellDataListRecyclerAdapter> recyclerViewAdapter = new ObservableField<>();
 
     public final ObservableField<LinearLayoutManager> linearLayoutManager = new ObservableField<>();
 
     public ObservableBoolean isListEmpty = new ObservableBoolean();
 
-    public WellDataListVM(final WellDataFacade wellDataFacade) {
+    public WellDataListVM(final WellDataFacade wellDataFacade,
+                          final NavigationManager navigationManager,
+                          final MainActivityProviderManager mainActivityProviderManager,
+                          final ScreenManager screenManager) {
         this.wellDataFacade = wellDataFacade;
+        this.navigationManager = navigationManager;
+        this.mainActivityProviderManager = mainActivityProviderManager;
+        this.screenManager = screenManager;
 
         setupToolBar();
         setupRecyclerViewAdapter();
@@ -39,12 +50,12 @@ public class WellDataListVM extends BaseVM {
 
     @Override
     public void setupToolBar() {
-        MainActivity.getInstance().getViewModel().displayToolBar(false, SCREEN_NAME);
+        mainActivityProviderManager.provideMainActivity().getViewModel().displayToolBar(false, SCREEN_NAME);
     }
 
     private void setupRecyclerViewAdapter() {
-        linearLayoutManager.set(new LinearLayoutManager(MainActivity.getInstance()));
-        recylcerViewAdapter.set(new WellDataListRecyclerAdapter());
+        linearLayoutManager.set(setupLinearLayoutManager());
+        recyclerViewAdapter.set(setupWellDataListRecyclerAdapter());
     }
 
     private void getWellDataFromDatabase() {
@@ -59,7 +70,7 @@ public class WellDataListVM extends BaseVM {
         } else {
             isListEmpty.set(false);
 
-            recylcerViewAdapter.get().setData(wellDataList);
+            recyclerViewAdapter.get().setData(wellDataList);
         }
     }
 
@@ -75,7 +86,18 @@ public class WellDataListVM extends BaseVM {
     @Override
     protected void onCleared() {
         super.onCleared();
-        MainActivity.getInstance().getViewModel().dismissToolbar();
+        mainActivityProviderManager.provideMainActivity().getViewModel().dismissToolbar();
         cleanupSubscribers();
+    }
+
+    private LinearLayoutManager setupLinearLayoutManager() {
+        return new LinearLayoutManager(mainActivityProviderManager.provideMainActivity());
+    }
+
+    private WellDataListRecyclerAdapter setupWellDataListRecyclerAdapter() {
+        return new WellDataListRecyclerAdapter(wellDataFacade,
+                navigationManager,
+                mainActivityProviderManager,
+                screenManager);
     }
 }

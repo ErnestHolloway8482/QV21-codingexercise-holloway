@@ -6,11 +6,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import qv21.codingexercise.BaseUnitTest;
 import qv21.codingexercise.mapper.WellDataMapper;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 
 @RunWith(JUnit4.class)
-public class WellDataMapperTest {
+public class WellDataMapperTest extends BaseUnitTest {
     private WellDataMapper wellDataMapper;
 
     @Before

@@ -3,13 +3,17 @@ package qv21.codingexercise.models.viewmodels;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
-import qv21.codingexercise.activities.MainActivity;
+import qv21.codingexercise.managers.MainActivityProviderManager;
+import qv21.codingexercise.managers.ResourceManager;
 
 /**
  * {@link android.arch.lifecycle.ViewModel} for the control logic used to configure and display global screen elements such
  * as the {@link android.widget.Toolbar}, loading spinner, and {@link android.support.v7.app.AppCompatDialog}.
  */
 public class MainActivityVM extends BaseVM {
+    private final MainActivityProviderManager mainActivityProviderManager;
+    private final ResourceManager resourceManager;
+
     public final ObservableField<String> progressDialogMessage = new ObservableField<>();
     public final ObservableBoolean isProgressDialogVisible = new ObservableBoolean();
 
@@ -17,14 +21,16 @@ public class MainActivityVM extends BaseVM {
     public final ObservableField<String> toolBarTitle = new ObservableField<>();
     public final ObservableBoolean isToolBarBackButtonVisible = new ObservableBoolean();
 
-    public MainActivityVM() {
+    public MainActivityVM(final MainActivityProviderManager mainActivityProviderManager, final ResourceManager resourceManager) {
         isToolBarVisible.set(false);
         isToolBarBackButtonVisible.set(false);
         toolBarTitle.set(null);
+        this.mainActivityProviderManager = mainActivityProviderManager;
+        this.resourceManager = resourceManager;
     }
 
     public void onNavigationBackButtonPressed() {
-        MainActivity.getInstance().onBackPressed();
+        mainActivityProviderManager.provideMainActivity().onBackPressed();
     }
 
     public void displayProgressDialog(final String message) {
@@ -37,7 +43,7 @@ public class MainActivityVM extends BaseVM {
     }
 
     public void displayProgressDialog(final int resourceId) {
-        displayProgressDialog(MainActivity.getInstance().getString(resourceId));
+        displayProgressDialog(resourceManager.getString(resourceId));
     }
 
     public void dismissProgressDialog() {

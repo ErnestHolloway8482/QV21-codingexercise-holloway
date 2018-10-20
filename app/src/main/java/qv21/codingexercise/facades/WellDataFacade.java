@@ -1,5 +1,6 @@
 package qv21.codingexercise.facades;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
@@ -50,6 +51,12 @@ public class WellDataFacade {
         return wellDataDAO.getNumberOfWellDataItems() > 0;
     }
 
+    public boolean doesWellDataFileExist(String parentPath, String fileName){
+        File file = new File(parentPath, fileName);
+
+        return file.exists();
+    }
+
     public boolean seedWellDataIntoDatabase(final String fileNameAndPath) {
         List<String> rawWellData = wellDataFileManager.readWellData(fileNameAndPath);
 
@@ -98,8 +105,8 @@ public class WellDataFacade {
         memoryCacheManager.setSelectedWellDataUuid(null);
     }
 
-    public void closeDatabase() {
-        databaseManager.closeDataBase();
+    public boolean closeDatabase() {
+        return databaseManager.closeDataBase();
     }
 
     public void cleanUpWellData() {
