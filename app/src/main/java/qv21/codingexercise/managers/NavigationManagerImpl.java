@@ -2,13 +2,13 @@ package qv21.codingexercise.managers;
 
 import android.support.annotation.NonNull;
 
-import com.betterup.codingexercise.views.Screen;
-import com.betterup.codingexercise.views.ViewContainer;
-
 import java.util.Stack;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import qv21.codingexercise.views.Screen;
+import qv21.codingexercise.views.ViewContainer;
 
 /**
  * This is a {@link Singleton} manager that allows for navigating between screens within the app. In order to reduce the dependency
@@ -33,7 +33,7 @@ public class NavigationManagerImpl implements NavigationManager {
     /**
      * Sets the main view container that all other views will be swapped into as navigation requests are made.
      *
-     * @param viewContainer is the main view container provided by the {@link com.betterup.codingexercise.activities.MainActivity}
+     * @param viewContainer is the main view container provided by the {@link qv21.codingexercise.activities.MainActivity}
      */
     @Override
     public void setViewContainer(final ViewContainer viewContainer) {

@@ -33,8 +33,8 @@ public class SplashVM extends BaseVM {
 
     public SplashVM(final WellDataFacade wellDataFacade,
                     final NavigationManager navigationManager,
-                    MainActivityProviderManager mainActivityProviderManager,
-                    ScreenManager screenManager) {
+                    final MainActivityProviderManager mainActivityProviderManager,
+                    final ScreenManager screenManager) {
         this.wellDataFacade = wellDataFacade;
         this.navigationManager = navigationManager;
         this.mainActivityProviderManager = mainActivityProviderManager;
@@ -87,7 +87,7 @@ public class SplashVM extends BaseVM {
     }
 
     private boolean seedWellData() {
-        InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(mainActivityProviderManager.provideMainActivity().getResources(), R.raw.well_data);
+        InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(mainActivityProviderManager.getResources(), R.raw.well_data);
 
         return wellDataFacade.seedWellDataIntoDatabase(inputStream);
     }

@@ -1,26 +1,23 @@
-package qv21.codingexercise;
+package qv21.codingexercise.dimodules;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
-import qv21.codingexercise.dimodules.DAOModule;
-import qv21.codingexercise.dimodules.FacadeModule;
-import qv21.codingexercise.dimodules.ManagerModule;
-import qv21.codingexercise.dimodules.MapperModule;
-import qv21.codingexercise.dimodules.ViewModelModule;
 import qv21.codingexercise.integrationtests.SplashVMTest;
 import qv21.codingexercise.integrationtests.WellDataDetailsVMTest;
 import qv21.codingexercise.integrationtests.WellDataEditVMTest;
 import qv21.codingexercise.integrationtests.WellDataListItemVMTest;
 import qv21.codingexercise.integrationtests.WellDataListVMTest;
+import qv21.codingexercise.models.viewmodels.BaseVM;
 
 @Singleton
 @Component(modules = {
-        ManagerModule.class,
+        TestManagerModule.class,
         DAOModule.class,
         MapperModule.class,
         FacadeModule.class,
-        ViewModelModule.class
+        ViewModelModule.class,
+        TestContextModule.class
 })
 public interface TestAppComponent {
     void inject(WellDataListItemVMTest wellDataListItemVMTest);
@@ -32,4 +29,6 @@ public interface TestAppComponent {
     void inject(WellDataDetailsVMTest wellDataDetailsVMTest);
 
     void inject(WellDataEditVMTest wellDataEditVMTest);
+
+    void inject(BaseVM baseVM);
 }

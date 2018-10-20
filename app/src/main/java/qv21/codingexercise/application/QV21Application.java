@@ -11,6 +11,7 @@ import qv21.codingexercise.dimodules.DaggerAppComponent;
  */
 public class QV21Application extends Application {
     private static AppComponent appComponent;
+    private static QV21Application instance;
 
     @Override
     public void onCreate() {
@@ -18,6 +19,15 @@ public class QV21Application extends Application {
 
         //Sets up the Dagger dependency injection graph for the entire application.
         appComponent = DaggerAppComponent.builder().application(this).build();
+
+        instance = this;
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+
+        cleanUp();
     }
 
     /**
@@ -25,5 +35,14 @@ public class QV21Application extends Application {
      */
     public static AppComponent getAppComponent() {
         return appComponent;
+    }
+
+    public static QV21Application getInstance() {
+        return instance;
+    }
+
+    private void cleanUp() {
+
+        instance = null;
     }
 }

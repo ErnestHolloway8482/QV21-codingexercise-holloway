@@ -14,7 +14,9 @@ import javax.inject.Singleton;
 
 import qv21.codingexercise.R;
 import qv21.codingexercise.application.QV21Application;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ResourceManager;
 import qv21.codingexercise.models.viewmodels.MainActivityVM;
 import qv21.codingexercise.views.SplashScreen;
 
@@ -26,6 +28,12 @@ import qv21.codingexercise.views.SplashScreen;
 public class MainActivity extends AppCompatActivity {
     @Inject
     NavigationManager navigationManager;
+
+    @Inject
+    MainActivityProviderManager mainActivityProviderManager;
+
+    @Inject
+    ResourceManager resourceManager;
 
     private static MainActivity instance;
 
@@ -110,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     private void setup() {
         QV21Application.getAppComponent().inject(this);
 
-        viewModel = new MainActivityVM();
+        viewModel = new MainActivityVM(mainActivityProviderManager, resourceManager);
         ViewDataBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         binding.setVariable(BR.vm, viewModel);
 

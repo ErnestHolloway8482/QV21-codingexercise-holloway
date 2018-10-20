@@ -31,7 +31,8 @@ import qv21.codingexercise.views.WellDataListScreen;
         DAOModule.class,
         MapperModule.class,
         FacadeModule.class,
-        ViewModelModule.class
+        ViewModelModule.class,
+        ContextModule.class
 })
 public interface AppComponent {
     void inject(QV21Application qv21Application);

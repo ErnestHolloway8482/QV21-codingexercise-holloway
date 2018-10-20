@@ -1,5 +1,7 @@
 package qv21.codingexercise;
 
+import qv21.codingexercise.dimodules.DaggerTestAppComponent;
+import qv21.codingexercise.dimodules.TestAppComponent;
 import qv21.codingexercise.utilities.BuildConfigUtility;
 import qv21.codingexercise.utilities.LoggerUtils;
 

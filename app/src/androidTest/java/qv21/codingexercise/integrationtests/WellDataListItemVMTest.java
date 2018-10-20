@@ -15,7 +15,9 @@ import javax.inject.Inject;
 import qv21.codingexercise.BaseAndroidUnitTest;
 import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ScreenManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.viewmodels.WellDataListItemVM;
 import qv21.codingexercise.views.WellDataDetailsScreen;
@@ -31,13 +33,19 @@ public class WellDataListItemVMTest extends BaseAndroidUnitTest {
     @Inject
     WellDataFacade wellDataFacade;
 
+    @Inject
+    MainActivityProviderManager mainActivityProviderManager;
+
+    @Inject
+    ScreenManager screenManager;
+
     private WellDataListItemVM wellDataListItemVM;
 
     @Before
     public void setup() {
         getTestAppComponent().inject(this);
 
-        wellDataListItemVM = new WellDataListItemVM(wellDataFacade, navigationManager);
+        wellDataListItemVM = new WellDataListItemVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
     }
 
     @After

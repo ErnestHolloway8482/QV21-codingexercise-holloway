@@ -12,7 +12,9 @@ import javax.inject.Inject;
 import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.databinding.WellDataListItemBinding;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ScreenManager;
 import qv21.codingexercise.models.databasemodels.WellDataDM;
 import qv21.codingexercise.models.domainmodels.WellDataItemDOM;
 import qv21.codingexercise.models.viewmodels.WellDataListItemVM;
@@ -29,6 +31,12 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
 
     @Inject
     NavigationManager navigationManager;
+
+    @Inject
+    MainActivityProviderManager mainActivityProviderManager;
+
+    @Inject
+    ScreenManager screenManager;
 
     public WellDataListRecyclerAdapter() {
         QV21Application.getAppComponent().inject(this);
@@ -85,7 +93,7 @@ public class WellDataListRecyclerAdapter extends RecyclerView.Adapter<WellDataIt
      * @param position   is the current scroll position which represents the data corresponding data index to grab from the database.
      */
     private void convert(@NonNull final WellDataItemViewHolder viewHolder, final int position) {
-        WellDataListItemVM vm = new WellDataListItemVM(wellDataFacade, navigationManager);
+        WellDataListItemVM vm = new WellDataListItemVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
         vm.wellData.set(wellDataList.get(position));
         vm.wellDataDom.set(WellDataItemDOM.create(wellDataList.get(position)));
         viewHolder.bindViewModel(vm);

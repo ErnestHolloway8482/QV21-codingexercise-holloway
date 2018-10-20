@@ -1,12 +1,10 @@
 package qv21.codingexercise.integrationtests;
 
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -16,23 +14,27 @@ import javax.inject.Inject;
 
 import qv21.codingexercise.BaseAndroidUnitTest;
 import qv21.codingexercise.R;
-import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.managers.NavigationManager;
+import qv21.codingexercise.managers.ScreenManager;
 import qv21.codingexercise.models.viewmodels.SplashVM;
 import qv21.codingexercise.utilities.RawFileUtility;
 import qv21.codingexercise.views.WellDataListScreen;
 
 @RunWith(AndroidJUnit4.class)
 public class SplashVMTest extends BaseAndroidUnitTest {
-    @Rule
-    public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-
     @Inject
     WellDataFacade wellDataFacade;
 
     @Inject
     NavigationManager navigationManager;
+
+    @Inject
+    MainActivityProviderManager mainActivityProviderManager;
+
+    @Inject
+    ScreenManager screenManager;
 
     private SplashVM splashVM;
 
@@ -50,7 +52,7 @@ public class SplashVMTest extends BaseAndroidUnitTest {
     public void seedWellDataBeforeSettingUpTheWellDataListScreenTest() {
         Assert.assertFalse(wellDataFacade.doesWellDataExist());
 
-        splashVM = new SplashVM(wellDataFacade, navigationManager);
+        splashVM = new SplashVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
 
         sleep(10);
 
@@ -64,13 +66,13 @@ public class SplashVMTest extends BaseAndroidUnitTest {
 
     @Test
     public void setupWellDataListScreenTest() {
-        InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(MainActivity.getInstance().getResources(), R.raw.well_data);
+        InputStream inputStream = RawFileUtility.getInputStreamFromResourceId(mainActivityProviderManager.getResources(), R.raw.well_data);
 
         Assert.assertTrue(wellDataFacade.seedWellDataIntoDatabase(inputStream));
 
         sleep(10);
 
-        splashVM = new SplashVM(wellDataFacade, navigationManager);
+        splashVM = new SplashVM(wellDataFacade, navigationManager, mainActivityProviderManager, screenManager);
 
         Assert.assertTrue(wellDataFacade.doesWellDataExist());
 

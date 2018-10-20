@@ -1,12 +1,10 @@
 package qv21.codingexercise.integrationtests;
 
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,16 +16,17 @@ import qv21.codingexercise.BaseAndroidUnitTest;
 import qv21.codingexercise.R;
 import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.facades.WellDataFacade;
+import qv21.codingexercise.managers.MainActivityProviderManager;
 import qv21.codingexercise.models.viewmodels.WellDataListVM;
 import qv21.codingexercise.utilities.RawFileUtility;
 
 @RunWith(AndroidJUnit4.class)
 public class WellDataListVMTest extends BaseAndroidUnitTest {
-    @Rule
-    public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-
     @Inject
     WellDataFacade wellDataFacade;
+
+    @Inject
+    MainActivityProviderManager mainActivityProviderManager;
 
     private WellDataListVM wellDataListVM;
 
@@ -39,19 +38,19 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
 
     @After
     public void tearDown() {
-        String parentPath = MainActivity.getInstance().getFileStreamPath("well_data_android_test").getPath();
-        String fileName = "well_data_android_test";
+//        String parentPath = MainActivity.getInstance().getFileStreamPath("well_data_android_test").getPath();
+//        String fileName = "well_data_android_test";
+//
+//        if (wellDataFacade.doesWellDataFileExist(parentPath, fileName)) {
+//            wellDataFacade.cleanUpWellData();
+//        }
 
-        if (wellDataFacade.doesWellDataFileExist(parentPath, fileName)) {
-            wellDataFacade.cleanUpWellData();
-        }
-
-        sleep(10);
+        wellDataFacade.cleanUpWellData();
     }
 
     @Test
     public void wellDataListIsEmptyTest() {
-        wellDataListVM = new WellDataListVM(wellDataFacade);
+        wellDataListVM = new WellDataListVM(wellDataFacade, mainActivityProviderManager);
 
         sleep(2);
 
@@ -69,7 +68,7 @@ public class WellDataListVMTest extends BaseAndroidUnitTest {
 
         Assert.assertTrue(wellDataFacade.doesWellDataExist());
 
-        wellDataListVM = new WellDataListVM(wellDataFacade);
+        wellDataListVM = new WellDataListVM(wellDataFacade, mainActivityProviderManager);
 
         Assert.assertFalse(wellDataListVM.isListEmpty.get());
 

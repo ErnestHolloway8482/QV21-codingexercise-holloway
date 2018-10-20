@@ -8,7 +8,6 @@ import java.util.Locale;
 
 import javax.inject.Singleton;
 
-import qv21.codingexercise.activities.MainActivity;
 import qv21.codingexercise.utilities.StringUtility;
 
 @Singleton
@@ -23,7 +22,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
     @Override
     public String getString(final int resourceId) {
-        return MainActivity.getInstance().getString(resourceId);
+        return mainActivityProviderManager.provideMainActivity().getString(resourceId);
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 
 import javax.inject.Inject;
 
+import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.managers.MainActivityProviderManager;
 
 /**
@@ -12,7 +13,11 @@ import qv21.codingexercise.managers.MainActivityProviderManager;
 public abstract class BaseVM extends ViewModel {
     @Inject
     MainActivityProviderManager mainActivityProviderManager;
-    
+
+    public BaseVM(){
+        QV21Application.getAppComponent().inject(this);
+    }
+
     /**
      * Configures the view model data for displaying the {@link android.support.v7.widget.Toolbar} as defined in {@link MainActivityVM}
      */

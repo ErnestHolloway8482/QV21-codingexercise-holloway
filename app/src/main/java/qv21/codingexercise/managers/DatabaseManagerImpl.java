@@ -6,9 +6,9 @@ import javax.inject.Singleton;
 
 import io.objectbox.BoxStore;
 import io.objectbox.DebugFlags;
-import qv21.codingexercise.activities.MainActivity;
+import qv21.codingexercise.application.QV21Application;
 import qv21.codingexercise.models.databasemodels.MyObjectBox;
-import qv21.codingexercise.utilities.BuildConfigUtility;
+import qv21.codingexercise.utilities.LoggerUtils;
 
 /**
  * This is a {@link Singleton} implementation of {@link DatabaseManager} that allows the {@link BoxStore} to be initialized, opened, and closed and serves
@@ -18,12 +18,35 @@ import qv21.codingexercise.utilities.BuildConfigUtility;
 public class DatabaseManagerImpl implements DatabaseManager {
     private final BoxStore boxStore;
 
-    public DatabaseManagerImpl(final String fileNameAndPath, final boolean testModeEnabled) {
-        boxStore = openDatabase(fileNameAndPath, testModeEnabled);
+    public DatabaseManagerImpl(final String fileNameAndPath, final boolean javaTestModeEnabled) {
+        boxStore = openDatabase(fileNameAndPath, javaTestModeEnabled);
     }
 
     @Override
     public boolean closeDataBase() {
+        try {
+            return attemptToCloseDatabase();
+        } catch (Exception e) {
+            LoggerUtils.logError(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteDataBase() {
+        try {
+            return attemptToCloseDatabase();
+        } catch (Exception e) {
+            LoggerUtils.logError(e.getMessage());
+            return false;
+        }
+    }
+
+    public BoxStore getBoxStore() {
+        return boxStore;
+    }
+
+    private boolean attemptToCloseDatabase() {
         boxStore.closeThreadResources();
         boxStore.close();
 
@@ -34,44 +57,48 @@ public class DatabaseManagerImpl implements DatabaseManager {
         }
     }
 
-    @Override
-    public boolean deleteDataBase() {
+    private boolean attemptToDeleteDatabase() {
         boxStore.close();
         return boxStore.deleteAllFiles();
     }
 
-    public BoxStore getBoxStore() {
-        return boxStore;
-    }
-
-    private BoxStore openDatabase(final String fileNameAndPath, final boolean testModeEnabled) {
+    private BoxStore openDatabase(final String fileNameAndPath, final boolean javaTestModeEnabled) {
         try {
-            return createBoxStore(fileNameAndPath, testModeEnabled);
+            return createBoxStore(fileNameAndPath, javaTestModeEnabled);
         } catch (Exception e) {
-            return MyObjectBox.builder().buildDefault();
+            LoggerUtils.logError(e.getMessage());
+            return null;
         }
     }
 
-    private BoxStore createBoxStore(final String fileNameAndPath, final boolean testModeEnabled) {
-        if (testModeEnabled) {
+    private BoxStore createBoxStore(final String fileNameAndPath, final boolean javaTestModeEnabled) {
+        if (javaTestModeEnabled) {
             return createBoxStoreForJava(fileNameAndPath);
         } else {
-            if (BuildConfigUtility.isIsInAndroidTestMode()) {
-                if (BuildConfigUtility.getBoxStore() == null) {
-                    BuildConfigUtility.setBoxStore(createBoxStoreForAndroid(fileNameAndPath));
-                } else {
-                    BuildConfigUtility.getBoxStore().closeThreadResources();
-                    BuildConfigUtility.getBoxStore().close();
-                    BoxStore.deleteAllFiles(MainActivity.getInstance(), fileNameAndPath);
-                    BuildConfigUtility.setBoxStore(createBoxStoreForAndroid(fileNameAndPath));
-                }
-
-                return BuildConfigUtility.getBoxStore();
-            } else {
-                return createBoxStoreForAndroid(fileNameAndPath);
-            }
+            return createBoxStoreForAndroid(fileNameAndPath);
         }
     }
+
+//    private BoxStore createBoxStore(final String fileNameAndPath, final boolean testModeEnabled) {
+//        if (testModeEnabled) {
+//            return createBoxStoreForJava(fileNameAndPath);
+//        } else {
+//            if (BuildConfigUtility.isIsInAndroidTestMode()) {
+//                if (BuildConfigUtility.getBoxStore() == null) {
+//                    BuildConfigUtility.setBoxStore(createBoxStoreForAndroid(fileNameAndPath));
+//                } else {
+//                    BuildConfigUtility.getBoxStore().closeThreadResources();
+//                    BuildConfigUtility.getBoxStore().close();
+//                    BoxStore.deleteAllFiles(MainActivity.getInstance(), fileNameAndPath);
+//                    BuildConfigUtility.setBoxStore(createBoxStoreForAndroid(fileNameAndPath));
+//                }
+//
+//                return BuildConfigUtility.getBoxStore();
+//            } else {
+//                return createBoxStoreForAndroid(fileNameAndPath);
+//            }
+//        }
+//    }
 
     private BoxStore createBoxStoreForJava(final String fileNameAndPath) {
         File testFile = new File(fileNameAndPath);
@@ -85,11 +112,9 @@ public class DatabaseManagerImpl implements DatabaseManager {
     }
 
     private BoxStore createBoxStoreForAndroid(final String fileNameAndPath) {
-        BoxStore boxStore = MyObjectBox.builder()
-                .androidContext(MainActivity.getInstance())
+        return MyObjectBox.builder()
+                .androidContext(QV21Application.getInstance())
                 .name(fileNameAndPath)
                 .build();
-
-        return boxStore;
     }
 }

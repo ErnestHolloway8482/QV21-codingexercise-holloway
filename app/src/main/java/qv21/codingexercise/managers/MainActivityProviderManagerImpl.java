@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import javax.inject.Singleton;
 
 import qv21.codingexercise.activities.MainActivity;
+import qv21.codingexercise.application.QV21Application;
 
 @Singleton
 public class MainActivityProviderManagerImpl implements MainActivityProviderManager {
@@ -24,6 +25,6 @@ public class MainActivityProviderManagerImpl implements MainActivityProviderMana
 
     @Override
     public Resources getResources() {
-        return MainActivity.getInstance().getResources();
+        return QV21Application.getInstance().getResources();
     }
 }
